@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RosMolApp.Pages.NavigationPage"
+             xmlns:views="clr-namespace:RosMolApp.Pages"
+             Title="Главная">
+    <TabBar>
+        <Tab Title="Главная" 
+             Icon="main_ico.svg">
+            <ShellContent x:Name="mainPage"
+                ContentTemplate="{DataTemplate views:MainPage}" />
+        </Tab>
+        <Tab Title="Новости"
+             Icon="news_ico.svg">
+            <ShellContent x:Name="newsPage"
+                ContentTemplate="{DataTemplate views:NewsPage}" />
+        </Tab>
+        <Tab Title="События"
+             Icon="events_ico.svg">
+            <ShellContent x:Name="eventsPage"
+                ContentTemplate="{DataTemplate views:EventsPage}" />
+        </Tab>
+        <Tab Title="Профиль"
+             Icon="profile_ico.svg">
+            <ShellContent x:Name="profilePage"
+                ContentTemplate="{DataTemplate views:ProfilePage}" />
+        </Tab>
+        <Tab Title="Чат"
+             Icon="chat_ico.svg">
+            <ShellContent x:Name="chatPage"
+                ContentTemplate="{DataTemplate views:ChatPage}" />
+        </Tab>
+    </TabBar>
+</Shell>

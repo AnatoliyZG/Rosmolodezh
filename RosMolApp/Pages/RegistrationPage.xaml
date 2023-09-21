@@ -5,7 +5,8 @@
              xmlns:local="clr-namespace:RosMolApp"
              Title="RegistrationPage">
     <ScrollView>
-        <StackLayout BackgroundColor="{StaticResource Back}">
+        <StackLayout BackgroundColor="{StaticResource Back}"
+                     x:Name="FF">
             <Image HorizontalOptions="FillAndExpand"
                HeightRequest="35" BackgroundColor="Aqua"/>
             <StackLayout Margin="20,25">
@@ -19,22 +20,22 @@
                 <Label Text="Логин*:"
                        Margin="0,5,0,0"
                        HorizontalTextAlignment="Center"/>
-                <local:TextField/>
+                <local:TextField x:Name="LoginField"/>
 
                 <Label Text="Пароль*:"
                        Margin="0,5,0,0"
                        HorizontalTextAlignment="Center"/>
-                <local:TextField/>
+                <local:TextField x:Name="PassField"/>
 
                 <Label Text="Имя*:"
                        Margin="0,5,0,0"
                        HorizontalTextAlignment="Center"/>
-                <local:TextField/>
+                <local:TextField x:Name="NameField"/>
 
                 <Label Text="Телефон*:"
                        Margin="0,5,0,0"
                        HorizontalTextAlignment="Center"/>
-                <local:TextField/>
+                <local:TextField x:Name="PhoneField"/>
 
                 <Label Text="Дата рождения:"
                        Margin="0,5,0,0"
@@ -44,12 +45,12 @@
                 <Label Text="Город:"
                        Margin="0,5,0,0"
                        HorizontalTextAlignment="Center"/>
-                <local:TextField/>
+                <local:TextField x:Name="CityField"/>
 
                 <Label Text="Ссылка на Vk:"
                        Margin="0,5,0,0"
                        HorizontalTextAlignment="Center"/>
-                <local:TextField/>
+                <local:TextField x:Name="VkField"/>
 
                 <Label Text="Направление:"
                        Margin="0,5,0,0"
@@ -63,13 +64,14 @@
                            VerticalTextAlignment="Center"
                            Margin="0,0,10,0"/>
                 </HorizontalStackLayout>
-                
+
                 <Button Text="Зарегистрироваться"
                     Margin="0, 10, 0, 5"
                     BorderColor="{StaticResource Green1}"
                     BorderWidth="1.5"
                     BackgroundColor="Transparent"
-                    TextColor="Black"/>
+                    TextColor="Black"
+                    Clicked="Registration_Clicked"/>
             </StackLayout>
         </StackLayout>
     </ScrollView>
