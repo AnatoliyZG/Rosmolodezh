@@ -7,8 +7,5 @@
     xmlns:pages="clr-namespace:RosMolApp.Pages"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        ContentTemplate="{DataTemplate pages:AuthPage}"
-        Route="AuthPage" />
-
+    <ShellContent ContentTemplate="{DataTemplate pages:AuthPage}" Route="AuthPage" />
 </Shell>

@@ -46,9 +46,13 @@ public class DateField : ContentView, IDataField
 {
     public Brush StrokeColor { get; set; } = new SolidColorBrush(Colors.White);
 
+    public DateTime Date => picker.Date;
+
+    private DatePicker picker;
+
     public DateField()
     {
-        DatePicker picker = new DatePicker();
+        picker = new DatePicker();
 
         picker.DateSelected += (o, e) =>
         {

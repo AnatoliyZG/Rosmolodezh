@@ -4,75 +4,80 @@
              x:Class="RosMolApp.Pages.RegistrationPage"
              xmlns:local="clr-namespace:RosMolApp"
              Title="RegistrationPage">
-    <ScrollView>
-        <StackLayout BackgroundColor="{StaticResource Back}"
+    <local:LoadingScreen x:Name="LoadingOverlay">
+        <ScrollView>
+            <StackLayout BackgroundColor="{StaticResource Back}"
                      x:Name="FF">
-            <Image HorizontalOptions="FillAndExpand"
+                <Image HorizontalOptions="FillAndExpand"
                HeightRequest="35" BackgroundColor="Aqua"/>
-            <StackLayout Margin="20,25">
-                <Label Text="Фото профиля"
+                <StackLayout Margin="20,25">
+                    <Label Text="Фото профиля"
                        HorizontalTextAlignment="Center"/>
-                <Image Margin="0,10,0,30"
+                    <Image Margin="0,10,0,30"
                        BackgroundColor="Aqua"
                        HeightRequest="130"
                        WidthRequest="130"/>
 
-                <Label Text="Логин*:"
+                    <Label Text="Логин*:"
                        Margin="0,5,0,0"
                        HorizontalTextAlignment="Center"/>
-                <local:TextField x:Name="LoginField"/>
+                    <local:TextField x:Name="LoginField"/>
 
-                <Label Text="Пароль*:"
+                    <Label Text="Пароль*:"
                        Margin="0,5,0,0"
                        HorizontalTextAlignment="Center"/>
-                <local:TextField x:Name="PassField"/>
+                    <local:TextField x:Name="PassField"/>
 
-                <Label Text="Имя*:"
+                    <Label Text="Имя*:"
                        Margin="0,5,0,0"
                        HorizontalTextAlignment="Center"/>
-                <local:TextField x:Name="NameField"/>
+                    <local:TextField x:Name="NameField"/>
 
-                <Label Text="Телефон*:"
+                    <Label Text="Телефон*:"
                        Margin="0,5,0,0"
                        HorizontalTextAlignment="Center"/>
-                <local:TextField x:Name="PhoneField"/>
+                    <local:TextField x:Name="PhoneField"/>
 
-                <Label Text="Дата рождения:"
+                    <Label Text="Дата рождения:"
                        Margin="0,5,0,0"
                        HorizontalTextAlignment="Center"/>
-                <local:DateField/>
+                    <local:DateField x:Name="BornField"/>
 
-                <Label Text="Город:"
+                    <Label Text="Город:"
                        Margin="0,5,0,0"
                        HorizontalTextAlignment="Center"/>
-                <local:TextField x:Name="CityField"/>
+                    <local:TextField x:Name="CityField"/>
 
-                <Label Text="Ссылка на Vk:"
+                    <Label Text="Ссылка на Vk:"
                        Margin="0,5,0,0"
                        HorizontalTextAlignment="Center"/>
-                <local:TextField x:Name="VkField"/>
+                    <local:TextField x:Name="VkField"/>
 
-                <Label Text="Направление:"
+                    <Label Text="Направление:"
                        Margin="0,5,0,0"
                        HorizontalTextAlignment="Center"/>
-                <local:TextField/>
+                    <local:TextField x:Name="DirectionField"/>
 
-                <HorizontalStackLayout HorizontalOptions="Center">
-                    <CheckBox Color="{StaticResource Blue1}"/>
-                    <Label Text="Даю согласие на обработку персональных данных"
+                    <HorizontalStackLayout HorizontalOptions="Center">
+                        <CheckBox Color="{StaticResource Blue1}"/>
+                        <Label Text="Даю согласие на обработку персональных данных"
                            FontSize="10"
                            VerticalTextAlignment="Center"
                            Margin="0,0,10,0"/>
-                </HorizontalStackLayout>
+                    </HorizontalStackLayout>
 
-                <Button Text="Зарегистрироваться"
-                    Margin="0, 10, 0, 5"
-                    BorderColor="{StaticResource Green1}"
-                    BorderWidth="1.5"
-                    BackgroundColor="Transparent"
-                    TextColor="Black"
-                    Clicked="Registration_Clicked"/>
+                    <Button Text="Зарегистрироваться"
+                            Margin="0, 10, 0, 5"
+                            BorderColor="{StaticResource Green1}"
+                            BorderWidth="1.5"
+                            BindingContext="{x:Reference LoadingOverlay}"
+                            IsEnabled="{Binding IsAvail}"
+                            BackgroundColor="Transparent"
+                            TextColor="Black"
+                            Clicked="Registration_Clicked"/>
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
-    </ScrollView>
+        </ScrollView>
+    </local:LoadingScreen>
+
 </ContentPage>

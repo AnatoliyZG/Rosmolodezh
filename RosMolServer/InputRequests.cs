@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Specialized;
+using System.Text.Json.Serialization;
+using System.Text.Json;
+using RosMolExtension;
 
 namespace RosMolServer
 {
     internal class InputRequests
     {
-        public string Input(NameValueCollection args)
+        public Response Input(NameValueCollection args)
         {
             string? code = args["code"];
 
@@ -20,26 +23,46 @@ namespace RosMolServer
         {
             "reg" => register,
             "log" => login,
-            _ => (a) => "Error code",
+            _ => (a) => "Error request",
         };
 
 
-        private string register(NameValueCollection args)
+        private Response register(NameValueCollection args)
         {
-            string? errorCode = checkFields(args, "phone", "login", "pass");
+            RegisterRequest? request = parseRequest<RegisterRequest>(args["content"]);
 
-            if (errorCode != null)
+            if (request == null)
             {
-                return errorCode;
+                return "Error request";
             }
 
-            return "OK";
+            if(request.city == null)
+            {
+                return "Error city";
+            }
+            return new LoginResponse();
         }
 
 
-        private string login(NameValueCollection args)
+        private Response login(NameValueCollection args)
         {
-            return "OK";
+            LoginRequest? request = parseRequest<LoginRequest>(args["content"]);
+
+            if (request == null)
+            {
+                return "Error request";
+            }
+
+            return new LoginResponse();
+        }
+
+        private T? parseRequest<T>(string? content) where T : class
+        {
+            if (content == null)
+            {
+                return null;
+            }
+            return JsonSerializer.Deserialize<T>(content, new JsonSerializerOptions() { IncludeFields = true });
         }
 
         private string? checkFields(NameValueCollection args, params string[] keys)

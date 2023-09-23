@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="RosMolExtension">
+      <HintPath>C:\Users\zrega\Documents\GitHub\Rosmolodezh\RosMolExtension\bin\Debug\net7.0\RosMolExtension.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

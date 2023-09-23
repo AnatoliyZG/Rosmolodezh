@@ -6,10 +6,11 @@ using System.Net;
 using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
+using RosMolExtension;
 
 namespace RosMolServer
 {
-    public delegate string RequestAction(NameValueCollection args);
+    public delegate Response RequestAction(NameValueCollection args);
 
     internal static class Listener
     {
@@ -98,7 +99,9 @@ namespace RosMolServer
                     Console.ResetColor();
                 }
 
-                string? responseString = OnListened?.Invoke(request.Headers);
+                string? responseString = OnListened?.Invoke(request.Headers).ToString();
+
+                Console.WriteLine($"Send: {responseString}");
 
                 if (responseString != null)
                 {

@@ -1,3 +1,6 @@
+using System.Diagnostics;
+using RosMolExtension;
+
 namespace RosMolApp.Pages;
 
 public partial class RegistrationPage : ContentPage
@@ -16,9 +19,22 @@ public partial class RegistrationPage : ContentPage
             DisplayError();
             return;
         }
+
+        LoadingOverlay.ActiveLoading(true);
+
         try
         {
-            if (await General.Register(NameField.Text, LoginField.Text, PassField.Text, PhoneField.Text))
+            RegisterRequest request = new RegisterRequest(LoginField.Text, PassField.Text)
+            {
+                city = CityField.Text,
+                bornDate = BornField.Date,
+                direction = DirectionField.Text,
+                name = NameField.Text,
+                vkLink = VkField.Text,
+                phone = PhoneField.Text,
+            };
+
+            if (await General.Register(request))
             {
                 await Navigation.PopModalAsync(true);
 
@@ -29,6 +45,8 @@ public partial class RegistrationPage : ContentPage
         {
             DisplayError(ex.Message);
         }
+
+        LoadingOverlay.ActiveLoading(false);
     }
 
     private bool CheckField(TextField field, string fieldName, int minLength = 3)

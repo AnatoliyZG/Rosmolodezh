@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Web;
+using RosMolExtension;
 
 namespace RosMolApp
 {
@@ -19,39 +22,50 @@ namespace RosMolApp
         public static string Password { get; private set; }
 
 
-        public static async Task<bool> Register(string name, string login, string password, string phone)
+        public static async Task<bool> Register(RegisterRequest registerRequest)
         {
-            string response = await GetResponse("reg", ("login", login), ("pass", password), ("phone", phone));
+            LoginResponse response = await GetResponse<LoginResponse, RegisterRequest>("reg", registerRequest);
 
-            if(response != "OK")
+            Console.WriteLine($"Response status: {response.ResponseStatus}");
+
+            if (response.ResponseStatus != Response.Status.OK)
             {
-                throw new ResponseExeption(response);
+                throw new ResponseExeption(response.ErrorCode);
             }
-
-            Name = name;
-            Login = login;
-            Password = password;
 
             //TODO:
 
             return true;
         }
 
-        private static async Task<string> GetResponse(string code, params (string key, string value)[] args)
+        public static async Task<bool> LoginAccount(string login, string pass)
+        {
+            // string response = await GetResponse("log", ("login", login), ("pass", pass));
+
+            return true;
+        }
+
+        private static async Task<TResponse> GetResponse<TResponse, TRequest>(string code, TRequest request) where TResponse : Response where TRequest : Request
         {
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, ServerUrl);
-
             requestMessage.Headers.Add("code", code);
 
-            foreach (var arg in args)
+            requestMessage.Headers.Add("content", JsonSerializer.Serialize(request, typeof(TRequest), new JsonSerializerOptions() { IncludeFields=true} ));
+
+            HttpClient client = new HttpClient()
             {
-                requestMessage.Headers.Add(arg.key, arg.value);
+                Timeout = TimeSpan.FromSeconds(10),
+            };
+
+            try
+            {
+                HttpResponseMessage response = await client.SendAsync(requestMessage);
+                return JsonSerializer.Deserialize<TResponse>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions() { IncludeFields = true });
             }
-
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.SendAsync(requestMessage);
-
-            return await response.Content.ReadAsStringAsync();
+            catch (TaskCanceledException)
+            {
+                return (TResponse)"Техническая ошибка, проверьте качество интернет соединения или потворите попытку позже.";
+            }
         }
     }
 }
