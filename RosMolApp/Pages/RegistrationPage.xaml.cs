@@ -82,4 +82,25 @@ public partial class RegistrationPage : ContentPage
         }
         errorText = null;
     }
+
+    private async void LoadPhoto_Clicked(object sender, EventArgs e)
+    {
+        PermissionStatus status = await Permissions.RequestAsync<Permissions.StorageRead>();
+
+        if (status != PermissionStatus.Granted)
+        {
+            return;
+        }
+
+        var picker = await FilePicker.Default.PickAsync(new PickOptions()
+        {
+            PickerTitle="Выбор фото профиля",
+            FileTypes = FilePickerFileType.Images
+        });
+        var imageSource = picker.FullPath.ToString();
+        Console.WriteLine("IMAGE: " + imageSource);
+        ProfileImage.Source = imageSource;
+
+        ProfileStandart.IsVisible = false;
+    }
 }

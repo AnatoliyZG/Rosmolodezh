@@ -6,17 +6,34 @@
              Title="RegistrationPage">
     <local:LoadingScreen x:Name="LoadingOverlay">
         <ScrollView>
-            <StackLayout BackgroundColor="{StaticResource Back}"
-                     x:Name="FF">
-                <Image HorizontalOptions="FillAndExpand"
-               HeightRequest="35" BackgroundColor="Aqua"/>
+            <StackLayout>
+                <Image Aspect="Fill"
+                       HorizontalOptions="Fill"
+                       Source="vector1.svg"/>
                 <StackLayout Margin="20,25">
                     <Label Text="Фото профиля"
                        HorizontalTextAlignment="Center"/>
-                    <Image Margin="0,10,0,30"
-                       BackgroundColor="Aqua"
-                       HeightRequest="130"
-                       WidthRequest="130"/>
+                    <Grid Margin="0,10,0,30">
+                        <Image 
+                            HeightRequest="130"
+                            WidthRequest="130"
+                            Source="ellipse.svg"/>
+                        <ImageButton x:Name="ProfileImage"
+                                     HeightRequest="124"
+                                     WidthRequest="124"
+                                     Clicked="LoadPhoto_Clicked"
+                                     Aspect="AspectFill">
+                            <ImageButton.Clip>
+                                <EllipseGeometry RadiusX="62"
+                                                RadiusY="62"
+                                                Center="62,62"/>
+                            </ImageButton.Clip>
+                        </ImageButton>
+                        <Image x:Name="ProfileStandart"
+                               Source="human.svg"
+                               HeightRequest="64"
+                               WidthRequest="64"/>
+                    </Grid>
 
                     <Label Text="Логин*:"
                        Margin="0,5,0,0"

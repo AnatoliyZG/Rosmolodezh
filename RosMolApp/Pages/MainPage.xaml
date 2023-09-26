@@ -1,21 +1,71 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RosMolApp.Pages.MainPage">
+             x:Class="RosMolApp.Pages.MainPage"
+             xmlns:local="clr-namespace:RosMolApp">
 
     <Shell.TitleView>
-        <Label 
+        <Grid>
+            <Label 
         Text="Главная"
         HorizontalOptions="Start"
         VerticalOptions="Center"
-        TextColor="White"
+        TextColor="Black"
         FontSize="Title" />
+        </Grid>
     </Shell.TitleView>
-    
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="5,10">
+            <Border Padding="20,16"
+                    Stroke="Transparent">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="25"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Radius="4"
+                                Opacity="0.15"
+                                Offset="0,1"/>
+                </Border.Shadow>
+                <Label FontSize="14"
+                       Text="Привет! Это приложение для крымской молодежи.
+                             Тут ты можешь найти информацию о мероприятиях 
+                             и новости о молодежных активностях."/>
+            </Border>
+            <Label Text="Это тебе пригодится:"
+                   FontSize="16"
+                   Margin="15,18,0,10"/>
+            <local:MediumCard StartColor="#F169FF"
+                              EndColor="#8470FF"
+                              Text="Госкоммол"
+                              Summary="Информация о Госкомитете и его подведомственных учреждениях."
+                              Source="goskommol_ico.svg"
+                              Clicked="Goskommol_Clicked"/>
+            <local:MediumCard StartColor="#FC5C9F"
+                              EndColor="#FF5935"
+                              Text="Куда хочу?"
+                              Summary="Здесь перечень молодежных движений, НКО и фондов."
+                              Source="rocket_ico.svg"/>
+            <local:MediumCard StartColor="#5DE19A"
+                              EndColor="#22CC29"
+                              Text="Мои возможности"
+                              Summary="Узнай о доступных тебе мерах поддержки."
+                              Source="like_ico.svg"/>
+            <local:MediumCard StartColor="#DFE15D"
+                              EndColor="#FF8D23"
+                              Text="Хочу предложить"
+                              Summary="Есть идея для проекта? Давай обсудим!"
+                              Source="lamp_ico.svg"/>
+            <Label Text="Это тебе пригодится:"
+                   FontSize="16"
+                   Margin="15,20"/>
+            <HorizontalStackLayout HorizontalOptions="Center"
+                                   HeightRequest="52" 
+                                   Spacing="20">
+                <ImageButton Source="vk.svg"/>
+                <ImageButton Source="tg.svg"/>
+                <ImageButton Source="yandex.svg"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

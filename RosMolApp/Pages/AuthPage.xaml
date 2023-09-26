@@ -4,8 +4,7 @@
              x:Class="RosMolApp.Pages.AuthPage"
              xmlns:local="clr-namespace:RosMolApp">
 
-    <VerticalStackLayout VerticalOptions="FillAndExpand"
-                         BackgroundColor="{StaticResource Back}">
+    <VerticalStackLayout VerticalOptions="FillAndExpand">
         <Image HorizontalOptions="FillAndExpand"
                HeightRequest="221" BackgroundColor="Aqua"/>
         <VerticalStackLayout HorizontalOptions="FillAndExpand"

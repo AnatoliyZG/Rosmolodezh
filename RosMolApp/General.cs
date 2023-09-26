@@ -33,6 +33,7 @@ namespace RosMolApp
                 throw new ResponseExeption(response.ErrorCode);
             }
 
+
             //TODO:
 
             return true;
@@ -47,24 +48,28 @@ namespace RosMolApp
 
         private static async Task<TResponse> GetResponse<TResponse, TRequest>(string code, TRequest request) where TResponse : Response where TRequest : Request
         {
-            HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, ServerUrl);
-            requestMessage.Headers.Add("code", code);
-
-            requestMessage.Headers.Add("content", JsonSerializer.Serialize(request, typeof(TRequest), new JsonSerializerOptions() { IncludeFields=true} ));
-
-            HttpClient client = new HttpClient()
-            {
-                Timeout = TimeSpan.FromSeconds(10),
-            };
-
             try
             {
+                HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, ServerUrl);
+                requestMessage.Headers.Add("code", code);
+
+                requestMessage.Headers.Add("content", JsonSerializer.Serialize(request, typeof(TRequest), new JsonSerializerOptions() { IncludeFields = true }));
+
+                HttpClient client = new HttpClient()
+                {
+                    Timeout = TimeSpan.FromSeconds(10),
+                };
                 HttpResponseMessage response = await client.SendAsync(requestMessage);
+
                 return JsonSerializer.Deserialize<TResponse>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions() { IncludeFields = true });
             }
             catch (TaskCanceledException)
             {
-                return (TResponse)"Техническая ошибка, проверьте качество интернет соединения или потворите попытку позже.";
+                throw new ResponseExeption("Техническая ошибка, проверьте качество интернет соединения или потворите попытку позже.");
+            }
+            catch
+            {
+                throw new ResponseExeption("Не удалось получить ответ от сервера.");
             }
         }
     }

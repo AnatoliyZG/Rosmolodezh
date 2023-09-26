@@ -36,10 +36,6 @@ namespace RosMolServer
                 return "Error request";
             }
 
-            if(request.city == null)
-            {
-                return "Error city";
-            }
             return new LoginResponse();
         }
 

@@ -10,7 +10,7 @@ public partial class App : Application
 
 		MainPage = new AppShell();
 
-		Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
+        Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
 		{
 #if __ANDROID__
             handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
@@ -20,14 +20,15 @@ public partial class App : Application
 #endif
         });
 
-
         Microsoft.Maui.Handlers.DatePickerHandler.Mapper.AppendToMapping(nameof(DatePicker), (handler, view) =>
         {
 #if __ANDROID__
             handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
-#elif __IOS__
+#elif __MACCATALYST__
 			handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
-			handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+#elif __IOS__                
+			handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
+            handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #endif
         });
     }
