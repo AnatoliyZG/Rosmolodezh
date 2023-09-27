@@ -14,7 +14,6 @@
         FontSize="Title" />
         </Grid>
     </Shell.TitleView>
-
     <ScrollView>
         <VerticalStackLayout Padding="5,10">
             <Border Padding="20,16"

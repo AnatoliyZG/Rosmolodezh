@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="RosMolExtension">
       <HintPath>C:\Users\zrega\Documents\GitHub\Rosmolodezh\RosMolExtension\bin\Debug\net7.0\RosMolExtension.dll</HintPath>
     </Reference>

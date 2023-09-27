@@ -76,7 +76,7 @@
                     <local:TextField x:Name="DirectionField"/>
 
                     <HorizontalStackLayout HorizontalOptions="Center">
-                        <CheckBox Color="{StaticResource Blue1}"/>
+                        <CheckBox Color="{StaticResource Blue1}" x:Name="AcceptTerms"/>
                         <Label Text="Даю согласие на обработку персональных данных"
                            FontSize="10"
                            VerticalTextAlignment="Center"

@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using System.IO;
+using System.Text;
 using RosMolExtension;
 
 namespace RosMolApp.Pages;
@@ -6,15 +8,24 @@ namespace RosMolApp.Pages;
 public partial class RegistrationPage : ContentPage
 {
     private string errorText = null;
+    private string profilePhoto = null;
 
     public RegistrationPage()
     {
         InitializeComponent();
+        PhoneField.ChangeEntryMode(TextField.entryType.Telephone);
     }
 
     private async void Registration_Clicked(object sender, EventArgs e)
     {
-        if (!CheckField(LoginField, "Логин", 6) | !CheckField(PassField, "Пароль", 6) | !CheckField(NameField, "Имя", 2))
+        if (!AcceptTerms.IsChecked)
+        {
+            errorText = "Принятие согласия на обработку персональных данных является обязательным условием для пользования приложением";
+            DisplayError();
+            return;
+        }
+
+        if (!CheckField(LoginField, "Логин", 6) | !CheckField(PassField, "Пароль", 6) | !CheckField(NameField, "Имя", 2) | !CheckField(PhoneField, "Телефон", 18))
         {
             DisplayError();
             return;
@@ -32,6 +43,7 @@ public partial class RegistrationPage : ContentPage
                 name = NameField.Text,
                 vkLink = VkField.Text,
                 phone = PhoneField.Text,
+                photo = profilePhoto == null ? null : File.ReadAllBytes(profilePhoto),
             };
 
             if (await General.Register(request))
@@ -39,6 +51,13 @@ public partial class RegistrationPage : ContentPage
                 await Navigation.PopModalAsync(true);
 
                 App.Current.MainPage = new NavigationPage();
+
+                if (profilePhoto != null)
+                {
+                    string format = profilePhoto.Split('.')[^1];
+
+                    File.Copy(profilePhoto, $"{FileSystem.Current.AppDataDirectory}/ico.{format}", true);
+                }
             }
         }
         catch (ResponseExeption ex)
@@ -67,6 +86,8 @@ public partial class RegistrationPage : ContentPage
 
         return true;
     }
+
+
 
     private void DisplayError(string errorText)
     {
@@ -97,10 +118,9 @@ public partial class RegistrationPage : ContentPage
             PickerTitle="Выбор фото профиля",
             FileTypes = FilePickerFileType.Images
         });
-        var imageSource = picker.FullPath.ToString();
-        Console.WriteLine("IMAGE: " + imageSource);
-        ProfileImage.Source = imageSource;
-
+        profilePhoto = picker.FullPath.ToString();
+        ProfileImage.Source = profilePhoto;
+        
         ProfileStandart.IsVisible = false;
     }
 }

@@ -10,7 +10,7 @@ using RosMolExtension;
 
 namespace RosMolServer
 {
-    public delegate Response RequestAction(NameValueCollection args);
+    public delegate Response RequestAction(NameValueCollection headers, string content);
 
     internal static class Listener
     {
@@ -75,7 +75,6 @@ namespace RosMolServer
             {
                 HttpListenerContext context = await Task.Run(httpListener.GetContextAsync, token);
                 HttpListenerRequest request = context.Request;
-
                 if (AllowDebug)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -86,20 +85,20 @@ namespace RosMolServer
 
                     for (int i = 0; i < request.Headers.Count; i++)
                     {
-                        Console.Write($" {request.Headers.Keys[i]}: {request.Headers[i]}");
+                        Console.Write($"{request.Headers.Keys[i]}: {request.Headers[i]}; ");
                     }
 
-                    Console.WriteLine("\nArgs:");
-
-                    for (int i = 0; i < request.QueryString.Count; i++)
-                    {
-                        Console.WriteLine($"{request.QueryString.AllKeys[i]}: {request.QueryString[i]}");
-                    }
+                    Console.WriteLine();
 
                     Console.ResetColor();
                 }
+                StreamReader reader = new StreamReader(request.InputStream, request.ContentEncoding);
+                string requestBody = reader.ReadToEnd();
 
-                string? responseString = OnListened?.Invoke(request.Headers).ToString();
+                request.InputStream.Close();
+                reader.Close();
+
+                string? responseString = OnListened?.Invoke(request.Headers, requestBody).ToString();
 
                 Console.WriteLine($"Send: {responseString}");
 

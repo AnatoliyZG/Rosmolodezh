@@ -1,3 +1,4 @@
+using Microsoft.Maui.Controls.Internals;
 using RosMolApp.Pages.Templates;
 
 namespace RosMolApp.Pages;
@@ -10,8 +11,6 @@ public partial class MainPage : ContentPage
 	{
 		InitializeComponent();
         _flyoutContentPage = new FlyoutContentPage();
-        var v = Shell.GetTitleView(this);
-        v.BackgroundColor = Colors.Violet;
 	}
 
     private async void Goskommol_Clicked(object sender, EventArgs e)

@@ -6,30 +6,49 @@ using System.Threading.Tasks;
 using System.Collections.Specialized;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using SixLabors.ImageSharp;
 using RosMolExtension;
 
 namespace RosMolServer
 {
     internal class InputRequests
     {
-        public Response Input(NameValueCollection args)
+        public Response Input(NameValueCollection args, string content)
         {
             string? code = args["code"];
 
-            return switchRequest(code).Invoke(args);
+            return switchRequest(code).Invoke(args, content);
         }
 
         private RequestAction switchRequest(string? code) => code switch
         {
             "reg" => register,
             "log" => login,
-            _ => (a) => "Error request",
+            _ => (a, b) => "Error request",
         };
 
 
-        private Response register(NameValueCollection args)
+        private Response register(NameValueCollection args, string content)
         {
-            RegisterRequest? request = parseRequest<RegisterRequest>(args["content"]);
+            RegisterRequest? request = parseRequest<RegisterRequest>(content);
+
+            if (request == null)
+            {
+                return "Error request";
+            }
+
+            if(request.photo != null)
+            {
+                savePhoto(request.login, request.photo);
+            }
+
+            return "Test error";
+        }
+
+
+        private Response login(NameValueCollection args, string content)
+        {
+            LoginRequest? request = parseRequest<LoginRequest>(content);
 
             if (request == null)
             {
@@ -39,17 +58,35 @@ namespace RosMolServer
             return new LoginResponse();
         }
 
-
-        private Response login(NameValueCollection args)
+        private void savePhoto(string login, byte[] photo)
         {
-            LoginRequest? request = parseRequest<LoginRequest>(args["content"]);
-
-            if (request == null)
-            {
-                return "Error request";
+            if(!Directory.Exists("images")) {
+                Directory.CreateDirectory("images");
             }
+            Image img = Image.Load(photo);
 
-            return new LoginResponse();
+            int resolution = Math.Min(img.Width, img.Height);
+
+            img.Mutate(i=>
+            {
+                i.Resize(new ResizeOptions()
+                {
+                    Size = new Size(resolution, resolution),
+                    Mode = ResizeMode.Crop,
+                });
+                if (resolution > 256)
+                {
+                    i.Resize(new ResizeOptions()
+                    {
+                        Size = new Size(256, 256),
+                        Mode = ResizeMode.Stretch,
+                    });
+                }
+            });
+            img.SaveAsJpeg($"images/{login}.jpeg");
+
+            img.Dispose();
+
         }
 
         private T? parseRequest<T>(string? content) where T : class
@@ -58,7 +95,7 @@ namespace RosMolServer
             {
                 return null;
             }
-            return JsonSerializer.Deserialize<T>(content, new JsonSerializerOptions() { IncludeFields = true });
+            return JsonSerializer.Deserialize<T>(content, new JsonSerializerOptions() { IncludeFields = true, MaxDepth=5 });
         }
 
         private string? checkFields(NameValueCollection args, params string[] keys)

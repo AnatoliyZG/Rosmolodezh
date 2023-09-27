@@ -53,12 +53,13 @@ namespace RosMolApp
                 HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, ServerUrl);
                 requestMessage.Headers.Add("code", code);
 
-                requestMessage.Headers.Add("content", JsonSerializer.Serialize(request, typeof(TRequest), new JsonSerializerOptions() { IncludeFields = true }));
+                requestMessage.Content = JsonContent.Create<TRequest>(request, options: new JsonSerializerOptions() { IncludeFields = true });
 
                 HttpClient client = new HttpClient()
                 {
                     Timeout = TimeSpan.FromSeconds(10),
                 };
+
                 HttpResponseMessage response = await client.SendAsync(requestMessage);
 
                 return JsonSerializer.Deserialize<TResponse>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions() { IncludeFields = true });
@@ -67,9 +68,9 @@ namespace RosMolApp
             {
                 throw new ResponseExeption("Техническая ошибка, проверьте качество интернет соединения или потворите попытку позже.");
             }
-            catch
+            catch (Exception ex)
             {
-                throw new ResponseExeption("Не удалось получить ответ от сервера.");
+                throw new ResponseExeption(ex.Message);
             }
         }
     }

@@ -30,9 +30,31 @@ namespace RosMolExtension
 
         public string? direction;
 
+        public byte[]? photo;
+
         public DateTime bornDate;
 
         public RegisterRequest(string login, string password) : base(login, password) { }
+    }
+
+    [Serializable]
+    public class Photo
+    {
+        public string format;
+        public byte[] photo;
+
+        [JsonConstructor]
+        public Photo(string format, byte[] photo)
+        {
+            this.format = format;
+            this.photo = photo;
+        }
+
+        public Photo(string path)
+        {
+            this.format = path.Split('.')[^1];
+            photo = File.ReadAllBytes(path);
+        }
     }
 
     public abstract class Request
