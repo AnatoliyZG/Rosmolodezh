@@ -2,8 +2,7 @@
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RosMolApp.Pages.NavigationPage"
-             xmlns:views="clr-namespace:RosMolApp.Pages"
-             Title="Главная">
+             xmlns:views="clr-namespace:RosMolApp.Pages">
     <TabBar>
         <Tab Title="Главная" 
              Icon="main_ico.svg">

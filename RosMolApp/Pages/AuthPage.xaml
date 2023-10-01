@@ -21,17 +21,11 @@
 
             <Button Text="Войти"
                     Margin="0, 20, 0, 5"
-                    BorderColor="{StaticResource Green1}"
-                    BorderWidth="1.5"
-                    BackgroundColor="Transparent"
-                    TextColor="Black"/>
+                    BorderColor="{StaticResource Green1}"/>
             <Button Text="Пройти регистрацию"
                     Clicked="Register_Clicked"
                     Margin="0, 5, 0, 0"
-                    BorderColor="{StaticResource Blue1}"
-                    BorderWidth="1.5"
-                    BackgroundColor="Transparent"
-                    TextColor="Black"/>
+                    BorderColor="{StaticResource Blue1}"/>
             
         </VerticalStackLayout>
     </VerticalStackLayout>

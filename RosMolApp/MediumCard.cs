@@ -56,11 +56,7 @@ public class MediumCard : ContentView
         Button button = new Button()
         {
             Margin = new Thickness(0, 15, 0, 0),
-            BorderWidth = 1.5,
             BorderColor = Colors.White,
-            CornerRadius = 8,
-            BackgroundColor = Colors.Transparent,
-            FontSize = 12,
             TextColor = Colors.White,
             Text = "Подробнее",
         };

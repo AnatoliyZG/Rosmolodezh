@@ -25,7 +25,7 @@ namespace RosMolServer
 
         public static Thread StartRecivingThreard(string prefix, CancellationToken token)
         {
-            Thread thread = new Thread(new ParameterizedThreadStart((a) => StartListening(prefix, token)));
+            Thread thread = new(new ParameterizedThreadStart((a) => StartListening(prefix, token)));
             thread.Start(prefix);
             return thread;
         }
@@ -40,7 +40,7 @@ namespace RosMolServer
             if (prefix == null || prefix.Length == 0)
                 throw new Exception("Prefixes is null!");
 
-            HttpListener httpListener = new HttpListener();
+            var httpListener = new HttpListener();
 
             try
             {
@@ -73,8 +73,10 @@ namespace RosMolServer
 
             while (!token.IsCancellationRequested)
             {
-                HttpListenerContext context = await Task.Run(httpListener.GetContextAsync, token);
+                var context = await httpListener.GetContextAsync();
+
                 HttpListenerRequest request = context.Request;
+
                 if (AllowDebug)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -92,8 +94,9 @@ namespace RosMolServer
 
                     Console.ResetColor();
                 }
-                StreamReader reader = new StreamReader(request.InputStream, request.ContentEncoding);
-                string requestBody = reader.ReadToEnd();
+
+                var reader = new StreamReader(request.InputStream, request.ContentEncoding);
+                string requestBody = await reader.ReadToEndAsync();
 
                 request.InputStream.Close();
                 reader.Close();
@@ -109,7 +112,7 @@ namespace RosMolServer
                     response.ContentLength64 = buffer.Length;
 
                     using Stream output = response.OutputStream;
-                    await output.WriteAsync(buffer, 0, buffer.Length);
+                    await output.WriteAsync(buffer);
                     await output.FlushAsync();
                 }
             }
@@ -118,16 +121,16 @@ namespace RosMolServer
 
         public static async Task<string> GetResponse(string url, string code, params (string key, string value)[] args)
         {
-            HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
+            HttpRequestMessage requestMessage = new(HttpMethod.Get, url);
 
             requestMessage.Headers.Add("code", code);
 
-            foreach (var arg in args)
+            foreach (var (key, value) in args)
             {
-                requestMessage.Headers.Add(arg.key, arg.value);
+                requestMessage.Headers.Add(key, value);
             }
 
-            HttpClient client = new HttpClient();
+            var client = new HttpClient();
             HttpResponseMessage response = await client.SendAsync(requestMessage);
 
             return await response.Content.ReadAsStringAsync();

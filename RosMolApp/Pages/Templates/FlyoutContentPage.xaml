@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RosMolApp.Pages.Templates.FlyoutContentPage">
+             x:Class="RosMolApp.Pages.Templates.FlyoutContentPage"
+             xmlns:local="clr-namespace:RosMolApp">
     <Shell.TitleView>
         <Grid>
             <Label 
@@ -22,6 +23,11 @@
         <BackButtonBehavior IsVisible="False" IsEnabled="False" />
     </Shell.BackButtonBehavior>
 
-    <VerticalStackLayout>
-    </VerticalStackLayout>
+    <local:LoadingScreen x:Name="LoadingOverlay">
+        <ScrollView>
+            <VerticalStackLayout x:Name="ContentView">
+                
+            </VerticalStackLayout>
+        </ScrollView>
+    </local:LoadingScreen>
 </ContentPage>

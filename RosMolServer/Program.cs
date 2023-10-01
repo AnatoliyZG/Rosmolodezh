@@ -1,13 +1,14 @@
-﻿using System.Collections.Specialized;
-using RosMolServer;
+﻿using RosMolServer;
+
 
 string defaultPrefix = "http://*:4447/connection/";
 
-CancellationTokenSource tokenSource = new CancellationTokenSource();
+CancellationTokenSource tokenSource = new();
 
 Listener.StartRecivingThreard(defaultPrefix, tokenSource.Token);
 
-InputRequests inputRequests = new InputRequests();
+DataBase dataBase = await DataBase.CreateAsync(database: "C:\\USERS\\ZREGA\\DOCUMENTS\\ROSDB.MDF");
+InputRequests inputRequests = new(dataBase);
 
 Listener.OnListened += inputRequests.Input;
 
@@ -15,7 +16,8 @@ while (true)
 {
     try
     {
-        string[] cmd = Console.ReadLine().Split();
+        string[] cmd = Console.ReadLine()!.Split();
+
         switch (cmd[0])
         {
             case "response":
@@ -29,6 +31,7 @@ while (true)
                 }
                 break;
             case "end":
+                dataBase.Dispose();
                 tokenSource.Cancel();
                 return;
         }

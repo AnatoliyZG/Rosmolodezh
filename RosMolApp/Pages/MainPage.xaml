@@ -55,15 +55,15 @@
                               Text="Хочу предложить"
                               Summary="Есть идея для проекта? Давай обсудим!"
                               Source="lamp_ico.svg"/>
-            <Label Text="Это тебе пригодится:"
+            <Label Text="Нас всегда можно найти тут:"
                    FontSize="16"
                    Margin="15,20"/>
             <HorizontalStackLayout HorizontalOptions="Center"
                                    HeightRequest="52" 
                                    Spacing="20">
-                <ImageButton Source="vk.svg"/>
-                <ImageButton Source="tg.svg"/>
-                <ImageButton Source="yandex.svg"/>
+                <ImageButton Source="vk.svg" Clicked="OpenVk"/>
+                <ImageButton Source="tg.svg" Clicked="OpenTelegram"/>
+                <ImageButton Source="yandex.svg" Clicked="OpenYandex"/>
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>

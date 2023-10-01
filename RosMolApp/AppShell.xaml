@@ -17,5 +17,5 @@
         </Grid>
     </Shell.FlyoutHeader>
     
-    <ShellContent ContentTemplate="{DataTemplate pages:AuthPage}" Route="AuthPage" />
+    <ShellContent ContentTemplate="{DataTemplate pages:NavigationPage}" Route="AuthPage" />
 </Shell>
