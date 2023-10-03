@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
 using RosMolExtension;
 using System.Reflection.PortableExecutable;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RosMolServer
 {
@@ -18,6 +19,8 @@ namespace RosMolServer
         public required MemoryCache cache;
 
         public required SqlConnection sqlConnection;
+
+        public string secretKey = "root";
 
         public Data[]? GetCachedContent<Data>(string? key, ulong? version = null) where Data : ReadableData, new()
         {
@@ -43,10 +46,18 @@ namespace RosMolServer
         }
 
 
+        public void ReloadDB<Data>(string key) where Data : ReadableData, new()
+        {
+            var data = SelectDBData<Data>(key);
+
+            cache.Set(key, new CacheContainer<Data>(data));
+        }
+
+
         public Data[] SelectDBData<Data>(string table) where Data : ReadableData, new()
         {
             var command = new SqlCommand($"SELECT * FROM {table}", sqlConnection);
-            SqlDataReader reader = command.ExecuteReader();
+            using SqlDataReader reader = command.ExecuteReader();
 
             List<Data> results = new();
 
@@ -57,6 +68,8 @@ namespace RosMolServer
                     Reader = reader,
                 });
             }
+
+            reader.Close();
 
             return results.ToArray();
         }

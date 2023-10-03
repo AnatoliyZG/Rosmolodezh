@@ -1,4 +1,5 @@
-﻿using RosMolServer;
+﻿using RosMolExtension;
+using RosMolServer;
 
 
 string defaultPrefix = "http://*:4447/connection/";
@@ -8,6 +9,9 @@ CancellationTokenSource tokenSource = new();
 Listener.StartRecivingThreard(defaultPrefix, tokenSource.Token);
 
 DataBase dataBase = await DataBase.CreateAsync(database: "C:\\USERS\\ZREGA\\DOCUMENTS\\ROSDB.MDF");
+
+dataBase.GetCachedContent<AnnounceData>("Announces");
+
 InputRequests inputRequests = new(dataBase);
 
 Listener.OnListened += inputRequests.Input;

@@ -68,7 +68,7 @@
                     <Label Text="Ссылка на Vk:"
                        Margin="0,5,0,0"
                        HorizontalTextAlignment="Center"/>
-                    <local:TextField x:Name="VkField"/>
+                    <local:TextField x:Name="VkField" Lenght="32"/>
 
                     <Label Text="Направление:"
                        Margin="0,5,0,0"

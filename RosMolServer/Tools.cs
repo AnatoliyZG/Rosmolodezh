@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RosMolExtension;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,9 +36,14 @@ namespace RosMolServer
                     });
                 }
             });
-            img.SaveAsJpeg($"{folder}/{userId}.jpeg");
+            img.SaveAsJpeg($"{folder}/{userId}.jpg");
 
             img.Dispose();
+        }
+
+        public static SimpleResponse<string[]> GetPhotos(string key)
+        {
+            return new SimpleResponse<string[]>(new DirectoryInfo(key).GetFiles().Select((a)=>a.Name).ToArray());
         }
     }
 }

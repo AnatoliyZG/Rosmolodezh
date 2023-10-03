@@ -42,34 +42,25 @@ namespace RosMolExtension
     [Serializable]
     public class DataRequest : Request
     {
-        public string UserId;
-
         public string? key;
 
-        public DataRequest(string UserId, string? key)
+        public DataRequest(string? key)
         {
-            this.UserId = UserId;
             this.key = key;
         }
     }
 
     [Serializable]
-    public class Photo
+    public class PhotoRequest : Request
     {
-        public string format;
-        public byte[] photo;
+        public string? key;
 
-        [JsonConstructor]
-        public Photo(string format, byte[] photo)
-        {
-            this.format = format;
-            this.photo = photo;
-        }
+        public string? name;
 
-        public Photo(string path)
+        public PhotoRequest(string? key, string? name)
         {
-            this.format = path.Split('.')[^1];
-            photo = File.ReadAllBytes(path);
+            this.key= key;
+            this.name = name;
         }
     }
 
@@ -91,6 +82,7 @@ namespace RosMolExtension
             OK = 0,
             Error = 1,
             AlreadyUpdated = 2,
+            NoneAuthorize = 3,
         }
 
         public abstract override string ToString();
@@ -103,14 +95,38 @@ namespace RosMolExtension
         }
     }
 
-    [Serializable]
-    public class ErrorResponse : Response
+    public class SimpleResponse<T> : Response
     {
-        public ErrorResponse(int? ErrorCode) : base(ErrorCode) {}
+        public T content;
+
+        [JsonConstructor]
+        public SimpleResponse(T content) : base (0)
+        {
+            this.content = content;
+        }
+
+        public SimpleResponse(int? errorCode) : base(errorCode)
+        {
+
+        }
 
         public override string ToString()
         {
-            return JsonSerializer.Serialize(this);
+            return Serializer.Serialize(this);
+        }
+    }
+
+    [Serializable]
+    public class ErrorResponse : Response
+    {
+        [JsonConstructor]
+        public ErrorResponse(int? ErrorCode) : base(ErrorCode) {}
+
+        public ErrorResponse(Status errorStatus) : base((int)errorStatus) { }
+
+        public override string ToString()
+        {
+            return Serializer.Serialize(this);
         }
     }
 
@@ -126,7 +142,23 @@ namespace RosMolExtension
 
         public override string ToString()
         {
-            return JsonSerializer.Serialize<LoginResponse>(this);
+            return Serializer.Serialize(this);
+        }
+    }
+
+    [Serializable]
+    public class PhotoResponse : Response
+    {
+        public byte[]? content;
+
+        public PhotoResponse(byte[]? content) : base(0)
+        {
+            this.content = content;
+        }
+
+        public override string ToString()
+        {
+            return Serializer.Serialize(this);
         }
     }
 
@@ -153,11 +185,7 @@ namespace RosMolExtension
                 }
             }
 
-            return JsonSerializer.Serialize(this, new JsonSerializerOptions()
-            {
-                IncludeFields = true,
-                MaxDepth=5,
-            });
+            return Serializer.Serialize(this);
         }
     }
 
@@ -176,10 +204,9 @@ namespace RosMolExtension
             set {
                 if(value != null)
                 {
-                    name = value.GetString(0).Trim();
-                    summary = value.GetString(1).Trim();
-                    description = value.GetString(2).Trim();
-                    photoName = value.GetString(3).Trim();
+                    name = value.IsDBNull(1) ? null : value.GetString(1).Trim();
+                    summary = value.IsDBNull(2) ? null : value.GetString(2).Trim();
+                    description = value.IsDBNull(3) ? null : value.GetString(3).Trim();
                 }
             }
         }
@@ -190,9 +217,6 @@ namespace RosMolExtension
 
         public string? description;
 
-        [JsonIgnore]
-        public string? photoName;
-
         public AnnounceData(string? name, string? summary, string? description)
         {
             this.name = name;
@@ -201,5 +225,10 @@ namespace RosMolExtension
         }
 
         public AnnounceData() { }
+    }
+
+    public static class Serializer
+    {
+        public static string Serialize<Data>(Data data) => JsonSerializer.Serialize(data, new JsonSerializerOptions() { IncludeFields = true, MaxDepth=5, });
     }
 }

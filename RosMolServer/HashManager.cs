@@ -16,7 +16,7 @@ namespace RosMolServer
 
             using var hash = MD5.Create();
             
-            return Encoding.UTF8.GetString(hash.ComputeHash(valueBytes));
+            return Convert.ToHexString(hash.ComputeHash(valueBytes));
         }
     }
 }

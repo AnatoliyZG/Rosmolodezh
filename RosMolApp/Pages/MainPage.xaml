@@ -44,12 +44,14 @@
                               EndColor="#FF5935"
                               Text="Куда хочу?"
                               Summary="Здесь перечень молодежных движений, НКО и фондов."
-                              Source="rocket_ico.svg"/>
+                              Source="rocket_ico.svg"
+                              Clicked="Wishes_Clicked"/>
             <local:MediumCard StartColor="#5DE19A"
                               EndColor="#22CC29"
                               Text="Мои возможности"
                               Summary="Узнай о доступных тебе мерах поддержки."
-                              Source="like_ico.svg"/>
+                              Source="like_ico.svg"
+                              Clicked="Options_Clicked"/>
             <local:MediumCard StartColor="#DFE15D"
                               EndColor="#FF8D23"
                               Text="Хочу предложить"

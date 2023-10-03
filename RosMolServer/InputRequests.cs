@@ -32,6 +32,9 @@ namespace RosMolServer
             "reg" => Register,
             "log" => Login,
             "data" => GetAnnonceData,
+            "photo" => Photo,
+            "serverDB" => ServerResponse,
+            "serverPhotos" => ServerPhotosResponse,
             _ => (a, b) => 1,
         };
 
@@ -43,7 +46,7 @@ namespace RosMolServer
             {
                 if (registerRequest.photo != null)
                 {
-                    Tools.SaveSquarePhoto(userId, registerRequest.photo, "avatars", 256);
+                    Tools.SaveSquarePhoto(userId, registerRequest.photo, "Users", 256);
                 }
             }
 
@@ -76,6 +79,25 @@ namespace RosMolServer
             return LoginData(request);
         }
 
+        public Response Photo(NameValueCollection args, string content)
+        {
+            try
+            {
+                PhotoRequest? request = ParseRequest<PhotoRequest>(content);
+
+                if (request == null)
+                {
+                    return new PhotoResponse(File.ReadAllBytes($"{args["key"]}"));
+                }
+
+                return new PhotoResponse(File.ReadAllBytes($"{request.key}/{request.name}.jpg"));
+            }
+            catch
+            {
+                return 2;
+            }
+        }
+
         public Response GetAnnonceData(NameValueCollection args, string content)
         {
             DataRequest? request = ParseRequest<DataRequest>(content);
@@ -98,9 +120,50 @@ namespace RosMolServer
             }
         }
 
+        public ErrorResponse ServerResponse(NameValueCollection args, string content)
+        {
+            string? secret = args["secret"];
+
+            if (secret == null || secret != dataBase.secretKey)
+            {
+                return new ErrorResponse(Response.Status.NoneAuthorize);
+            }
+
+            try
+            {
+                dataBase.ReloadDB<AnnounceData>(args["key"]!);
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return new ErrorResponse(Response.Status.Error);
+            }
+
+            return new ErrorResponse(Response.Status.OK);
+        }
+
+        public SimpleResponse<string[]> ServerPhotosResponse(NameValueCollection args, string content)
+        {
+            string? secret = args["secret"];
+
+            if (secret == null || secret != dataBase.secretKey)
+            {
+                return new(3);
+            }
+
+            try
+            {
+                return Tools.GetPhotos(args["key"]!);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return new(1);
+            }
+        }
+
         private static T? ParseRequest<T>(string? content) where T : class
         {
-            if (content == null)
+            if (content == null || content.Length == 0)
             {
                 return null;
             }

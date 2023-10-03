@@ -5,6 +5,15 @@ namespace RosMolApp;
 
 public class TextField : ContentView, IDataField
 {
+    public static readonly BindableProperty LenghtProperty = BindableProperty.Create(nameof(Lenght), typeof(int), typeof(TextField), 16);
+
+    public int Lenght
+    {
+        get => (int)GetValue(LenghtProperty);
+        set => SetValue(LenghtProperty, value);
+    }
+
+
     public string Text { get => entry.Text; }
 
     public Brush StrokeColor { get => border.Stroke; set => border.Stroke = value; }
@@ -21,12 +30,16 @@ public class TextField : ContentView, IDataField
 
     public TextField()
     {
+        BindingContext = this;
+
         entry = new Entry
         {
             Placeholder = "Поле ввода...",
             Keyboard = Keyboard.Email,
             FontSize = 14,
         };
+
+        entry.SetBinding(Entry.MaxLengthProperty, "Lenght");
 
         border = new Border
         {

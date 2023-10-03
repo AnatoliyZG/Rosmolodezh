@@ -15,11 +15,7 @@ namespace RosMolApp
     {
         private const string ServerUrl = "http://10.0.0.25:4447/connection/";
 
-        public static string Name { get; set; }
-
-        public static string Login { get; private set; }
-
-        public static string Password { get; private set; }
+        public static string UserId { get; set; }
 
         private static JsonSerializerOptions defaultOptions = new JsonSerializerOptions()
         {
@@ -39,6 +35,7 @@ namespace RosMolApp
                 throw new ResponseExeption(response.ResponseStatus.ToString());
             }
 
+            UserId = response.userId;
             //TODO:
 
             return true;
@@ -48,16 +45,37 @@ namespace RosMolApp
         {
             LoginResponse response = await GetResponse<LoginResponse, LoginRequest>("reg", loginRequest);
 
-            // string response = await GetResponse("log", ("login", login), ("pass", pass));
+            UserId = response.userId;
 
             return true;
+        }
+
+        public static async Task<ImageSource> RequestImage(PhotoRequest request)
+        {
+
+            string path = $"{CachePath(request.key)}_{request.name}.jpg";
+
+            if (File.Exists(path)) {
+                return ImageSource.FromFile(path);
+            }
+
+            PhotoResponse response = await GetResponse<PhotoResponse, PhotoRequest>("photo", request);
+
+            if(response.ResponseStatus != Response.Status.OK)
+            {
+                return null;
+            } 
+
+            File.WriteAllBytes(path, response.content);
+
+            return ImageSource.FromFile(path);
         }
 
         public static async Task<Data[]> RequestData<Data>(DataRequest dataRequest, bool cache = true) where Data : ReadableData
         {
             string cacheVersion = cache ? CacheVersion(dataRequest.key) : null;
 
-            DataResponse<Data> response = await GetResponse<DataResponse<Data>, DataRequest>("data", dataRequest, cacheVersion);
+            DataResponse<Data> response = await GetResponse<DataResponse<Data>, DataRequest>("data", dataRequest, true, cacheVersion);
 
             Console.WriteLine($"Request data response status: {response.ResponseStatus}");
 
@@ -117,12 +135,17 @@ namespace RosMolApp
 
         private static string CachePath(string key) => $"{FileSystem.Current.CacheDirectory}/{key}";
 
-        private static async Task<TResponse> GetResponse<TResponse, TRequest>(string code, TRequest request, string version = null) where TResponse : Response where TRequest : Request
+        private static async Task<TResponse> GetResponse<TResponse, TRequest>(string code, TRequest request, bool userId = false, string version = null) where TResponse : Response where TRequest : Request
         {
             try
             {
                 var requestMessage = new HttpRequestMessage(HttpMethod.Get, ServerUrl);
                 requestMessage.Headers.Add("code", code);
+
+                if (userId)
+                {
+                    requestMessage.Headers.Add("userId", UserId);
+                }
 
                 if (version != null)
                 {

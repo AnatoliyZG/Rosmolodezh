@@ -103,7 +103,10 @@ namespace RosMolServer
 
                 string? responseString = OnListened?.Invoke(request.Headers, requestBody).ToString();
 
-                Console.WriteLine($"Send: {responseString}");
+                if (AllowDebug)
+                {
+                    Console.WriteLine($"Send to {request.RemoteEndPoint}: {responseString?.Substring(0, Math.Min(responseString.Length, 1024)) ?? "null"}");
+                }
 
                 if (responseString != null)
                 {
