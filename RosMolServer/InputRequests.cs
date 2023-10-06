@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using SixLabors.ImageSharp;
 using RosMolExtension;
+using System.IO;
 
 namespace RosMolServer
 {
@@ -34,6 +35,7 @@ namespace RosMolServer
             "data" => GetAnnonceData,
             "photo" => Photo,
             "serverDB" => ServerResponse,
+            "serverPhotoPull" => PullPhoto,
             "serverPhotos" => ServerPhotosResponse,
             _ => (a, b) => 1,
         };
@@ -89,8 +91,21 @@ namespace RosMolServer
                 {
                     return new PhotoResponse(File.ReadAllBytes($"{args["key"]}"));
                 }
+                else
+                {
+                    string? version = args["version"];
 
-                return new PhotoResponse(File.ReadAllBytes($"{request.key}/{request.name}.jpg"));
+                    if (version != null)
+                    {
+                        ulong cur = ulong.Parse(File.GetLastWriteTimeUtc($"{request.key}/{request.name}.jpg").ToString("yyyyMMddHHmmss"));
+                        if (cur < ulong.Parse(version))
+                        {
+                            return 2;
+                        }
+                    }
+
+                    return new PhotoResponse(File.ReadAllBytes($"{request.key}/{request.name}.jpg"));
+                }
             }
             catch
             {
@@ -98,25 +113,57 @@ namespace RosMolServer
             }
         }
 
+        public Response? PullPhoto(NameValueCollection args, string content)
+        {
+            string? secret = args["secret"];
+
+            if (secret == null || secret != dataBase.secretKey)
+            {
+                return 3;
+            }
+            var photo = ParseRequest<byte[]>(content);
+
+            File.WriteAllBytes(args["key"]!, photo!);
+            File.SetLastWriteTimeUtc(args["key"]!, DateTime.UtcNow);
+            return 0;
+        }
+
         public Response GetAnnonceData(NameValueCollection args, string content)
         {
             DataRequest? request = ParseRequest<DataRequest>(content);
 
+            string? key = request?.key;
+            switch (key)
+            {
+                case "Events":
+                    return GetData<EventData>(args["version"], key);
+                case "News":
+                    return GetData<NewsData>(args["version"], key);
+                default:
+                    return GetData<AnnounceData>(args["version"], key);
+
+            }
+        }
+
+        private Response GetData<T>(string? ver, string? key) where T : ReadableData, new()
+        {
             try
             {
-                string? versionArg = args["version"];
-                ulong? version = versionArg != null ? ulong.Parse(versionArg) : null;
+                ulong? version = ver != null ? ulong.Parse(ver) : null;
 
-                var data = dataBase.GetCachedContent<AnnounceData>(request?.key, version);
+                var data = dataBase.GetCachedContent<T>(key, version);
 
-                return new DataResponse<AnnounceData>(data);
-            }catch(ContentException ex) {
+                return new DataResponse<T>(data);
+            }
+            catch (ContentException ex)
+            {
 
-                return new DataResponse<AnnounceData>(ex.status);
-            }catch (Exception ex)
+                return new DataResponse<T>(ex.status);
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return new DataResponse<AnnounceData>(Response.Status.Error);
+                return new DataResponse<T>(Response.Status.Error);
             }
         }
 
@@ -131,7 +178,20 @@ namespace RosMolServer
 
             try
             {
-                dataBase.ReloadDB<AnnounceData>(args["key"]!);
+                string key = args["key"]!;
+
+                if (key == "Events")
+                {
+                    dataBase.ReloadDB<EventData>(key);
+                }
+                else if (key == "News")
+                {
+                    dataBase.ReloadDB<NewsData>(key);
+                }
+                else
+                {
+                    dataBase.ReloadDB<AnnounceData>(key);
+                }
             }catch(Exception ex)
             {
                 Console.WriteLine(ex);

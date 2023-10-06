@@ -30,13 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DBViewer));
-            this.label1 = new System.Windows.Forms.Label();
-            this.PhotoViewer = new System.Windows.Forms.ListBox();
-            this.PhotoView = new System.Windows.Forms.PictureBox();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.BindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+            this.announcesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.rosDBDataSet = new RosMolAdminPanel.RosDBDataSet();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
@@ -51,54 +52,30 @@
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.summaryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.score = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.startDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.endDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhotoColumn = new System.Windows.Forms.DataGridViewImageColumn();
+            this.eventsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.wishesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.rosDBDataSet = new RosMolAdminPanel.RosDBDataSet();
-            this.announcesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.announcesTableAdapter = new RosMolAdminPanel.RosDBDataSetTableAdapters.AnnouncesTableAdapter();
             this.tableAdapterManager = new RosMolAdminPanel.RosDBDataSetTableAdapters.TableAdapterManager();
             this.optionsTableAdapter = new RosMolAdminPanel.RosDBDataSetTableAdapters.OptionsTableAdapter();
             this.wishesTableAdapter = new RosMolAdminPanel.RosDBDataSetTableAdapters.WishesTableAdapter();
             this.optionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.PhotoView)).BeginInit();
+            this.newsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.newsTableAdapter = new RosMolAdminPanel.RosDBDataSetTableAdapters.NewsTableAdapter();
+            this.eventsTableAdapter = new RosMolAdminPanel.RosDBDataSetTableAdapters.EventsTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.BindingNavigator)).BeginInit();
             this.BindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.wishesBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rosDBDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.announcesBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rosDBDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eventsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wishesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.optionsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.newsBindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(649, 28);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Изображения:";
-            // 
-            // PhotoViewer
-            // 
-            this.PhotoViewer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PhotoViewer.FormattingEnabled = true;
-            this.PhotoViewer.Location = new System.Drawing.Point(649, 44);
-            this.PhotoViewer.Name = "PhotoViewer";
-            this.PhotoViewer.Size = new System.Drawing.Size(155, 290);
-            this.PhotoViewer.TabIndex = 3;
-            this.PhotoViewer.SelectedIndexChanged += new System.EventHandler(this.PhotoViewer_SelectedIndexChanged);
-            // 
-            // PhotoView
-            // 
-            this.PhotoView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.PhotoView.Location = new System.Drawing.Point(649, 348);
-            this.PhotoView.Name = "PhotoView";
-            this.PhotoView.Size = new System.Drawing.Size(155, 102);
-            this.PhotoView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PhotoView.TabIndex = 4;
-            this.PhotoView.TabStop = false;
             // 
             // BindingNavigator
             // 
@@ -107,6 +84,7 @@
             this.BindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.BindingNavigator.DeleteItem = this.bindingNavigatorDeleteItem;
             this.BindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripComboBox1,
             this.bindingNavigatorMoveFirstItem,
             this.bindingNavigatorMovePreviousItem,
             this.bindingNavigatorSeparator,
@@ -126,7 +104,7 @@
             this.BindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.BindingNavigator.Name = "BindingNavigator";
             this.BindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.BindingNavigator.Size = new System.Drawing.Size(816, 25);
+            this.BindingNavigator.Size = new System.Drawing.Size(942, 25);
             this.BindingNavigator.TabIndex = 5;
             this.BindingNavigator.Text = "bindingNavigator1";
             // 
@@ -139,6 +117,16 @@
             this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorAddNewItem.Text = "Добавить";
             this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
+            // 
+            // announcesBindingSource
+            // 
+            this.announcesBindingSource.DataMember = "Announces";
+            this.announcesBindingSource.DataSource = this.rosDBDataSet;
+            // 
+            // rosDBDataSet
+            // 
+            this.rosDBDataSet.DataSetName = "RosDBDataSet";
+            this.rosDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // bindingNavigatorCountItem
             // 
@@ -155,6 +143,19 @@
             this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorDeleteItem.Text = "Удалить";
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Items.AddRange(new object[] {
+            "Госкоммол",
+            "Куда я хочу",
+            "Мои возможности",
+            "Новости",
+            "Мероприятия"});
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 25);
+            this.toolStripComboBox1.Text = "Госкоммол";
+            this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
             // 
             // bindingNavigatorMoveFirstItem
             // 
@@ -238,13 +239,23 @@
             this.idDataGridViewTextBoxColumn,
             this.nameDataGridViewTextBoxColumn,
             this.summaryDataGridViewTextBoxColumn,
-            this.descriptionDataGridViewTextBoxColumn});
-            this.DataGridView.DataSource = this.wishesBindingSource;
+            this.descriptionDataGridViewTextBoxColumn,
+            this.score,
+            this.startDate,
+            this.endDate,
+            this.PhotoColumn});
+            this.DataGridView.DataSource = this.eventsBindingSource;
             this.DataGridView.Location = new System.Drawing.Point(0, 28);
             this.DataGridView.Name = "DataGridView";
-            this.DataGridView.Size = new System.Drawing.Size(643, 422);
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridView.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.DataGridView.RowTemplate.Height = 40;
+            this.DataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridView.Size = new System.Drawing.Size(942, 446);
             this.DataGridView.TabIndex = 5;
-            this.DataGridView.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DataGridView_RowsAdded);
+            this.DataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DataGridView_CellBeginEdit);
+            this.DataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
+            this.DataGridView.Sorted += new System.EventHandler(this.DataGridView_Sorted);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -278,20 +289,41 @@
             this.descriptionDataGridViewTextBoxColumn.HeaderText = "description";
             this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
             // 
+            // score
+            // 
+            this.score.DataPropertyName = "score";
+            this.score.HeaderText = "score";
+            this.score.Name = "score";
+            // 
+            // startDate
+            // 
+            this.startDate.DataPropertyName = "startDate";
+            this.startDate.HeaderText = "startDate";
+            this.startDate.Name = "startDate";
+            // 
+            // endDate
+            // 
+            this.endDate.DataPropertyName = "endDate";
+            this.endDate.HeaderText = "endDate";
+            this.endDate.Name = "endDate";
+            // 
+            // PhotoColumn
+            // 
+            this.PhotoColumn.HeaderText = "Photo";
+            this.PhotoColumn.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.PhotoColumn.Name = "PhotoColumn";
+            this.PhotoColumn.Width = 73;
+            // 
+            // eventsBindingSource
+            // 
+            this.eventsBindingSource.AllowNew = true;
+            this.eventsBindingSource.DataMember = "Events";
+            this.eventsBindingSource.DataSource = this.rosDBDataSet;
+            // 
             // wishesBindingSource
             // 
             this.wishesBindingSource.DataMember = "Wishes";
             this.wishesBindingSource.DataSource = this.rosDBDataSet;
-            // 
-            // rosDBDataSet
-            // 
-            this.rosDBDataSet.DataSetName = "RosDBDataSet";
-            this.rosDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // announcesBindingSource
-            // 
-            this.announcesBindingSource.DataMember = "Announces";
-            this.announcesBindingSource.DataSource = this.rosDBDataSet;
             // 
             // announcesTableAdapter
             // 
@@ -301,6 +333,8 @@
             // 
             this.tableAdapterManager.AnnouncesTableAdapter = this.announcesTableAdapter;
             this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.EventsTableAdapter = null;
+            this.tableAdapterManager.NewsTableAdapter = null;
             this.tableAdapterManager.OptionsTableAdapter = this.optionsTableAdapter;
             this.tableAdapterManager.UpdateOrder = RosMolAdminPanel.RosDBDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             this.tableAdapterManager.UsersTableAdapter = null;
@@ -319,38 +353,45 @@
             this.optionsBindingSource.DataMember = "Options";
             this.optionsBindingSource.DataSource = this.rosDBDataSet;
             // 
+            // newsBindingSource
+            // 
+            this.newsBindingSource.AllowNew = true;
+            this.newsBindingSource.DataMember = "News";
+            this.newsBindingSource.DataSource = this.rosDBDataSet;
+            // 
+            // newsTableAdapter
+            // 
+            this.newsTableAdapter.ClearBeforeFill = true;
+            // 
+            // eventsTableAdapter
+            // 
+            this.eventsTableAdapter.ClearBeforeFill = true;
+            // 
             // DBViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(816, 462);
+            this.ClientSize = new System.Drawing.Size(942, 473);
             this.Controls.Add(this.DataGridView);
             this.Controls.Add(this.BindingNavigator);
-            this.Controls.Add(this.PhotoView);
-            this.Controls.Add(this.PhotoViewer);
-            this.Controls.Add(this.label1);
             this.Name = "DBViewer";
             this.Text = "DBViewer";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DBViewer_FormClosed);
-            this.Load += new System.EventHandler(this.DBAnnounces_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.PhotoView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BindingNavigator)).EndInit();
             this.BindingNavigator.ResumeLayout(false);
             this.BindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.wishesBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rosDBDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.announcesBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rosDBDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eventsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wishesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.optionsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.newsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListBox PhotoViewer;
-        private System.Windows.Forms.PictureBox PhotoView;
         private RosDBDataSet rosDBDataSet;
         private System.Windows.Forms.BindingSource announcesBindingSource;
         private RosDBDataSetTableAdapters.AnnouncesTableAdapter announcesTableAdapter;
@@ -373,9 +414,18 @@
         private System.Windows.Forms.BindingSource optionsBindingSource;
         private RosDBDataSetTableAdapters.WishesTableAdapter wishesTableAdapter;
         private System.Windows.Forms.BindingSource wishesBindingSource;
+        private System.Windows.Forms.BindingSource newsBindingSource;
+        private RosDBDataSetTableAdapters.NewsTableAdapter newsTableAdapter;
+        private System.Windows.Forms.BindingSource eventsBindingSource;
+        private RosDBDataSetTableAdapters.EventsTableAdapter eventsTableAdapter;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn summaryDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn score;
+        private System.Windows.Forms.DataGridViewTextBoxColumn startDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn endDate;
+        private System.Windows.Forms.DataGridViewImageColumn PhotoColumn;
     }
 }

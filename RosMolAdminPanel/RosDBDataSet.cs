@@ -4,5 +4,8 @@
 
     partial class RosDBDataSet
     {
+        partial class NewsDataTable
+        {
+        }
     }
 }

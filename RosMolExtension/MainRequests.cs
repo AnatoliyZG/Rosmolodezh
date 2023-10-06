@@ -204,12 +204,15 @@ namespace RosMolExtension
             set {
                 if(value != null)
                 {
-                    name = value.IsDBNull(1) ? null : value.GetString(1).Trim();
-                    summary = value.IsDBNull(2) ? null : value.GetString(2).Trim();
-                    description = value.IsDBNull(3) ? null : value.GetString(3).Trim();
+                    id = value.GetInt32(0);
+                    name = value.GetString(1).Trim();
+                    summary = value.GetString(2).Trim();
+                    description = value.GetString(3).Trim();
                 }
             }
         }
+
+        public int? id;
 
         public string? name;
 
@@ -225,6 +228,63 @@ namespace RosMolExtension
         }
 
         public AnnounceData() { }
+    }
+
+    [Serializable]
+    public class NewsData : AnnounceData
+    {
+        public override DbDataReader Reader { 
+            set
+            {
+                base.Reader = value;
+
+                if(value != null)
+                {
+                    startDate = value.GetDateTime(4);
+                    endDate = value.GetDateTime(5);
+                }
+            }
+        }
+
+        public DateTime? startDate;
+
+        public DateTime? endDate;
+
+        public NewsData(string? name, string? summary, string? description, DateTime? startDate, DateTime? endDate) : base(name, summary, description) 
+        {
+            this.startDate = startDate;
+            this.endDate = endDate;
+        }
+
+        public NewsData() { }
+    }
+
+    [Serializable]
+    public class EventData : NewsData
+    {
+        public override DbDataReader Reader
+        {
+            set
+            {
+                base.Reader = value;
+                if(value != null)
+                {
+                    score = value.GetInt32(6);
+                }
+            }
+        }
+
+        public int? score;
+
+        public EventData(string? name, string? summary, string? description, DateTime? startDate, DateTime? endDate, int? score) : base(name, summary, description, startDate, endDate)
+        {
+            this.score = score;
+        }
+
+        public EventData()
+        {
+
+        }
     }
 
     public static class Serializer

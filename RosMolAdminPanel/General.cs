@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
@@ -45,6 +46,38 @@ namespace RosMolAdminPanel
             {
                 MessageBox.Show("Подключение к серверу не установлено!", "Сервер", MessageBoxButtons.OK);
                 return null;
+            }
+        }
+
+        public static async void UploadPhoto(string key, byte[] photo)
+        {
+            try
+            {
+                var requestMessage = new HttpRequestMessage(HttpMethod.Post, ServerUrl);
+
+                requestMessage.Headers.Add("code", "serverPhotoPull");
+                requestMessage.Headers.Add("secret", SecretKey);
+                requestMessage.Headers.Add("key", key);
+
+                Console.WriteLine(key);
+
+                HttpClient client = new HttpClient()
+                {
+                    Timeout = TimeSpan.FromSeconds(10),
+                };
+
+                requestMessage.Content = JsonContent.Create(photo);
+
+
+                HttpResponseMessage response = await client.SendAsync(requestMessage);
+            }
+            catch (HttpRequestException)
+            {
+                MessageBox.Show("Подключение к серверу не установлено!", "Сервер", MessageBoxButtons.OK);
+            }
+            catch
+            {
+                MessageBox.Show("Не удалось загрузить фото!", "Ошибка", MessageBoxButtons.OK);
             }
         }
 

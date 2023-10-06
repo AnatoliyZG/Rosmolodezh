@@ -49,17 +49,11 @@ namespace RosMolApp
 
             image.SetBinding(Image.SourceProperty, "Source");
 
-            LoadImage(key,announce);
+            LoadImage(key, announce);
 
-            var MainContent = new Frame()
+            var view = new VerticalStackLayout
             {
-                CornerRadius = 25,
-                Padding = 0,
-                Margin = 5,
-                BorderColor = Colors.Transparent,
-                Content = new VerticalStackLayout
-                {
-                    Children =
+                Children =
                     {
                         new Frame()
                         {
@@ -75,16 +69,31 @@ namespace RosMolApp
                             FontSize = 16,
                             Text = announce.name,
                             FontAttributes = FontAttributes.Bold,
-                        },
-                        new Label()
-                        {
-                            Margin=new Thickness(20,0),
-                            FontSize=12,
-                            Text = expanded ? announce.description : announce.summary,
-                        },
-                        button,
+                        }
                     }
-                }
+            };
+
+            if(announce is NewsData news)
+            {
+                
+            }
+
+            view.Add(new Label()
+            {
+                Margin = new Thickness(20, 0),
+                FontSize = 12,
+                Text = expanded ? announce.description : announce.summary,
+            });
+
+            view.Add(button);
+
+            var MainContent = new Frame()
+            {
+                CornerRadius = 25,
+                Padding = 0,
+                Margin = 5,
+                BorderColor = Colors.Transparent,
+                Content = view,
             };
 
             Content = MainContent;
@@ -92,7 +101,7 @@ namespace RosMolApp
 
         public async void LoadImage(string key, AnnounceData announce)
         {
-            Source = await General.RequestImage(new PhotoRequest(key, announce.name));
+            Source = await General.RequestImage(new PhotoRequest(key, announce.id.ToString()));
         }
     }
 }

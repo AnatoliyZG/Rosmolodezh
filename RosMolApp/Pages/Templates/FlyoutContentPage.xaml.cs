@@ -8,6 +8,8 @@ namespace RosMolApp.Pages.Templates;
 public partial class FlyoutContentPage : ContentPage
 {
 
+    public string Title { get; set; }
+
     public DateTime lastUpdate = DateTime.MinValue;
 
     public int UpdateRate =
@@ -17,8 +19,10 @@ public partial class FlyoutContentPage : ContentPage
         120;
 #endif
 
-    public FlyoutContentPage()
+    public FlyoutContentPage(string Title)
     {
+        this.Title = Title;
+        BindingContext = this;
         InitializeComponent();
     }
 

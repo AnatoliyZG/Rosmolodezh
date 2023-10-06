@@ -6,7 +6,7 @@
     <Shell.TitleView>
         <Grid>
             <Label 
-                Text="Главная"
+                Text="{Binding Title}}"
                 HorizontalOptions="Start"
                 VerticalOptions="Center"
                 TextColor="Black"

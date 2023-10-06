@@ -10,7 +10,7 @@ using RosMolExtension;
 
 namespace RosMolServer
 {
-    public delegate Response RequestAction(NameValueCollection headers, string content);
+    public delegate Response? RequestAction(NameValueCollection headers, string content);
 
     internal static class Listener
     {
@@ -101,15 +101,15 @@ namespace RosMolServer
                 request.InputStream.Close();
                 reader.Close();
 
-                string? responseString = OnListened?.Invoke(request.Headers, requestBody).ToString();
-
-                if (AllowDebug)
-                {
-                    Console.WriteLine($"Send to {request.RemoteEndPoint}: {responseString?.Substring(0, Math.Min(responseString.Length, 1024)) ?? "null"}");
-                }
+                string? responseString = OnListened?.Invoke(request.Headers, requestBody)?.ToString();
 
                 if (responseString != null)
                 {
+                    if (AllowDebug)
+                    {
+                        Console.WriteLine($"Send to {request.RemoteEndPoint}: {responseString?.Substring(0, Math.Min(responseString.Length, 1024)) ?? "null"}");
+                    }
+
                     HttpListenerResponse response = context.Response;
                     byte[] buffer = Encoding.UTF8.GetBytes(responseString);
                     response.ContentLength64 = buffer.Length;

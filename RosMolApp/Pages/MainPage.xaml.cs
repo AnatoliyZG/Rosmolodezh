@@ -14,15 +14,22 @@ public partial class MainPage : ContentPage
         InitializeComponent();
     }
 
-    public async void LoadAnnonces(string key)
+    public async void LoadAnnonces(string title, string key)
     {
+        PermissionStatus status = await Permissions.RequestAsync<Permissions.StorageWrite>();
+
+        if(status != PermissionStatus.Granted)
+        {
+            return;
+        }
+
         try
         {
             FlyoutContentPage announcePage;
 
             if(!pages.TryGetValue(key, out announcePage))
             {
-                announcePage = new FlyoutContentPage();
+                announcePage = new FlyoutContentPage(title);
                 pages.Add(key, announcePage);
             }
 
@@ -30,7 +37,7 @@ public partial class MainPage : ContentPage
 
             announcePage.Load(General.RequestData<AnnounceData>(new DataRequest(key)), (a) => new BigCard(key, a as AnnounceData)
             {
-                action = ExpandCard,
+                action = (a,b) => ExpandCard(title, a, b),
             });
 
         }
@@ -41,9 +48,9 @@ public partial class MainPage : ContentPage
         }
     }
 
-    public async void ExpandCard(string key, AnnounceData announce)
+    public async void ExpandCard(string title, string key, AnnounceData announce)
     {
-        var page = new FlyoutContentPage();
+        var page = new FlyoutContentPage(title);
 
         page.AddView(new BigCard(key, announce, true)
         {
@@ -58,17 +65,17 @@ public partial class MainPage : ContentPage
 
     private async void Goskommol_Clicked(object sender, EventArgs e)
     {
-        LoadAnnonces("Announces");
+        LoadAnnonces("Госкоммол", "Announces");
     }
 
     private async void Wishes_Clicked(object sender, EventArgs e)
     {
-        LoadAnnonces("Wishes");
+        LoadAnnonces("Куда я хочу?", "Wishes");
     }
 
     private async void Options_Clicked(object sender, EventArgs e)
     {
-        LoadAnnonces("Options");
+        LoadAnnonces("Возможности", "Options");
     }
 
     public async void OpenVk(object sender, EventArgs e)

@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Web;
+using Android.App;
 using RosMolExtension;
 
 namespace RosMolApp
@@ -43,32 +44,47 @@ namespace RosMolApp
 
         public static async Task<bool> LoginAccount(LoginRequest loginRequest)
         {
-            LoginResponse response = await GetResponse<LoginResponse, LoginRequest>("reg", loginRequest);
+            LoginResponse response = await GetResponse<LoginResponse, LoginRequest>("log", loginRequest);
 
             UserId = response.userId;
+
+            if (response.ErrorCode != 0)
+            {
+                return false;
+            }
 
             return true;
         }
 
         public static async Task<ImageSource> RequestImage(PhotoRequest request)
         {
+            string? cacheVersion = null;
 
-            string path = $"{CachePath(request.key)}_{request.name}.jpg";
+            string path = $"{request.key}_{request.name}.jpg";
 
-            if (File.Exists(path)) {
-                return ImageSource.FromFile(path);
-            }
-
-            PhotoResponse response = await GetResponse<PhotoResponse, PhotoRequest>("photo", request);
-
-            if(response.ResponseStatus != Response.Status.OK)
+            if (File.Exists(CachePath(path)))
             {
-                return null;
-            } 
+                cacheVersion = CacheVersion(path);
+            }
+            path = (CachePath(path));
 
+            PhotoResponse response = await GetResponse<PhotoResponse, PhotoRequest>("photo", request, false, cacheVersion);
+
+            if (response.ResponseStatus != Response.Status.OK)
+            {
+                if (response.ResponseStatus == Response.Status.AlreadyUpdated)
+                {
+                    if (File.Exists(path))
+                    {
+                        return ImageSource.FromStream(() => new StreamReader(path).BaseStream);
+                    }
+                }
+
+                return null;
+            }
             File.WriteAllBytes(path, response.content);
 
-            return ImageSource.FromFile(path);
+            return ImageSource.FromStream(()=>new MemoryStream(response.content));
         }
 
         public static async Task<Data[]> RequestData<Data>(DataRequest dataRequest, bool cache = true) where Data : ReadableData
@@ -133,7 +149,7 @@ namespace RosMolApp
             return false;
         }
 
-        private static string CachePath(string key) => $"{FileSystem.Current.CacheDirectory}/{key}";
+        private static string CachePath(string key) => $"{FileSystem.Current.AppDataDirectory}/{key}";
 
         private static async Task<TResponse> GetResponse<TResponse, TRequest>(string code, TRequest request, bool userId = false, string version = null) where TResponse : Response where TRequest : Request
         {

@@ -16,34 +16,40 @@ namespace RosMolAdminPanel
 {
     public partial class DBViewer : Form
     {
+        private string[] pages =
+        {
+            "Announces",
+            "Wishes",
+            "Options",
+            "News",
+            "Events",
+        };
+
         private string key;
+
+        private BindingSource _bindingSource;
+        private dynamic _tableAdapter;
+        private dynamic _tableData;
+
         private bool serverConnect = true;
 
-        public DBViewer(string key)
+        private Dictionary<string, Image> images = new Dictionary<string, Image>();
+
+        public DBViewer()
         {
-            this.key = key;
             InitializeComponent();
 
-            switch (key)
-            {
-                case "Options":
-                    DataGridView.DataSource = optionsBindingSource;
-                    BindingNavigator.BindingSource = optionsBindingSource;
-                    break;
-                case "Announces":
-                    DataGridView.DataSource = announcesBindingSource;
-                    BindingNavigator.BindingSource = announcesBindingSource;
-                    break;
-                case "Wishes":
-                    DataGridView.DataSource = wishesBindingSource;
-                    BindingNavigator.BindingSource = wishesBindingSource;
-                    break;
-            }
-
-            PhotoViewerLoad();
+            LoadDB("Announces");
         }
 
         private void announcesBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            SaveDB();
+            changed = false;
+        }
+
+
+        public void SaveDB()
         {
             this.Validate();
 
@@ -63,94 +69,190 @@ namespace RosMolAdminPanel
                 }
             }
 
-            switch (key)
-            {
-                case "Options":
-                    optionsTableAdapter.Update(rosDBDataSet.Options);
-                    break;
-                case "Announces":
-                    announcesTableAdapter.Update(rosDBDataSet.Announces);
-                    break;
-                case "Wishes":
-                    wishesTableAdapter.Update(rosDBDataSet.Wishes);
-                    break;
-            }
+            _tableAdapter.Update(_tableData);
 
             UploadDB(key);
         }
 
-        private void DBAnnounces_Load(object sender, EventArgs e)
+        public async void LoadDB(string key)
         {
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "rosDBDataSet.Wishes". При необходимости она может быть перемещена или удалена.
-            this.wishesTableAdapter.Fill(this.rosDBDataSet.Wishes);
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "rosDBDataSet.Options". При необходимости она может быть перемещена или удалена.
-            this.optionsTableAdapter.Fill(this.rosDBDataSet.Options);
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "rosDBDataSet.Announces". При необходимости она может быть перемещена или удалена.
-            this.announcesTableAdapter.Fill(this.rosDBDataSet.Announces);
-            switch (key)
-            {
-                case "Options":
-                    this.optionsTableAdapter.Fill(this.rosDBDataSet.Options);
-                    break;
-                case "Announces":
-                    this.announcesTableAdapter.Fill(this.rosDBDataSet.Announces);
-                    break;
-                case "Wishes":
-                    this.wishesTableAdapter.Fill(this.rosDBDataSet.Wishes);
-                    break;
-            }
-        }
+            this.key = key;
 
-        private async void PhotoViewerLoad()
-        {
+            foreach (var img in images.Values)
+            {
+                img.Dispose();
+            }
+            images.Clear();
+            if (key == pages[4])
+            {
+                DataGridView.Columns[4].Visible = true;
+                DataGridView.Columns[5].Visible = true;
+                DataGridView.Columns[6].Visible = true;
+
+                _bindingSource = eventsBindingSource;
+                _tableAdapter = eventsTableAdapter;
+                _tableData = rosDBDataSet.Events;
+            }
+            else if (key == pages[3])
+            {
+                DataGridView.Columns[4].Visible = false;
+                DataGridView.Columns[5].Visible = true;
+                DataGridView.Columns[6].Visible = true;
+
+                _bindingSource = newsBindingSource;
+                _tableAdapter = newsTableAdapter;
+                _tableData = rosDBDataSet.News;
+            }
+            else
+            {
+                DataGridView.Columns[4].Visible = false;
+                DataGridView.Columns[5].Visible = false;
+                DataGridView.Columns[6].Visible = false;
+
+                if (key == pages[0])
+                {
+                    _bindingSource = announcesBindingSource;
+                    _tableAdapter = announcesTableAdapter;
+                    _tableData = rosDBDataSet.Announces;
+
+                }
+                else if (key == pages[1])
+                {
+                    _bindingSource = wishesBindingSource;
+                    _tableAdapter = wishesTableAdapter;
+                    _tableData = rosDBDataSet.Wishes;
+
+                }
+                else if (key == pages[2])
+                {
+                    _bindingSource = optionsBindingSource;
+                    _tableAdapter = optionsTableAdapter;
+                    _tableData = rosDBDataSet.Options;
+                }
+            }
+            DataGridView.DataSource = _bindingSource;
+            BindingNavigator.BindingSource = _bindingSource;
+            _tableAdapter.Fill(_tableData);
+
             string[] photos = await GetServerPhotos(key);
 
-            if (photos != null && photos.Length > 0)
+            serverConnect = photos != null && photos.Length > 0;
+
+            if (serverConnect)
             {
-                PhotoViewer.Items.AddRange(photos);
+                foreach (string val in photos)
+                {
+                    var photo = await GetServerPhoto($"{key}/{val}");
+
+                    Bitmap bmp;
+
+                    using (var ms = new MemoryStream(photo))
+                    {
+                        bmp = new Bitmap(ms);
+                    }
+
+                    images.Add(val, bmp);
+                }
             }
+
+            LoadImages();
+            DataGridView.Columns[0].Visible = false;
+
         }
 
-        private void DBViewer_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            MainForm.ShowForm();
-        }
-
-        private async void PhotoViewer_SelectedIndexChanged(object sender, EventArgs e)
+        private void LoadImages()
         {
             if (!serverConnect) return;
 
-            string fileName = (string)PhotoViewer.SelectedItem;
-            try
+            for (int i = 0; i < DataGridView.RowCount; i++)
             {
-                var photo = await GetServerPhoto($"{key}/{fileName}");
-
-                Console.WriteLine(photo);
-
-                Bitmap bmp;
-
-                using (var ms = new MemoryStream(photo))
+                string value = $"{DataGridView.Rows[i].Cells[0].Value}.jpg";
+                if (images.ContainsKey(value))
                 {
-                    bmp = new Bitmap(ms);
+                    DataGridView.Rows[i].Cells[7].Value = images[value];
                 }
-
-                PhotoView.Image = bmp;
-                // bmp.Dispose();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
             }
         }
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-
+            changed = true;
         }
 
-        private void DataGridView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
-        {
+        private bool changed = false;
 
+        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (key == pages[toolStripComboBox1.SelectedIndex])
+                return;
+
+            if (changed)
+            {
+                var result = MessageBox.Show("Сохранить изменения?", "Внимание", MessageBoxButtons.YesNoCancel);
+
+                if (result == DialogResult.Yes)
+                {
+                    SaveDB();
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    return;
+                }
+            }
+            changed = false;
+
+            LoadDB(pages[toolStripComboBox1.SelectedIndex]);
+        }
+
+        private void DataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            changed = true;
+        }
+        private void DataGridView_Sorted(object sender, EventArgs e)
+        {
+            LoadImages();
+        }
+
+        private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Console.WriteLine(e.ColumnIndex);
+
+            if (e.ColumnIndex == 7 && serverConnect)
+            {
+                using (var dialog = new OpenFileDialog())
+                {
+                    dialog.Filter = "Image file (*.jpg,*.jpeg,*.png)|*.jpg;*.jpeg;*.png";
+
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        byte[] buffer = File.ReadAllBytes(dialog.FileName);
+
+                        Bitmap bmp;
+
+                        using (var ms = new MemoryStream(buffer))
+                        {
+                            bmp = new Bitmap(ms);
+                        }
+
+                        string val = $"{DataGridView.Rows[e.RowIndex].Cells[0].Value}.jpg";
+
+                        if (images.ContainsKey(val))
+                        {
+                            images[val].Dispose();
+                            images[val] = bmp;
+                        }
+                        else
+                        {
+                            images.Add(val, bmp);
+                        }
+
+                        UploadPhoto($"{key}/{val}", buffer);
+
+                        DataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = bmp;
+                    }
+                }
+            }
         }
     }
 }
+ 

@@ -40,7 +40,7 @@ namespace RosMolServer
 
             var data = SelectDBData<Data>(key);
 
-            cache.Set(key, new CacheContainer<Data>(data));
+            cache.Set(key, new CacheContainer<Data>(key,data));
 
             return data;
         }
@@ -50,7 +50,7 @@ namespace RosMolServer
         {
             var data = SelectDBData<Data>(key);
 
-            cache.Set(key, new CacheContainer<Data>(data));
+            cache.Set(key, new CacheContainer<Data>(key, data));
         }
 
 
@@ -120,11 +120,11 @@ namespace RosMolServer
 
             public Data[]? Content;
 
-            public CacheContainer(Data[]? content)
+            public CacheContainer(string key, Data[]? content)
             {
                 Version = ulong.Parse(DateTime.UtcNow.AddSeconds(-5).ToString("yyyyMMddHHmmss"));
 
-                Console.WriteLine($"Set Version: {Version}");
+                Console.WriteLine($"[DB] Cached \"{key}\": {Version}");
 
                 Content = content;
             }
