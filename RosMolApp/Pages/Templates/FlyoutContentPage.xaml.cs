@@ -48,8 +48,6 @@ public partial class FlyoutContentPage : ContentPage
                     ContentView.Children.Add(await Task<View>.Factory.StartNew(content, item));
                 }
 
-                LoadingOverlay.ActiveLoading(false);
-
                 lastUpdate = DateTime.UtcNow;
             }
 
@@ -57,7 +55,9 @@ public partial class FlyoutContentPage : ContentPage
         catch (Exception ex)
         {
             Console.WriteLine(ex.ToString());
-
+        }
+        finally
+        {
             LoadingOverlay.ActiveLoading(false);
         }
 

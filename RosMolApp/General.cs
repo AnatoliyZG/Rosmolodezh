@@ -7,7 +7,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Web;
-using Android.App;
 using RosMolExtension;
 
 namespace RosMolApp

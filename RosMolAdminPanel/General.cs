@@ -20,6 +20,8 @@ namespace RosMolAdminPanel
 
         private const string SecretKey = "root";
 
+        public static bool ServerConnected = true;
+
 
         public static async Task<T> GetServerResponse<T>(string code, string key) where T : class
         {
@@ -44,6 +46,7 @@ namespace RosMolAdminPanel
             }
             catch (HttpRequestException)
             {
+                ServerConnected = false;
                 MessageBox.Show("Подключение к серверу не установлено!", "Сервер", MessageBoxButtons.OK);
                 return null;
             }

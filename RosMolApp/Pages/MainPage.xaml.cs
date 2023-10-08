@@ -1,6 +1,7 @@
 using Microsoft.Maui.Controls.Internals;
 using RosMolApp.Pages.Templates;
 using RosMolExtension;
+using System.Diagnostics;
 
 namespace RosMolApp.Pages;
 
@@ -16,13 +17,6 @@ public partial class MainPage : ContentPage
 
     public async void LoadAnnonces(string title, string key)
     {
-        PermissionStatus status = await Permissions.RequestAsync<Permissions.StorageWrite>();
-
-        if(status != PermissionStatus.Granted)
-        {
-            return;
-        }
-
         try
         {
             FlyoutContentPage announcePage;
@@ -35,9 +29,19 @@ public partial class MainPage : ContentPage
 
             await Navigation.PushAsync(announcePage, true);
 
-            announcePage.Load(General.RequestData<AnnounceData>(new DataRequest(key)), (a) => new BigCard(key, a as AnnounceData)
+            announcePage.Load(General.RequestData<AnnounceData>(new DataRequest(key)), (a) => new BigCard(title, key, a as AnnounceData)
             {
-                action = (a,b) => ExpandCard(title, a, b),
+                expand = async (a) =>
+                {
+                    if(a == null)
+                    {
+                        await Navigation.PopAsync(true);
+                    }
+                    else
+                    {
+                        await Navigation.PushAsync(a, true);
+                    }
+                }
             });
 
         }
@@ -46,21 +50,6 @@ public partial class MainPage : ContentPage
             await Navigation.PopAsync();
             await DisplayAlert("Îøèáêà", ex.Message, "Îê");
         }
-    }
-
-    public async void ExpandCard(string title, string key, AnnounceData announce)
-    {
-        var page = new FlyoutContentPage(title);
-
-        page.AddView(new BigCard(key, announce, true)
-        {
-            action = async (_, _) =>
-            {
-                await Navigation.PopAsync(true);
-            }
-        });
-
-        await Navigation.PushAsync(page, true);
     }
 
     private async void Goskommol_Clicked(object sender, EventArgs e)

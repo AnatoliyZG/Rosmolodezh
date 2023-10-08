@@ -5,14 +5,12 @@
              xmlns:local="clr-namespace:RosMolApp">
 
     <Shell.TitleView>
-        <Grid>
-            <Label 
+        <Label 
         Text="Главная"
         HorizontalOptions="Start"
         VerticalOptions="Center"
         TextColor="Black"
         FontSize="Title" />
-        </Grid>
     </Shell.TitleView>
     <ScrollView>
         <VerticalStackLayout Padding="5,10">

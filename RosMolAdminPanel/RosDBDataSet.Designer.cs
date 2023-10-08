@@ -624,10 +624,10 @@ namespace RosMolAdminPanel {
                 this.columnname.MaxLength = 128;
                 this.columnsummary.AllowDBNull = false;
                 this.columnsummary.DefaultValue = ((string)(""));
-                this.columnsummary.MaxLength = 256;
+                this.columnsummary.MaxLength = 512;
                 this.columndescription.AllowDBNull = false;
                 this.columndescription.DefaultValue = ((string)(""));
-                this.columndescription.MaxLength = 1024;
+                this.columndescription.MaxLength = 2147483647;
                 this.columnId.AutoIncrement = true;
                 this.columnId.AllowDBNull = false;
                 this.columnId.Unique = true;
@@ -934,10 +934,10 @@ namespace RosMolAdminPanel {
                 this.columnname.MaxLength = 128;
                 this.columnsummary.AllowDBNull = false;
                 this.columnsummary.DefaultValue = ((string)(""));
-                this.columnsummary.MaxLength = 256;
+                this.columnsummary.MaxLength = 512;
                 this.columndescription.AllowDBNull = false;
                 this.columndescription.DefaultValue = ((string)(""));
-                this.columndescription.MaxLength = 1024;
+                this.columndescription.MaxLength = 2147483647;
                 this.columnId.AutoIncrement = true;
                 this.columnId.AllowDBNull = false;
                 this.columnId.Unique = true;
@@ -1625,10 +1625,10 @@ namespace RosMolAdminPanel {
                 this.columnname.MaxLength = 128;
                 this.columnsummary.AllowDBNull = false;
                 this.columnsummary.DefaultValue = ((string)(""));
-                this.columnsummary.MaxLength = 256;
+                this.columnsummary.MaxLength = 512;
                 this.columndescription.AllowDBNull = false;
                 this.columndescription.DefaultValue = ((string)(""));
-                this.columndescription.MaxLength = 1024;
+                this.columndescription.MaxLength = 2147483647;
                 this.columnId.AutoIncrement = true;
                 this.columnId.AllowDBNull = false;
                 this.columnId.Unique = true;
@@ -1777,7 +1777,7 @@ namespace RosMolAdminPanel {
             
             private global::System.Data.DataColumn columnendDate;
             
-            private static System.DateTime columnstartDate_defaultValue = global::System.DateTime.Parse("2023-01-01T00:00:00");
+            private static System.DateTime columnstartDate_defaultValue = global::System.DateTime.Parse("2023-01-01T12:00:00");
             
             private static System.DateTime columnendDate_defaultValue = global::System.DateTime.Parse("2023-12-01T00:00:00");
             
@@ -1966,10 +1966,13 @@ namespace RosMolAdminPanel {
                 this.columnId.AllowDBNull = false;
                 this.columnId.Unique = true;
                 this.columnname.AllowDBNull = false;
+                this.columnname.DefaultValue = ((string)(""));
                 this.columnname.MaxLength = 128;
                 this.columnsummary.AllowDBNull = false;
-                this.columnsummary.MaxLength = 2147483647;
+                this.columnsummary.DefaultValue = ((string)(""));
+                this.columnsummary.MaxLength = 512;
                 this.columndescription.AllowDBNull = false;
+                this.columndescription.DefaultValue = ((string)(""));
                 this.columndescription.MaxLength = 2147483647;
                 this.columnstartDate.AllowDBNull = false;
                 this.columnstartDate.DefaultValue = ((System.DateTime)(NewsDataTable.columnstartDate_defaultValue));
@@ -2122,7 +2125,7 @@ namespace RosMolAdminPanel {
             
             private global::System.Data.DataColumn columnscore;
             
-            private static System.DateTime columnstartDate_defaultValue = global::System.DateTime.Parse("2023-01-01T00:00:00");
+            private static System.DateTime columnstartDate_defaultValue = global::System.DateTime.Parse("2023-01-01T12:00:00");
             
             private static System.DateTime columnendDate_defaultValue = global::System.DateTime.Parse("2023-12-01T00:00:00");
             
@@ -2327,7 +2330,7 @@ namespace RosMolAdminPanel {
                 this.columnname.MaxLength = 128;
                 this.columnsummary.AllowDBNull = false;
                 this.columnsummary.DefaultValue = ((string)(""));
-                this.columnsummary.MaxLength = 2147483647;
+                this.columnsummary.MaxLength = 512;
                 this.columndescription.AllowDBNull = false;
                 this.columndescription.DefaultValue = ((string)(""));
                 this.columndescription.MaxLength = 2147483647;

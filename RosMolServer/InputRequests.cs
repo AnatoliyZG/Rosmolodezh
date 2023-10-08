@@ -124,7 +124,7 @@ namespace RosMolServer
             var photo = ParseRequest<byte[]>(content);
 
             File.WriteAllBytes(args["key"]!, photo!);
-            File.SetLastWriteTimeUtc(args["key"]!, DateTime.UtcNow);
+            //File.SetLastWriteTimeUtc(args["key"]!, DateTime.UtcNow);
             return 0;
         }
 

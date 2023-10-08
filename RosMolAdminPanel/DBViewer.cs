@@ -9,8 +9,11 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Microsoft.Office.Interop.Word;
 using static RosMolAdminPanel.General;
+
+using Application = Microsoft.Office.Interop.Word.Application;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace RosMolAdminPanel
 {
@@ -31,8 +34,6 @@ namespace RosMolAdminPanel
         private dynamic _tableAdapter;
         private dynamic _tableData;
 
-        private bool serverConnect = true;
-
         private Dictionary<string, Image> images = new Dictionary<string, Image>();
 
         public DBViewer()
@@ -40,6 +41,7 @@ namespace RosMolAdminPanel
             InitializeComponent();
 
             LoadDB("Announces");
+
         }
 
         private void announcesBindingNavigatorSaveItem_Click(object sender, EventArgs e)
@@ -136,9 +138,7 @@ namespace RosMolAdminPanel
 
             string[] photos = await GetServerPhotos(key);
 
-            serverConnect = photos != null && photos.Length > 0;
-
-            if (serverConnect)
+            if (ServerConnected && photos != null)
             {
                 foreach (string val in photos)
                 {
@@ -156,13 +156,11 @@ namespace RosMolAdminPanel
             }
 
             LoadImages();
-            DataGridView.Columns[0].Visible = false;
-
         }
 
         private void LoadImages()
         {
-            if (!serverConnect) return;
+            if (!ServerConnected) return;
 
             for (int i = 0; i < DataGridView.RowCount; i++)
             {
@@ -181,9 +179,11 @@ namespace RosMolAdminPanel
 
         private bool changed = false;
 
+        private int index = 0;
+
         private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (key == pages[toolStripComboBox1.SelectedIndex])
+            if (index == toolStripComboBox1.SelectedIndex)
                 return;
 
             if (changed)
@@ -196,12 +196,16 @@ namespace RosMolAdminPanel
                 }
                 else if (result == DialogResult.Cancel)
                 {
+                    toolStripComboBox1.Text = key;
+                    toolStripComboBox1.SelectedIndex = index;
                     return;
                 }
             }
+
             changed = false;
 
-            LoadDB(pages[toolStripComboBox1.SelectedIndex]);
+            index = toolStripComboBox1.SelectedIndex;
+            LoadDB(pages[index]);
         }
 
         private void DataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
@@ -213,11 +217,11 @@ namespace RosMolAdminPanel
             LoadImages();
         }
 
-        private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private async void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Console.WriteLine(e.ColumnIndex);
 
-            if (e.ColumnIndex == 7 && serverConnect)
+            if (e.ColumnIndex == 7 && ServerConnected)
             {
                 using (var dialog = new OpenFileDialog())
                 {
@@ -246,13 +250,58 @@ namespace RosMolAdminPanel
                             images.Add(val, bmp);
                         }
 
-                        UploadPhoto($"{key}/{val}", buffer);
+                        if (bmp.Width > 380 || bmp.Height > 170)
+                        {
+                            try
+                            {
+                                bmp = resizeImage(bmp, new Size(380, 170));
+                                UploadPhoto($"{key}/{val}", ImageToByte(bmp));
+
+                            }catch(Exception ex)
+                            {
+                                Console.WriteLine(ex);
+                            }
+                        }
+                        else
+                        {
+                            UploadPhoto($"{key}/{val}", buffer);
+                        }
 
                         DataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = bmp;
+
+                        //  bmp.Dispose();
                     }
                 }
             }
         }
+
+        public static Bitmap resizeImage(Bitmap imgToResize, Size size)
+        {
+            int height = (int)(imgToResize.Width / 2.235f);
+
+            if (height > imgToResize.Height)
+            {
+                return (new Bitmap(imgToResize, size));
+            }
+
+            int width = imgToResize.Width;
+
+            int x = 0;
+            int y = (imgToResize.Height - height) / 2;
+
+            Rectangle rectangle = new Rectangle(x, y, width, height);
+
+            Bitmap bmp = new Bitmap(imgToResize);
+            bmp = bmp.Clone(rectangle, imgToResize.PixelFormat);
+
+            imgToResize.Dispose();
+
+            return (new Bitmap(bmp, size));
+        }
+        public static byte[] ImageToByte(Image img)
+        {
+            ImageConverter converter = new ImageConverter();
+            return (byte[])converter.ConvertTo(img, typeof(byte[]));
+        }
     }
 }
- 

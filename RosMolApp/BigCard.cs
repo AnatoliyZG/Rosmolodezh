@@ -13,6 +13,8 @@ namespace RosMolApp
 {
     public class BigCard : ContentView
     {
+        private delegate FlyoutContentPage ExpandAction();
+
         public static readonly BindableProperty SourceProperty = BindableProperty.Create(nameof(Source), typeof(ImageSource), typeof(MediumCard));
 
         public ImageSource Source
@@ -21,10 +23,11 @@ namespace RosMolApp
             set => SetValue(SourceProperty, value);
         }
 
-        public Action<string, AnnounceData> action;
+        public Action<FlyoutContentPage> expand;
 
+        private ExpandAction expandAction;
 
-        public BigCard(string key, AnnounceData announce, bool expanded = false)
+        public BigCard(string title, string key, AnnounceData announce, bool expanded = false, ImageSource source = null)
         {
             BindingContext = this;
 
@@ -34,7 +37,21 @@ namespace RosMolApp
                 Text = expanded ? "Назад" : "Подробнее",
             };
 
-            button.Clicked += (_, _) => action.Invoke(key, announce);
+            if (!expanded)
+            {
+                expandAction = () =>
+                {
+                    FlyoutContentPage page = new FlyoutContentPage(title);
+                    page.AddView(new BigCard(title, key, announce, true, Source)
+                    {
+                        expand = (a) => expand.Invoke(a),
+                        expandAction = () => null,
+                    });
+                    return page;
+                };
+            }
+
+            button.Clicked += (_, _) => expand.Invoke(expandAction());
 
             var image = new Image()
             {
@@ -49,37 +66,112 @@ namespace RosMolApp
 
             image.SetBinding(Image.SourceProperty, "Source");
 
-            LoadImage(key, announce);
+            if (source == null)
+            {
+                LoadImage(key, announce);
+            }
+            else
+            {
+                Source = source;
+            }
 
             var view = new VerticalStackLayout
             {
-                Children =
+                Children = {
+                    new Frame()
                     {
-                        new Frame()
-                        {
-                            HeightRequest = 170,
-                            Padding = 0,
-                            BorderColor = Colors.Transparent,
-                            CornerRadius = 0,
-                            Content = image,
-                        },
-                        new Label()
-                        {
-                            Margin = new Thickness(20, 15, 20, 10),
-                            FontSize = 16,
-                            Text = announce.name,
-                            FontAttributes = FontAttributes.Bold,
-                        }
+                        HeightRequest = 170,
+                        Padding = 0,
+                        BorderColor = Colors.Transparent,
+                        CornerRadius = 0,
+                        Content = image,
+                    },
+                    new Label()
+                    {
+                        Margin = new Thickness(20, 15, 20, 10),
+                        FontSize = 16,
+                        Text = announce.name,
+                        FontAttributes = FontAttributes.Bold,
                     }
+                }
             };
 
-            if(announce is NewsData news)
+            if (announce is NewsData news)
             {
-                
+                var textMargin = new Thickness(3, 0, 8, 0);
+
+                var line = new Grid()
+                {
+                    Margin = new Thickness(20, 0, 20, 12),
+                    HorizontalOptions = LayoutOptions.Fill,
+                    ColumnDefinitions = new ColumnDefinitionCollection(
+                                                new ColumnDefinition(),
+                                                new ColumnDefinition()),
+                    Children =
+                    {
+                        new HorizontalStackLayout(){
+                            Children = {
+                                new Image()
+                                {
+                                    Source = "event.svg",
+                                    HeightRequest=13,
+                                    WidthRequest=13,
+                                },
+                                new Label()
+                                {
+                                    
+                                    Text = $"{news.startDate?.ToString("d.MM.yyyy")} - {news.endDate?.ToString("dd.MM.yyyy")}",
+                                    FontSize = 12,
+                                    TextColor = new Color(122, 122, 122),
+                                    Margin = textMargin,
+                                },
+                                new Image()
+                                {
+                                    Source = "time.svg",
+                                    HeightRequest=13,
+                                    WidthRequest=13,
+                                },
+                                new Label()
+                                {
+                                    Text = $"{news.startDate?.ToString("HH:mm")}",
+                                    FontSize = 12,
+                                    TextColor = new Color(122, 122, 122),
+                                    Margin = textMargin,
+                                },
+                            }
+                        }
+                    }
+                };
+
+                if (news is EventData eventData)
+                {
+                    line.Add(new HorizontalStackLayout()
+                    {
+                        HorizontalOptions = LayoutOptions.End,
+                        Children =
+                        {
+                            new Image()
+                            {
+                                Source = "star.svg",
+                                HeightRequest = 13,
+                                WidthRequest = 13,
+                            },
+                            new Label()
+                            {
+                                Text = $"Баллы: {eventData.score}",
+                                FontSize = 12,
+                                Margin = textMargin,
+                            }
+                        }
+                    }, 1, 0);
+                }
+
+                view.Add(line);
             }
 
             view.Add(new Label()
             {
+                TextType= TextType.Html,
                 Margin = new Thickness(20, 0),
                 FontSize = 12,
                 Text = expanded ? announce.description : announce.summary,
