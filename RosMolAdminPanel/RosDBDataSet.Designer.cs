@@ -619,14 +619,11 @@ namespace RosMolAdminPanel {
                 base.Columns.Add(this.columnId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint2", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
-                this.columnname.AllowDBNull = false;
-                this.columnname.DefaultValue = ((string)(""));
+                this.columnname.DefaultValue = ((string)("Название"));
                 this.columnname.MaxLength = 128;
-                this.columnsummary.AllowDBNull = false;
-                this.columnsummary.DefaultValue = ((string)(""));
+                this.columnsummary.DefaultValue = ((string)("Краткое описание"));
                 this.columnsummary.MaxLength = 512;
-                this.columndescription.AllowDBNull = false;
-                this.columndescription.DefaultValue = ((string)(""));
+                this.columndescription.DefaultValue = ((string)("Подробное описание"));
                 this.columndescription.MaxLength = 2147483647;
                 this.columnId.AutoIncrement = true;
                 this.columnId.AllowDBNull = false;
@@ -929,14 +926,11 @@ namespace RosMolAdminPanel {
                 base.Columns.Add(this.columnId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint2", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
-                this.columnname.AllowDBNull = false;
-                this.columnname.DefaultValue = ((string)(""));
+                this.columnname.DefaultValue = ((string)(" Название"));
                 this.columnname.MaxLength = 128;
-                this.columnsummary.AllowDBNull = false;
-                this.columnsummary.DefaultValue = ((string)(""));
+                this.columnsummary.DefaultValue = ((string)("Краткое описание"));
                 this.columnsummary.MaxLength = 512;
-                this.columndescription.AllowDBNull = false;
-                this.columndescription.DefaultValue = ((string)(""));
+                this.columndescription.DefaultValue = ((string)("Подробное описание"));
                 this.columndescription.MaxLength = 2147483647;
                 this.columnId.AutoIncrement = true;
                 this.columnId.AllowDBNull = false;
@@ -1620,14 +1614,11 @@ namespace RosMolAdminPanel {
                 base.Columns.Add(this.columnId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint2", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
-                this.columnname.AllowDBNull = false;
-                this.columnname.DefaultValue = ((string)(""));
+                this.columnname.DefaultValue = ((string)("Название"));
                 this.columnname.MaxLength = 128;
-                this.columnsummary.AllowDBNull = false;
-                this.columnsummary.DefaultValue = ((string)(""));
+                this.columnsummary.DefaultValue = ((string)("Краткое описание"));
                 this.columnsummary.MaxLength = 512;
-                this.columndescription.AllowDBNull = false;
-                this.columndescription.DefaultValue = ((string)(""));
+                this.columndescription.DefaultValue = ((string)("Подробное описание"));
                 this.columndescription.MaxLength = 2147483647;
                 this.columnId.AutoIncrement = true;
                 this.columnId.AllowDBNull = false;
@@ -1965,18 +1956,13 @@ namespace RosMolAdminPanel {
                 this.columnId.AutoIncrement = true;
                 this.columnId.AllowDBNull = false;
                 this.columnId.Unique = true;
-                this.columnname.AllowDBNull = false;
-                this.columnname.DefaultValue = ((string)(""));
+                this.columnname.DefaultValue = ((string)("Название"));
                 this.columnname.MaxLength = 128;
-                this.columnsummary.AllowDBNull = false;
-                this.columnsummary.DefaultValue = ((string)(""));
+                this.columnsummary.DefaultValue = ((string)("Краткое описание"));
                 this.columnsummary.MaxLength = 512;
-                this.columndescription.AllowDBNull = false;
-                this.columndescription.DefaultValue = ((string)(""));
+                this.columndescription.DefaultValue = ((string)("Подробное описание"));
                 this.columndescription.MaxLength = 2147483647;
-                this.columnstartDate.AllowDBNull = false;
                 this.columnstartDate.DefaultValue = ((System.DateTime)(NewsDataTable.columnstartDate_defaultValue));
-                this.columnendDate.AllowDBNull = false;
                 this.columnendDate.DefaultValue = ((System.DateTime)(NewsDataTable.columnendDate_defaultValue));
             }
             
@@ -2325,20 +2311,14 @@ namespace RosMolAdminPanel {
                 this.columnId.AutoIncrement = true;
                 this.columnId.AllowDBNull = false;
                 this.columnId.Unique = true;
-                this.columnname.AllowDBNull = false;
-                this.columnname.DefaultValue = ((string)(""));
+                this.columnname.DefaultValue = ((string)("Название"));
                 this.columnname.MaxLength = 128;
-                this.columnsummary.AllowDBNull = false;
-                this.columnsummary.DefaultValue = ((string)(""));
+                this.columnsummary.DefaultValue = ((string)("Краткое описание"));
                 this.columnsummary.MaxLength = 512;
-                this.columndescription.AllowDBNull = false;
-                this.columndescription.DefaultValue = ((string)(""));
+                this.columndescription.DefaultValue = ((string)("Подробное описание"));
                 this.columndescription.MaxLength = 2147483647;
-                this.columnstartDate.AllowDBNull = false;
                 this.columnstartDate.DefaultValue = ((System.DateTime)(EventsDataTable.columnstartDate_defaultValue));
-                this.columnendDate.AllowDBNull = false;
                 this.columnendDate.DefaultValue = ((System.DateTime)(EventsDataTable.columnendDate_defaultValue));
-                this.columnscore.AllowDBNull = false;
                 this.columnscore.DefaultValue = ((int)(0));
             }
             
@@ -2484,7 +2464,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string name {
                 get {
-                    return ((string)(this[this.tableAnnounces.nameColumn]));
+                    if (this.IsnameNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableAnnounces.nameColumn]));
+                    }
                 }
                 set {
                     this[this.tableAnnounces.nameColumn] = value;
@@ -2495,7 +2480,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string summary {
                 get {
-                    return ((string)(this[this.tableAnnounces.summaryColumn]));
+                    if (this.IssummaryNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableAnnounces.summaryColumn]));
+                    }
                 }
                 set {
                     this[this.tableAnnounces.summaryColumn] = value;
@@ -2506,7 +2496,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string description {
                 get {
-                    return ((string)(this[this.tableAnnounces.descriptionColumn]));
+                    if (this.IsdescriptionNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableAnnounces.descriptionColumn]));
+                    }
                 }
                 set {
                     this[this.tableAnnounces.descriptionColumn] = value;
@@ -2522,6 +2517,42 @@ namespace RosMolAdminPanel {
                 set {
                     this[this.tableAnnounces.IdColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsnameNull() {
+                return this.IsNull(this.tableAnnounces.nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetnameNull() {
+                this[this.tableAnnounces.nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IssummaryNull() {
+                return this.IsNull(this.tableAnnounces.summaryColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetsummaryNull() {
+                this[this.tableAnnounces.summaryColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsdescriptionNull() {
+                return this.IsNull(this.tableAnnounces.descriptionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetdescriptionNull() {
+                this[this.tableAnnounces.descriptionColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2543,7 +2574,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string name {
                 get {
-                    return ((string)(this[this.tableOptions.nameColumn]));
+                    if (this.IsnameNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableOptions.nameColumn]));
+                    }
                 }
                 set {
                     this[this.tableOptions.nameColumn] = value;
@@ -2554,7 +2590,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string summary {
                 get {
-                    return ((string)(this[this.tableOptions.summaryColumn]));
+                    if (this.IssummaryNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableOptions.summaryColumn]));
+                    }
                 }
                 set {
                     this[this.tableOptions.summaryColumn] = value;
@@ -2565,7 +2606,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string description {
                 get {
-                    return ((string)(this[this.tableOptions.descriptionColumn]));
+                    if (this.IsdescriptionNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableOptions.descriptionColumn]));
+                    }
                 }
                 set {
                     this[this.tableOptions.descriptionColumn] = value;
@@ -2581,6 +2627,42 @@ namespace RosMolAdminPanel {
                 set {
                     this[this.tableOptions.IdColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsnameNull() {
+                return this.IsNull(this.tableOptions.nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetnameNull() {
+                this[this.tableOptions.nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IssummaryNull() {
+                return this.IsNull(this.tableOptions.summaryColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetsummaryNull() {
+                this[this.tableOptions.summaryColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsdescriptionNull() {
+                return this.IsNull(this.tableOptions.descriptionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetdescriptionNull() {
+                this[this.tableOptions.descriptionColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2818,7 +2900,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string name {
                 get {
-                    return ((string)(this[this.tableWishes.nameColumn]));
+                    if (this.IsnameNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableWishes.nameColumn]));
+                    }
                 }
                 set {
                     this[this.tableWishes.nameColumn] = value;
@@ -2829,7 +2916,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string summary {
                 get {
-                    return ((string)(this[this.tableWishes.summaryColumn]));
+                    if (this.IssummaryNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableWishes.summaryColumn]));
+                    }
                 }
                 set {
                     this[this.tableWishes.summaryColumn] = value;
@@ -2840,7 +2932,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string description {
                 get {
-                    return ((string)(this[this.tableWishes.descriptionColumn]));
+                    if (this.IsdescriptionNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableWishes.descriptionColumn]));
+                    }
                 }
                 set {
                     this[this.tableWishes.descriptionColumn] = value;
@@ -2856,6 +2953,42 @@ namespace RosMolAdminPanel {
                 set {
                     this[this.tableWishes.IdColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsnameNull() {
+                return this.IsNull(this.tableWishes.nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetnameNull() {
+                this[this.tableWishes.nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IssummaryNull() {
+                return this.IsNull(this.tableWishes.summaryColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetsummaryNull() {
+                this[this.tableWishes.summaryColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsdescriptionNull() {
+                return this.IsNull(this.tableWishes.descriptionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetdescriptionNull() {
+                this[this.tableWishes.descriptionColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2888,7 +3021,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string name {
                 get {
-                    return ((string)(this[this.tableNews.nameColumn]));
+                    if (this.IsnameNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableNews.nameColumn]));
+                    }
                 }
                 set {
                     this[this.tableNews.nameColumn] = value;
@@ -2899,7 +3037,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string summary {
                 get {
-                    return ((string)(this[this.tableNews.summaryColumn]));
+                    if (this.IssummaryNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableNews.summaryColumn]));
+                    }
                 }
                 set {
                     this[this.tableNews.summaryColumn] = value;
@@ -2910,7 +3053,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string description {
                 get {
-                    return ((string)(this[this.tableNews.descriptionColumn]));
+                    if (this.IsdescriptionNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableNews.descriptionColumn]));
+                    }
                 }
                 set {
                     this[this.tableNews.descriptionColumn] = value;
@@ -2921,7 +3069,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public System.DateTime startDate {
                 get {
-                    return ((global::System.DateTime)(this[this.tableNews.startDateColumn]));
+                    try {
+                        return ((global::System.DateTime)(this[this.tableNews.startDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'startDate\' в таблице \'News\' равно DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableNews.startDateColumn] = value;
@@ -2932,11 +3085,76 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public System.DateTime endDate {
                 get {
-                    return ((global::System.DateTime)(this[this.tableNews.endDateColumn]));
+                    try {
+                        return ((global::System.DateTime)(this[this.tableNews.endDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'endDate\' в таблице \'News\' равно DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableNews.endDateColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsnameNull() {
+                return this.IsNull(this.tableNews.nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetnameNull() {
+                this[this.tableNews.nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IssummaryNull() {
+                return this.IsNull(this.tableNews.summaryColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetsummaryNull() {
+                this[this.tableNews.summaryColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsdescriptionNull() {
+                return this.IsNull(this.tableNews.descriptionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetdescriptionNull() {
+                this[this.tableNews.descriptionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsstartDateNull() {
+                return this.IsNull(this.tableNews.startDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetstartDateNull() {
+                this[this.tableNews.startDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsendDateNull() {
+                return this.IsNull(this.tableNews.endDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetendDateNull() {
+                this[this.tableNews.endDateColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2969,7 +3187,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string name {
                 get {
-                    return ((string)(this[this.tableEvents.nameColumn]));
+                    if (this.IsnameNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableEvents.nameColumn]));
+                    }
                 }
                 set {
                     this[this.tableEvents.nameColumn] = value;
@@ -2980,7 +3203,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string summary {
                 get {
-                    return ((string)(this[this.tableEvents.summaryColumn]));
+                    if (this.IssummaryNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableEvents.summaryColumn]));
+                    }
                 }
                 set {
                     this[this.tableEvents.summaryColumn] = value;
@@ -2991,7 +3219,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string description {
                 get {
-                    return ((string)(this[this.tableEvents.descriptionColumn]));
+                    if (this.IsdescriptionNull()) {
+                        return string.Empty;
+                    }
+                    else {
+                        return ((string)(this[this.tableEvents.descriptionColumn]));
+                    }
                 }
                 set {
                     this[this.tableEvents.descriptionColumn] = value;
@@ -3002,7 +3235,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public System.DateTime startDate {
                 get {
-                    return ((global::System.DateTime)(this[this.tableEvents.startDateColumn]));
+                    try {
+                        return ((global::System.DateTime)(this[this.tableEvents.startDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'startDate\' в таблице \'Events\' равно DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableEvents.startDateColumn] = value;
@@ -3013,7 +3251,12 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public System.DateTime endDate {
                 get {
-                    return ((global::System.DateTime)(this[this.tableEvents.endDateColumn]));
+                    try {
+                        return ((global::System.DateTime)(this[this.tableEvents.endDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'endDate\' в таблице \'Events\' равно DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableEvents.endDateColumn] = value;
@@ -3024,11 +3267,88 @@ namespace RosMolAdminPanel {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public int score {
                 get {
-                    return ((int)(this[this.tableEvents.scoreColumn]));
+                    try {
+                        return ((int)(this[this.tableEvents.scoreColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'score\' в таблице \'Events\' равно DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableEvents.scoreColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsnameNull() {
+                return this.IsNull(this.tableEvents.nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetnameNull() {
+                this[this.tableEvents.nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IssummaryNull() {
+                return this.IsNull(this.tableEvents.summaryColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetsummaryNull() {
+                this[this.tableEvents.summaryColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsdescriptionNull() {
+                return this.IsNull(this.tableEvents.descriptionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetdescriptionNull() {
+                this[this.tableEvents.descriptionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsstartDateNull() {
+                return this.IsNull(this.tableEvents.startDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetstartDateNull() {
+                this[this.tableEvents.startDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsendDateNull() {
+                return this.IsNull(this.tableEvents.endDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetendDateNull() {
+                this[this.tableEvents.endDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsscoreNull() {
+                return this.IsNull(this.tableEvents.scoreColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetscoreNull() {
+                this[this.tableEvents.scoreColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3562,7 +3882,8 @@ SELECT name, summary, description, Id FROM Announces WHERE (Id = @Id)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
         public virtual int Delete(string Original_name, int Original_Id) {
             if ((Original_name == null)) {
-                throw new global::System.ArgumentNullException("Original_name");
+                this.Adapter.DeleteCommand.Parameters[0].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[0].Value = ((object)(0));
@@ -3591,19 +3912,19 @@ SELECT name, summary, description, Id FROM Announces WHERE (Id = @Id)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
         public virtual int Insert(string name, string summary, string description, int Id) {
             if ((name == null)) {
-                throw new global::System.ArgumentNullException("name");
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((string)(name));
             }
             if ((summary == null)) {
-                throw new global::System.ArgumentNullException("summary");
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((string)(summary));
             }
             if ((description == null)) {
-                throw new global::System.ArgumentNullException("description");
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = ((string)(description));
@@ -3631,26 +3952,27 @@ SELECT name, summary, description, Id FROM Announces WHERE (Id = @Id)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(string name, string summary, string description, int Id, string Original_name, int Original_Id) {
             if ((name == null)) {
-                throw new global::System.ArgumentNullException("name");
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(name));
             }
             if ((summary == null)) {
-                throw new global::System.ArgumentNullException("summary");
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(summary));
             }
             if ((description == null)) {
-                throw new global::System.ArgumentNullException("description");
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(description));
             }
             this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Id));
             if ((Original_name == null)) {
-                throw new global::System.ArgumentNullException("Original_name");
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(0));
@@ -4004,7 +4326,8 @@ SELECT name, summary, description, Id FROM Options WHERE (Id = @Id)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
         public virtual int Delete(string Original_name, int Original_Id) {
             if ((Original_name == null)) {
-                throw new global::System.ArgumentNullException("Original_name");
+                this.Adapter.DeleteCommand.Parameters[0].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[0].Value = ((object)(0));
@@ -4033,19 +4356,19 @@ SELECT name, summary, description, Id FROM Options WHERE (Id = @Id)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
         public virtual int Insert(string name, string summary, string description, int Id) {
             if ((name == null)) {
-                throw new global::System.ArgumentNullException("name");
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((string)(name));
             }
             if ((summary == null)) {
-                throw new global::System.ArgumentNullException("summary");
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((string)(summary));
             }
             if ((description == null)) {
-                throw new global::System.ArgumentNullException("description");
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = ((string)(description));
@@ -4073,26 +4396,27 @@ SELECT name, summary, description, Id FROM Options WHERE (Id = @Id)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(string name, string summary, string description, int Id, string Original_name, int Original_Id) {
             if ((name == null)) {
-                throw new global::System.ArgumentNullException("name");
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(name));
             }
             if ((summary == null)) {
-                throw new global::System.ArgumentNullException("summary");
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(summary));
             }
             if ((description == null)) {
-                throw new global::System.ArgumentNullException("description");
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(description));
             }
             this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Id));
             if ((Original_name == null)) {
-                throw new global::System.ArgumentNullException("Original_name");
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(0));
@@ -5389,7 +5713,8 @@ SELECT name, summary, description, Id FROM Wishes WHERE (Id = @Id)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
         public virtual int Delete(string Original_name, int Original_Id) {
             if ((Original_name == null)) {
-                throw new global::System.ArgumentNullException("Original_name");
+                this.Adapter.DeleteCommand.Parameters[0].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[0].Value = ((object)(0));
@@ -5418,19 +5743,19 @@ SELECT name, summary, description, Id FROM Wishes WHERE (Id = @Id)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
         public virtual int Insert(string name, string summary, string description, int Id) {
             if ((name == null)) {
-                throw new global::System.ArgumentNullException("name");
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((string)(name));
             }
             if ((summary == null)) {
-                throw new global::System.ArgumentNullException("summary");
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((string)(summary));
             }
             if ((description == null)) {
-                throw new global::System.ArgumentNullException("description");
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = ((string)(description));
@@ -5458,26 +5783,27 @@ SELECT name, summary, description, Id FROM Wishes WHERE (Id = @Id)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(string name, string summary, string description, int Id, string Original_name, int Original_Id) {
             if ((name == null)) {
-                throw new global::System.ArgumentNullException("name");
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(name));
             }
             if ((summary == null)) {
-                throw new global::System.ArgumentNullException("summary");
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(summary));
             }
             if ((description == null)) {
-                throw new global::System.ArgumentNullException("description");
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(description));
             }
             this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Id));
             if ((Original_name == null)) {
-                throw new global::System.ArgumentNullException("Original_name");
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(0));
@@ -5750,16 +6076,26 @@ SELECT Id, name, summary, description, startDate, endDate FROM News WHERE (Id = 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id, string Original_name, System.DateTime Original_startDate, System.DateTime Original_endDate) {
+        public virtual int Delete(int Original_Id, string Original_name, global::System.Nullable<global::System.DateTime> Original_startDate, global::System.Nullable<global::System.DateTime> Original_endDate) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
             if ((Original_name == null)) {
-                throw new global::System.ArgumentNullException("Original_name");
+                this.Adapter.DeleteCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((string)(Original_name));
             }
-            this.Adapter.DeleteCommand.Parameters[2].Value = ((System.DateTime)(Original_startDate));
-            this.Adapter.DeleteCommand.Parameters[3].Value = ((System.DateTime)(Original_endDate));
+            if ((Original_startDate.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((System.DateTime)(Original_startDate.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((Original_endDate.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((System.DateTime)(Original_endDate.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5780,28 +6116,38 @@ SELECT Id, name, summary, description, startDate, endDate FROM News WHERE (Id = 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int Id, string name, string summary, string description, System.DateTime startDate, System.DateTime endDate) {
+        public virtual int Insert(int Id, string name, string summary, string description, global::System.Nullable<global::System.DateTime> startDate, global::System.Nullable<global::System.DateTime> endDate) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Id));
             if ((name == null)) {
-                throw new global::System.ArgumentNullException("name");
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((string)(name));
             }
             if ((summary == null)) {
-                throw new global::System.ArgumentNullException("summary");
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = ((string)(summary));
             }
             if ((description == null)) {
-                throw new global::System.ArgumentNullException("description");
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = ((string)(description));
             }
-            this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(startDate));
-            this.Adapter.InsertCommand.Parameters[5].Value = ((System.DateTime)(endDate));
+            if ((startDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(startDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((endDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((System.DateTime)(endDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5822,37 +6168,57 @@ SELECT Id, name, summary, description, startDate, endDate FROM News WHERE (Id = 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int Id, string name, string summary, string description, System.DateTime startDate, System.DateTime endDate, int Original_Id, string Original_name, System.DateTime Original_startDate, System.DateTime Original_endDate) {
+        public virtual int Update(int Id, string name, string summary, string description, global::System.Nullable<global::System.DateTime> startDate, global::System.Nullable<global::System.DateTime> endDate, int Original_Id, string Original_name, global::System.Nullable<global::System.DateTime> Original_startDate, global::System.Nullable<global::System.DateTime> Original_endDate) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Id));
             if ((name == null)) {
-                throw new global::System.ArgumentNullException("name");
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(name));
             }
             if ((summary == null)) {
-                throw new global::System.ArgumentNullException("summary");
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(summary));
             }
             if ((description == null)) {
-                throw new global::System.ArgumentNullException("description");
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(description));
             }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(startDate));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(endDate));
+            if ((startDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(startDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((endDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(endDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
             this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_Id));
             if ((Original_name == null)) {
-                throw new global::System.ArgumentNullException("Original_name");
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_name));
             }
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((System.DateTime)(Original_startDate));
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((System.DateTime)(Original_endDate));
+            if ((Original_startDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((System.DateTime)(Original_startDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            if ((Original_endDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((System.DateTime)(Original_endDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5873,7 +6239,7 @@ SELECT Id, name, summary, description, startDate, endDate FROM News WHERE (Id = 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string name, string summary, string description, System.DateTime startDate, System.DateTime endDate, int Original_Id, string Original_name, System.DateTime Original_startDate, System.DateTime Original_endDate) {
+        public virtual int Update(string name, string summary, string description, global::System.Nullable<global::System.DateTime> startDate, global::System.Nullable<global::System.DateTime> endDate, int Original_Id, string Original_name, global::System.Nullable<global::System.DateTime> Original_startDate, global::System.Nullable<global::System.DateTime> Original_endDate) {
             return this.Update(Original_Id, name, summary, description, startDate, endDate, Original_Id, Original_name, Original_startDate, Original_endDate);
         }
     }
@@ -6123,17 +6489,32 @@ SELECT Id, name, summary, description, startDate, endDate, score FROM Events WHE
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id, string Original_name, System.DateTime Original_startDate, System.DateTime Original_endDate, int Original_score) {
+        public virtual int Delete(int Original_Id, string Original_name, global::System.Nullable<global::System.DateTime> Original_startDate, global::System.Nullable<global::System.DateTime> Original_endDate, global::System.Nullable<int> Original_score) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
             if ((Original_name == null)) {
-                throw new global::System.ArgumentNullException("Original_name");
+                this.Adapter.DeleteCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((string)(Original_name));
             }
-            this.Adapter.DeleteCommand.Parameters[2].Value = ((System.DateTime)(Original_startDate));
-            this.Adapter.DeleteCommand.Parameters[3].Value = ((System.DateTime)(Original_endDate));
-            this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_score));
+            if ((Original_startDate.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((System.DateTime)(Original_startDate.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((Original_endDate.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((System.DateTime)(Original_endDate.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((Original_score.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_score.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6154,29 +6535,44 @@ SELECT Id, name, summary, description, startDate, endDate, score FROM Events WHE
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int Id, string name, string summary, string description, System.DateTime startDate, System.DateTime endDate, int score) {
+        public virtual int Insert(int Id, string name, string summary, string description, global::System.Nullable<global::System.DateTime> startDate, global::System.Nullable<global::System.DateTime> endDate, global::System.Nullable<int> score) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Id));
             if ((name == null)) {
-                throw new global::System.ArgumentNullException("name");
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((string)(name));
             }
             if ((summary == null)) {
-                throw new global::System.ArgumentNullException("summary");
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = ((string)(summary));
             }
             if ((description == null)) {
-                throw new global::System.ArgumentNullException("description");
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = ((string)(description));
             }
-            this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(startDate));
-            this.Adapter.InsertCommand.Parameters[5].Value = ((System.DateTime)(endDate));
-            this.Adapter.InsertCommand.Parameters[6].Value = ((int)(score));
+            if ((startDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(startDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((endDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((System.DateTime)(endDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((score.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((int)(score.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6197,39 +6593,69 @@ SELECT Id, name, summary, description, startDate, endDate, score FROM Events WHE
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int Id, string name, string summary, string description, System.DateTime startDate, System.DateTime endDate, int score, int Original_Id, string Original_name, System.DateTime Original_startDate, System.DateTime Original_endDate, int Original_score) {
+        public virtual int Update(int Id, string name, string summary, string description, global::System.Nullable<global::System.DateTime> startDate, global::System.Nullable<global::System.DateTime> endDate, global::System.Nullable<int> score, int Original_Id, string Original_name, global::System.Nullable<global::System.DateTime> Original_startDate, global::System.Nullable<global::System.DateTime> Original_endDate, global::System.Nullable<int> Original_score) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Id));
             if ((name == null)) {
-                throw new global::System.ArgumentNullException("name");
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(name));
             }
             if ((summary == null)) {
-                throw new global::System.ArgumentNullException("summary");
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(summary));
             }
             if ((description == null)) {
-                throw new global::System.ArgumentNullException("description");
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(description));
             }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(startDate));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(endDate));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(score));
+            if ((startDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(startDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((endDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(endDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((score.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(score.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
             this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Id));
             if ((Original_name == null)) {
-                throw new global::System.ArgumentNullException("Original_name");
+                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Original_name));
             }
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((System.DateTime)(Original_startDate));
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((System.DateTime)(Original_endDate));
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_score));
+            if ((Original_startDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((System.DateTime)(Original_startDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            if ((Original_endDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((System.DateTime)(Original_endDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
+            if ((Original_score.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_score.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6250,7 +6676,7 @@ SELECT Id, name, summary, description, startDate, endDate, score FROM Events WHE
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string name, string summary, string description, System.DateTime startDate, System.DateTime endDate, int score, int Original_Id, string Original_name, System.DateTime Original_startDate, System.DateTime Original_endDate, int Original_score) {
+        public virtual int Update(string name, string summary, string description, global::System.Nullable<global::System.DateTime> startDate, global::System.Nullable<global::System.DateTime> endDate, global::System.Nullable<int> score, int Original_Id, string Original_name, global::System.Nullable<global::System.DateTime> Original_startDate, global::System.Nullable<global::System.DateTime> Original_endDate, global::System.Nullable<int> Original_score) {
             return this.Update(Original_Id, name, summary, description, startDate, endDate, score, Original_Id, Original_name, Original_startDate, Original_endDate, Original_score);
         }
     }

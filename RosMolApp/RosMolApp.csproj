@@ -49,6 +49,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiCss Remove="Resources\Styles\stl.css" />
+	  <MauiCss Remove="Resources\Styles\TextStyle.css" />
+	  <MauiCss Remove="styles\stl.css" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\Images\chat_ico.svg" />
 	  <None Remove="Resources\Images\events_ico.svg" />
 	  <None Remove="Resources\Images\main_ico.svg" />

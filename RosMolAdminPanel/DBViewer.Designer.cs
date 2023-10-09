@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DBViewer));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.BindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -46,9 +46,16 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.announcesBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.DataGridView = new System.Windows.Forms.DataGridView();
-            this.eventsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.rosDBDataSet = new RosMolAdminPanel.RosDBDataSet();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.announcesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.rosDBDataSet = new RosMolAdminPanel.RosDBDataSet();
+            this.eventsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.wishesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.announcesTableAdapter = new RosMolAdminPanel.RosDBDataSetTableAdapters.AnnouncesTableAdapter();
             this.tableAdapterManager = new RosMolAdminPanel.RosDBDataSetTableAdapters.TableAdapterManager();
@@ -69,9 +76,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.BindingNavigator)).BeginInit();
             this.BindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.eventsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rosDBDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.announcesBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rosDBDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eventsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wishesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.optionsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.newsBindingSource)).BeginInit();
@@ -80,9 +92,13 @@
             // BindingNavigator
             // 
             this.BindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
+            this.BindingNavigator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BindingNavigator.AutoSize = false;
             this.BindingNavigator.BindingSource = this.announcesBindingSource;
             this.BindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.BindingNavigator.DeleteItem = this.bindingNavigatorDeleteItem;
+            this.BindingNavigator.Dock = System.Windows.Forms.DockStyle.None;
             this.BindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripComboBox1,
             this.bindingNavigatorMoveFirstItem,
@@ -97,14 +113,14 @@
             this.bindingNavigatorAddNewItem,
             this.bindingNavigatorDeleteItem,
             this.announcesBindingNavigatorSaveItem});
-            this.BindingNavigator.Location = new System.Drawing.Point(0, 0);
+            this.BindingNavigator.Location = new System.Drawing.Point(1, 0);
             this.BindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.BindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.BindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
             this.BindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.BindingNavigator.Name = "BindingNavigator";
             this.BindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.BindingNavigator.Size = new System.Drawing.Size(942, 25);
+            this.BindingNavigator.Size = new System.Drawing.Size(739, 25);
             this.BindingNavigator.TabIndex = 5;
             this.BindingNavigator.Text = "bindingNavigator1";
             // 
@@ -236,33 +252,126 @@
             this.endDate,
             this.PhotoColumn});
             this.DataGridView.DataSource = this.eventsBindingSource;
-            this.DataGridView.Location = new System.Drawing.Point(0, 28);
+            this.DataGridView.Location = new System.Drawing.Point(0, 24);
             this.DataGridView.Name = "DataGridView";
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridView.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridView.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.DataGridView.RowTemplate.Height = 40;
             this.DataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridView.Size = new System.Drawing.Size(942, 449);
+            this.DataGridView.Size = new System.Drawing.Size(739, 560);
             this.DataGridView.TabIndex = 5;
             this.DataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DataGridView_CellBeginEdit);
+            this.DataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellClick);
             this.DataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
+            this.DataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellValueChanged);
             this.DataGridView.Sorted += new System.EventHandler(this.DataGridView_Sorted);
             // 
-            // eventsBindingSource
+            // webBrowser1
             // 
-            this.eventsBindingSource.AllowNew = true;
-            this.eventsBindingSource.DataMember = "Events";
-            this.eventsBindingSource.DataSource = this.rosDBDataSet;
+            this.webBrowser1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webBrowser1.Location = new System.Drawing.Point(0, 24);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.Size = new System.Drawing.Size(262, 560);
+            this.webBrowser1.TabIndex = 7;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.BindingNavigator);
+            this.splitContainer1.Panel1.Controls.Add(this.DataGridView);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.toolStrip1);
+            this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
+            this.splitContainer1.Size = new System.Drawing.Size(1008, 537);
+            this.splitContainer1.SplitterDistance = 739;
+            this.splitContainer1.TabIndex = 8;
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.ToolTipText = "Bold";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton3.Text = "toolStripButton3";
+            this.toolStripButton3.ToolTipText = "Italic";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton4.Text = "toolStripButton4";
+            this.toolStripButton4.ToolTipText = "Underline";
+            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
+            // 
+            // toolStripButton5
+            // 
+            this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
+            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton5.Name = "toolStripButton5";
+            this.toolStripButton5.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton5.Text = "toolStripButton5";
+            this.toolStripButton5.ToolTipText = "List";
+            this.toolStripButton5.Click += new System.EventHandler(this.toolStripButton5_Click);
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.toolStrip1.AutoSize = false;
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton2,
+            this.toolStripButton3,
+            this.toolStripButton4,
+            this.toolStripButton5});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(268, 25);
+            this.toolStrip1.TabIndex = 6;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // announcesBindingSource
+            // 
+            this.announcesBindingSource.DataMember = "Announces";
+            this.announcesBindingSource.DataSource = this.rosDBDataSet;
             // 
             // rosDBDataSet
             // 
             this.rosDBDataSet.DataSetName = "RosDBDataSet";
             this.rosDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // announcesBindingSource
+            // eventsBindingSource
             // 
-            this.announcesBindingSource.DataMember = "Announces";
-            this.announcesBindingSource.DataSource = this.rosDBDataSet;
+            this.eventsBindingSource.AllowNew = true;
+            this.eventsBindingSource.DataMember = "Events";
+            this.eventsBindingSource.DataSource = this.rosDBDataSet;
             // 
             // wishesBindingSource
             // 
@@ -319,7 +428,7 @@
             this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
             this.idDataGridViewTextBoxColumn.ReadOnly = true;
             this.idDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.idDataGridViewTextBoxColumn.Width = 40;
+            this.idDataGridViewTextBoxColumn.Width = 50;
             // 
             // nameDataGridViewTextBoxColumn
             // 
@@ -327,6 +436,7 @@
             this.nameDataGridViewTextBoxColumn.HeaderText = "name";
             this.nameDataGridViewTextBoxColumn.MaxInputLength = 128;
             this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
             this.nameDataGridViewTextBoxColumn.Width = 120;
             // 
             // summaryDataGridViewTextBoxColumn
@@ -335,6 +445,7 @@
             this.summaryDataGridViewTextBoxColumn.HeaderText = "summary";
             this.summaryDataGridViewTextBoxColumn.MaxInputLength = 512;
             this.summaryDataGridViewTextBoxColumn.Name = "summaryDataGridViewTextBoxColumn";
+            this.summaryDataGridViewTextBoxColumn.ReadOnly = true;
             this.summaryDataGridViewTextBoxColumn.Width = 150;
             // 
             // descriptionDataGridViewTextBoxColumn
@@ -343,6 +454,7 @@
             this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "description";
             this.descriptionDataGridViewTextBoxColumn.HeaderText = "description";
             this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // score
             // 
@@ -373,23 +485,28 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(942, 473);
-            this.Controls.Add(this.DataGridView);
-            this.Controls.Add(this.BindingNavigator);
+            this.ClientSize = new System.Drawing.Size(1008, 537);
+            this.Controls.Add(this.splitContainer1);
+            this.MinimumSize = new System.Drawing.Size(1024, 576);
             this.Name = "DBViewer";
             this.Text = "DBViewer";
             ((System.ComponentModel.ISupportInitialize)(this.BindingNavigator)).EndInit();
             this.BindingNavigator.ResumeLayout(false);
             this.BindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.eventsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rosDBDataSet)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.announcesBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rosDBDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eventsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.wishesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.optionsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.newsBindingSource)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -421,6 +538,13 @@
         private System.Windows.Forms.BindingSource eventsBindingSource;
         private RosDBDataSetTableAdapters.EventsTableAdapter eventsTableAdapter;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.ToolStripButton toolStripButton4;
+        private System.Windows.Forms.ToolStripButton toolStripButton5;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn summaryDataGridViewTextBoxColumn;

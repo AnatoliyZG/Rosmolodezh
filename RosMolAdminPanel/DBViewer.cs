@@ -9,10 +9,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Office.Interop.Word;
 using static RosMolAdminPanel.General;
 
-using Application = Microsoft.Office.Interop.Word.Application;
 using Rectangle = System.Drawing.Rectangle;
 
 namespace RosMolAdminPanel
@@ -34,6 +32,8 @@ namespace RosMolAdminPanel
         private dynamic _tableAdapter;
         private dynamic _tableData;
 
+        private TextEditor textEditor;
+
         private Dictionary<string, Image> images = new Dictionary<string, Image>();
 
         public DBViewer()
@@ -46,6 +46,7 @@ namespace RosMolAdminPanel
 
         private void announcesBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
+            UpdateTextEditor();
             SaveDB();
             changed = false;
         }
@@ -70,7 +71,16 @@ namespace RosMolAdminPanel
                     DataGridView[0, i].Value = ++max;
                 }
             }
-
+            for (int i = 1; i < 4; i++)
+            {
+                for (int j = 0; j < DataGridView.RowCount; j++)
+                {
+                    if (DataGridView[i, j].Value is DBNull)
+                    {
+                        DataGridView[i, j].Value = string.Empty;
+                    }
+                }
+            }
             _tableAdapter.Update(_tableData);
 
             UploadDB(key);
@@ -164,10 +174,10 @@ namespace RosMolAdminPanel
 
             for (int i = 0; i < DataGridView.RowCount; i++)
             {
-                string value = $"{DataGridView.Rows[i].Cells[0].Value}.jpg";
+                string value = $"{DataGridView[0, i].Value}.jpg";
                 if (images.ContainsKey(value))
                 {
-                    DataGridView.Rows[i].Cells[7].Value = images[value];
+                    DataGridView[7, i].Value = images[value];
                 }
             }
         }
@@ -220,58 +230,19 @@ namespace RosMolAdminPanel
         private async void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Console.WriteLine(e.ColumnIndex);
+        }
 
-            if (e.ColumnIndex == 7 && ServerConnected)
+        private void UpdateTextEditor()
+        {
+            if (textEditor == null) return;
+
+            if (textEditor.GetText == null)
             {
-                using (var dialog = new OpenFileDialog())
-                {
-                    dialog.Filter = "Image file (*.jpg,*.jpeg,*.png)|*.jpg;*.jpeg;*.png";
-
-                    if (dialog.ShowDialog() == DialogResult.OK)
-                    {
-                        byte[] buffer = File.ReadAllBytes(dialog.FileName);
-
-                        Bitmap bmp;
-
-                        using (var ms = new MemoryStream(buffer))
-                        {
-                            bmp = new Bitmap(ms);
-                        }
-
-                        string val = $"{DataGridView.Rows[e.RowIndex].Cells[0].Value}.jpg";
-
-                        if (images.ContainsKey(val))
-                        {
-                            images[val].Dispose();
-                            images[val] = bmp;
-                        }
-                        else
-                        {
-                            images.Add(val, bmp);
-                        }
-
-                        if (bmp.Width > 380 || bmp.Height > 170)
-                        {
-                            try
-                            {
-                                bmp = resizeImage(bmp, new Size(380, 170));
-                                UploadPhoto($"{key}/{val}", ImageToByte(bmp));
-
-                            }catch(Exception ex)
-                            {
-                                Console.WriteLine(ex);
-                            }
-                        }
-                        else
-                        {
-                            UploadPhoto($"{key}/{val}", buffer);
-                        }
-
-                        DataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = bmp;
-
-                        //  bmp.Dispose();
-                    }
-                }
+                textEditor.Cell.Value = DBNull.Value;
+            }
+            else
+            {
+                textEditor.Cell.Value = textEditor.GetText;
             }
         }
 
@@ -302,6 +273,132 @@ namespace RosMolAdminPanel
         {
             ImageConverter converter = new ImageConverter();
             return (byte[])converter.ConvertTo(img, typeof(byte[]));
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            if (textEditor != null) textEditor.Bold();
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            if (textEditor != null) textEditor.Italic();
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            if (textEditor != null) textEditor.Underline();
+        }
+
+        private void toolStripButton5_Click(object sender, EventArgs e)
+        {
+            if (textEditor != null) textEditor.UnorderedList();
+        }
+
+        private void DataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            int column = e.ColumnIndex;
+
+            if (column != 1 && column != 2 && column != 3)
+                return;
+
+            if (textEditor != null)
+            {
+                if (DataGridView[column, e.RowIndex].Value is DBNull)
+                {
+                    textEditor.GetText = "";
+                }
+                else
+                {
+                    textEditor.GetText = (string)DataGridView[column, e.RowIndex].Value;
+                }
+            }
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            if (textEditor != null) textEditor.Tab();
+        }
+
+        private void DataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1) return;
+
+            if (e.ColumnIndex == 7 && ServerConnected)
+            {
+                using (var dialog = new OpenFileDialog())
+                {
+                    dialog.Filter = "Image file (*.jpg,*.jpeg,*.png)|*.jpg;*.jpeg;*.png";
+
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        byte[] buffer = File.ReadAllBytes(dialog.FileName);
+
+                        Bitmap bmp;
+
+                        using (var ms = new MemoryStream(buffer))
+                        {
+                            bmp = new Bitmap(ms);
+                        }
+
+                        string val = $"{DataGridView[0, e.RowIndex].Value}.jpg";
+
+                        if (images.ContainsKey(val))
+                        {
+                            images[val].Dispose();
+                            images[val] = bmp;
+                        }
+                        else
+                        {
+                            images.Add(val, bmp);
+                        }
+
+                        if (bmp.Width > 380 || bmp.Height > 170)
+                        {
+                            try
+                            {
+                                bmp = resizeImage(bmp, new Size(380, 170));
+                                UploadPhoto($"{key}/{val}", ImageToByte(bmp));
+
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex);
+                            }
+                        }
+                        else
+                        {
+                            UploadPhoto($"{key}/{val}", buffer);
+                        }
+
+                        DataGridView[e.ColumnIndex, e.RowIndex].Value = bmp;
+                    }
+                }
+            }
+            else
+            {
+                int selected = e.ColumnIndex;
+                int row = e.RowIndex;
+
+                if (selected == 1 || selected == 2 || selected == 3)
+                {
+
+
+                    var cell = DataGridView[selected, row];
+
+                    if (textEditor != null)
+                    {
+                        if (textEditor.Cell == cell)
+                        {
+                            return;
+                        }
+                        UpdateTextEditor();
+                    }
+
+                    object obj = cell.Value;
+                    textEditor = new TextEditor(webBrowser1, obj is DBNull ? "" : (string)obj, cell);
+                }
+            }
         }
     }
 }

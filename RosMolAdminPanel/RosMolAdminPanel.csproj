@@ -201,6 +201,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RosDBDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="TextEditor.cs" />
     <EmbeddedResource Include="DBViewer.resx">
       <DependentUpon>DBViewer.cs</DependentUpon>
     </EmbeddedResource>

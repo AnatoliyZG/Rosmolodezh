@@ -88,6 +88,7 @@ namespace RosMolApp
                     },
                     new Label()
                     {
+                        TextType= TextType.Html,
                         Margin = new Thickness(20, 15, 20, 10),
                         FontSize = 16,
                         Text = announce.name,
@@ -169,12 +170,21 @@ namespace RosMolApp
                 view.Add(line);
             }
 
+            string smr = expanded ? announce.description.Replace("</P>", "</P><BR>").Replace("<LI>", "<LI>\t")
+                                : announce.summary.Replace("</P>", "</P><BR>").Replace("<LI>", "<LI>\t");
+
+            if (smr.EndsWith("<BR>"))
+            {
+                smr = smr.Remove(smr.Length - 4);
+            }
+
             view.Add(new Label()
             {
                 TextType= TextType.Html,
                 Margin = new Thickness(20, 0),
+                LineHeight=1.2,
                 FontSize = 12,
-                Text = expanded ? announce.description : announce.summary,
+                Text = smr,
             });
 
             view.Add(button);

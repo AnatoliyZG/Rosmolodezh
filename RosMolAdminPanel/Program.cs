@@ -16,7 +16,7 @@ namespace RosMolAdminPanel
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FieldEdit());
+            Application.Run(new DBViewer());
         }
     }
 }
