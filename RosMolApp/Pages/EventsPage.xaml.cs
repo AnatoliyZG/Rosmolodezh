@@ -21,7 +21,7 @@ public partial class EventsPage : ContentPage
 
             foreach (var item in news)
             {
-                ContentView.Add(new BigCard("Ñîáûòèÿ", "Events", item)
+                ContentView.Add(new BigCard("Ð¡Ð¾Ð±Ñ‹Ñ‚Ð¸Ñ", "Events", item)
                 {
                     expand = async (a) =>
                     {

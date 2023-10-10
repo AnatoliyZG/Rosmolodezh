@@ -1,4 +1,4 @@
-﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Shapes;
 using RosMolApp.Pages;
 using RosMolApp.Pages.Templates;

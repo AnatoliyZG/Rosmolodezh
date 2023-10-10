@@ -20,12 +20,12 @@ public partial class RegistrationPage : ContentPage
     {
         if (!AcceptTerms.IsChecked)
         {
-            errorText = "Принятие согласия на обработку персональных данных является обязательным условием для пользования приложением";
+            errorText = "РџСЂРёРЅСЏС‚РёРµ СЃРѕРіР»Р°СЃРёСЏ РЅР° РѕР±СЂР°Р±РѕС‚РєСѓ РїРµСЂСЃРѕРЅР°Р»СЊРЅС‹С… РґР°РЅРЅС‹С… СЏРІР»СЏРµС‚СЃСЏ РѕР±СЏР·Р°С‚РµР»СЊРЅС‹Рј СѓСЃР»РѕРІРёРµРј РґР»СЏ РїРѕР»СЊР·РѕРІР°РЅРёСЏ РїСЂРёР»РѕР¶РµРЅРёРµРј";
             DisplayError();
             return;
         }
 
-        if (!CheckField(LoginField, "Логин", 6) | !CheckField(PassField, "Пароль", 6) | !CheckField(NameField, "Имя", 2) | !CheckField(PhoneField, "Телефон", 18))
+        if (!CheckField(LoginField, "Р›РѕРіРёРЅ", 6) | !CheckField(PassField, "РџР°СЂРѕР»СЊ", 6) | !CheckField(NameField, "РРјСЏ", 2) | !CheckField(PhoneField, "РўРµР»РµС„РѕРЅ", 18))
         {
             DisplayError();
             return;
@@ -76,7 +76,7 @@ public partial class RegistrationPage : ContentPage
 
             if (errorText == null)
             {
-                errorText = $"Поле \"{fieldName}\" должно содержать {minLength} или более символов!";
+                errorText = $"РџРѕР»Рµ \"{fieldName}\" РґРѕР»Р¶РЅРѕ СЃРѕРґРµСЂР¶Р°С‚СЊ {minLength} РёР»Рё Р±РѕР»РµРµ СЃРёРјРІРѕР»РѕРІ!";
             }
 
             return false;
@@ -99,7 +99,7 @@ public partial class RegistrationPage : ContentPage
     {
         if (errorText != null)
         {
-            await DisplayAlert("Ошибка", errorText, "Ок");
+            await DisplayAlert("РћС€РёР±РєР°", errorText, "РћРє");
         }
         errorText = null;
     }
@@ -115,7 +115,7 @@ public partial class RegistrationPage : ContentPage
 
         var picker = await FilePicker.Default.PickAsync(new PickOptions()
         {
-            PickerTitle="Выбор фото профиля",
+            PickerTitle="Р’С‹Р±РѕСЂ С„РѕС‚Рѕ РїСЂРѕС„РёР»СЏ",
             FileTypes = FilePickerFileType.Images
         });
         profilePhoto = picker.FullPath.ToString();

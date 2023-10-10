@@ -15,13 +15,14 @@ public partial class NewsPage : ContentPage
     {
         LoadingOverlay.ActiveLoading(true);
 
+
         try
         {
             var news = await General.RequestData<NewsData>(new DataRequest("News"), true);
 
             foreach (var item in news)
             {
-                ContentView.Add(new BigCard("Новости", "News", item)
+                ContentView.Add(new BigCard("РќРѕРІРѕСЃС‚Рё", "News", item)
                 {
                     expand = async (a) =>
                     {

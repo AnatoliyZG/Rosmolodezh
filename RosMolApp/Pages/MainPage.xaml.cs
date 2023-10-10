@@ -48,23 +48,23 @@ public partial class MainPage : ContentPage
         catch (Exception ex)
         {
             await Navigation.PopAsync();
-            await DisplayAlert("Ошибка", ex.Message, "Ок");
+            await DisplayAlert("РћС€РёР±РєР°", ex.Message, "РћРє");
         }
     }
 
     private async void Goskommol_Clicked(object sender, EventArgs e)
     {
-        LoadAnnonces("Госкоммол", "Announces");
+        LoadAnnonces("Р“РѕСЃРєРѕРјРјРѕР»", "Announces");
     }
 
     private async void Wishes_Clicked(object sender, EventArgs e)
     {
-        LoadAnnonces("Куда я хочу?", "Wishes");
+        LoadAnnonces("РљСѓРґР° СЏ С…РѕС‡Сѓ?", "Wishes");
     }
 
     private async void Options_Clicked(object sender, EventArgs e)
     {
-        LoadAnnonces("Возможности", "Options");
+        LoadAnnonces("Р’РѕР·РјРѕР¶РЅРѕСЃС‚Рё", "Options");
     }
 
     public async void OpenVk(object sender, EventArgs e)

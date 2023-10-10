@@ -34,7 +34,7 @@ public class TextField : ContentView, IDataField
 
         entry = new Entry
         {
-            Placeholder = "Поле ввода...",
+            Placeholder = "РџРѕР»Рµ РІРІРѕРґР°...",
             Keyboard = Keyboard.Email,
             FontSize = 14,
         };
