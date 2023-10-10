@@ -1,15 +1,16 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RosMolApp.Pages.RegistrationPage"
              xmlns:local="clr-namespace:RosMolApp"
              Title="RegistrationPage">
+
     <local:LoadingScreen x:Name="LoadingOverlay">
         <ScrollView>
             <StackLayout>
                 <Image Aspect="Fill"
                        HorizontalOptions="Fill"
-                       Source="vector1.svg"/>
+                       Source="vector1.png"/>
                 <StackLayout Margin="20,25">
                     <Label Text="Фото профиля"
                        HorizontalTextAlignment="Center"/>
