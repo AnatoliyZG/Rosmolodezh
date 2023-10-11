@@ -1,9 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RosMolApp.Pages.AuthPage"
              xmlns:local="clr-namespace:RosMolApp"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="True"
+             Title="Auth">
 
     <VerticalStackLayout VerticalOptions="FillAndExpand">
         <Image HorizontalOptions="FillAndExpand"
@@ -22,6 +23,7 @@
 
             <Button Text="Войти"
                     Margin="0, 20, 0, 5"
+                    Clicked="Login_Clicked"
                     BorderColor="{StaticResource Green1}"/>
             <Button Text="Пройти регистрацию"
                     Clicked="Register_Clicked"

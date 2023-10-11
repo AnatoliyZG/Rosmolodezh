@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RosMolApp.Pages.MainPage"
              xmlns:local="clr-namespace:RosMolApp"
              Shell.NavBarIsVisible="True"
-             Title="Главная">
+             Title="Main">
 
     <ScrollView>
         <VerticalStackLayout Padding="5,10">
@@ -48,6 +48,7 @@
                               EndColor="#FF8D23"
                               Text="Хочу предложить"
                               Summary="Есть идея для проекта? Давай обсудим!"
+                              Clicked="Chat_Clicked"
                               Source="lamp_ico"/>
             <Label Text="Нас всегда можно найти тут:"
                    FontSize="16"

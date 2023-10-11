@@ -21,6 +21,11 @@ public partial class AuthPage : ContentPage
 
     private async void Login_Clicked(object sender, EventArgs e)
     {
+#if DEBUG
+        App.Current.MainPage = new NavigationPage();
+        return;
+#endif
+
         if (await General.LoginAccount(new LoginRequest(login.Text, password.Text)))
         {
            // await Navigation.PopModalAsync(true);

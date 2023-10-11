@@ -13,6 +13,7 @@ public partial class MainPage : ContentPage
     public MainPage()
     {
         InitializeComponent();
+       // Application.Current.Dispatcher.di
     }
 
     public async void LoadAnnonces(string title, string key)
@@ -78,5 +79,10 @@ public partial class MainPage : ContentPage
     public async void OpenTelegram(object sender, EventArgs e)
     {
         await Browser.Default.OpenAsync("https://t.me/telegram");
+    }
+
+    private void Chat_Clicked(object sender, EventArgs e)
+    {
+
     }
 }

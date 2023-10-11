@@ -1,4 +1,4 @@
-﻿namespace RosMolApp;
+namespace RosMolApp;
 
 public partial class AppShell : Shell
 {

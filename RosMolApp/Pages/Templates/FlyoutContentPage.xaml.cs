@@ -1,5 +1,6 @@
 using RosMolExtension;
 using System.Collections;
+using System.Windows.Input;
 
 #pragma warning disable CS4014
 
@@ -7,9 +8,6 @@ namespace RosMolApp.Pages.Templates;
 
 public partial class FlyoutContentPage : ContentPage
 {
-
-    //public string Title { get; set; }
-
     public DateTime lastUpdate = DateTime.MinValue;
 
     public int UpdateRate =
@@ -21,18 +19,21 @@ public partial class FlyoutContentPage : ContentPage
 
     public FlyoutContentPage(string Title)
     {
-        this.Title = Title;
         BindingContext = this;
         InitializeComponent();
+        this.Title = Title;
     }
 
     public void AddView(View content)
     {
+        return;
         ContentView.Children.Add(content);
     }
 
     public async void Load<Data>(Task<Data[]> data, Func<object, View> content) where Data : ReadableData
     {
+        return;
+
         try
         {
             if (DateTime.UtcNow.Subtract(lastUpdate).TotalSeconds > UpdateRate)
@@ -63,7 +64,12 @@ public partial class FlyoutContentPage : ContentPage
 
     }
 
-    private async void Back_Clicked(object sender, EventArgs e)
+    public ICommand back
+    {
+        get => new Command(()=>Back_Clicked());
+    }
+
+    private async void Back_Clicked()
     {
         await Navigation.PopAsync(true);
     }
