@@ -2,15 +2,25 @@
 using RosMolServer;
 
 
+string server = "5.42.220.135"; // "(localdb)\\MSSQLLocalDB"
+string port = "3306";
+string database = "default_db"; // "C:\\USERS\\ZREGA\\DOCUMENTS\\ROSDB.MDF";
+string user = "gen_user";
+string password = "Mt>!C7w$]@N,Y~";
+
 string defaultPrefix = "http://*:4447/connection/";
 
 CancellationTokenSource tokenSource = new();
 
 Listener.StartRecivingThreard(defaultPrefix, tokenSource.Token);
 
-DataBase dataBase = await DataBase.CreateAsync(database: "C:\\USERS\\ZREGA\\DOCUMENTS\\ROSDB.MDF");
+DataBase dataBase = await DataBase.CreateAsync(server, port, database, user, password);
 
 dataBase.GetCachedContent<AnnounceData>("Announces");
+dataBase.GetCachedContent<AnnounceData>("Options");
+dataBase.GetCachedContent<AnnounceData>("Wishes");
+dataBase.GetCachedContent<NewsData>("News");
+dataBase.GetCachedContent<EventData>("Events");
 
 InputRequests inputRequests = new(dataBase);
 

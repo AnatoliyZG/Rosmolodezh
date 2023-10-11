@@ -18,7 +18,7 @@ namespace RosMolAdminPanel
     {
         private const string ServerUrl = "http://10.0.0.25:4447/connection/";
 
-        private const string SecretKey = "root";
+        private const string SecretKey = "v0cu6u2L_h";
 
         public static bool ServerConnected = true;
 

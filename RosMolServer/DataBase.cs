@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
 using Microsoft.Extensions.Caching;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
 using RosMolExtension;
 using System.Reflection.PortableExecutable;
+using MySql.Data.MySqlClient;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RosMolServer
@@ -18,9 +18,9 @@ namespace RosMolServer
     {
         public required MemoryCache cache;
 
-        public required SqlConnection sqlConnection;
+        public required MySqlConnection sqlConnection;
 
-        public string secretKey = "root";
+        public string secretKey = "v0cu6u2L_h";
 
         public Data[]? GetCachedContent<Data>(string? key, ulong? version = null) where Data : ReadableData, new()
         {
@@ -56,8 +56,8 @@ namespace RosMolServer
 
         public Data[] SelectDBData<Data>(string table) where Data : ReadableData, new()
         {
-            var command = new SqlCommand($"SELECT * FROM {table}", sqlConnection);
-            using SqlDataReader reader = command.ExecuteReader();
+            var command = new MySqlCommand($"SELECT * FROM {table}", sqlConnection);
+            using MySqlDataReader reader = command.ExecuteReader();
 
             List<Data> results = new();
 
@@ -75,18 +75,18 @@ namespace RosMolServer
         }
 
 
-        public static async Task<DataBase> CreateAsync(string server = "(localdb)\\MSSQLLocalDB", string database = "master")
+        public static async Task<DataBase> CreateAsync(string server, string port, string database, string? userId , string? password)
         {
             return new DataBase()
             {
                 cache = new MemoryCache(new MemoryCacheOptions()),
-                sqlConnection = await DBConnect(server, database),
+                sqlConnection = await DBConnect($"server={server};port={port};user id={userId};password={password};database={database}"),
             };
         }
 
-        public static async Task<SqlConnection> DBConnect(string server, string database)
+        public static async Task<MySqlConnection> DBConnect(string connectionString)
         {
-            var connection = new SqlConnection($"Server={server};Database={database};Trusted_Connection=True;");
+            var connection = new MySqlConnection(connectionString);
 
             await connection.OpenAsync();
 
@@ -96,7 +96,6 @@ namespace RosMolServer
             Console.WriteLine($"\tСервер: {connection.DataSource}");
             Console.WriteLine($"\tВерсия сервера: {connection.ServerVersion}");
             Console.WriteLine($"\tСостояние: {connection.State}");
-            Console.WriteLine($"\tWorkstationld: {connection.WorkstationId}");
 
             return connection;
         }
