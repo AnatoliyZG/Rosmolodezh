@@ -5,27 +5,27 @@
              xmlns:views="clr-namespace:RosMolApp.Pages">
     <TabBar>
         <Tab Title="Главная" 
-             Icon="main_ico.svg">
+             Icon="main_ico">
             <ShellContent x:Name="mainPage"
                 ContentTemplate="{DataTemplate views:MainPage}" />
         </Tab>
         <Tab Title="Новости"
-             Icon="news_ico.svg">
+             Icon="news_ico">
             <ShellContent x:Name="newsPage"
                 ContentTemplate="{DataTemplate views:NewsPage}" />
         </Tab>
         <Tab Title="События"
-             Icon="events_ico.svg">
+             Icon="events_ico">
             <ShellContent x:Name="eventsPage"
                 ContentTemplate="{DataTemplate views:EventsPage}" />
         </Tab>
         <Tab Title="Профиль"
-             Icon="profile_ico.svg">
+             Icon="profile_ico">
             <ShellContent x:Name="profilePage"
                 ContentTemplate="{DataTemplate views:ProfilePage}" />
         </Tab>
         <Tab Title="Чат"
-             Icon="chat_ico.svg">
+             Icon="chat_ico">
             <ShellContent x:Name="chatPage"
                 ContentTemplate="{DataTemplate views:ChatPage}" />
         </Tab>

@@ -10,7 +10,7 @@
             <StackLayout>
                 <Image Aspect="Fill"
                        HorizontalOptions="Fill"
-                       Source="vector1.png"/>
+                       Source="vector1"/>
                 <StackLayout Margin="20,25">
                     <Label Text="Фото профиля"
                        HorizontalTextAlignment="Center"/>
@@ -18,7 +18,7 @@
                         <Image 
                             HeightRequest="130"
                             WidthRequest="130"
-                            Source="ellipse.svg"/>
+                            Source="ellipse"/>
                         <ImageButton x:Name="ProfileImage"
                                      HeightRequest="124"
                                      WidthRequest="124"
@@ -31,7 +31,7 @@
                             </ImageButton.Clip>
                         </ImageButton>
                         <Image x:Name="ProfileStandart"
-                               Source="human.svg"
+                               Source="human"
                                HeightRequest="64"
                                WidthRequest="64"/>
                     </Grid>

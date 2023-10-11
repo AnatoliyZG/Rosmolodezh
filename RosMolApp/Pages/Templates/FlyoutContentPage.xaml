@@ -11,7 +11,7 @@
                 VerticalOptions="Center"
                 TextColor="Black"
                 FontSize="Title"/>
-            <ImageButton Source="back_btn.svg"
+            <ImageButton Source="back_btn"
                          HeightRequest="24"
                          WidthRequest="24"
                          HorizontalOptions="End"
