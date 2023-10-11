@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="RosMolApp.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -7,15 +7,5 @@
     xmlns:pages="clr-namespace:RosMolApp.Pages"
     Shell.FlyoutBehavior="Disabled">
 
-    <Shell.FlyoutHeader>
-        <Grid>
-            <Label Text="Animals"
-               TextColor="Black"
-               FontAttributes="Bold"
-               HorizontalTextAlignment="Center"
-               VerticalTextAlignment="Center" />
-        </Grid>
-    </Shell.FlyoutHeader>
-    
-    <ShellContent ContentTemplate="{DataTemplate pages:AuthPage}" Route="AuthPage" />
+    <ShellContent ContentTemplate="{DataTemplate pages:MainPage}" Route="AuthPage" />
 </Shell>

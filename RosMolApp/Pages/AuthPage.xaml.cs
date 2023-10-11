@@ -16,7 +16,7 @@ public partial class AuthPage : ContentPage
 
     private async void Register_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushModalAsync(registrationPage, true);
+        await Navigation.PushAsync(registrationPage, true);
     }
 
     private async void Login_Clicked(object sender, EventArgs e)

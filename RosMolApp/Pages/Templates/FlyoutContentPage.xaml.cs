@@ -8,7 +8,7 @@ namespace RosMolApp.Pages.Templates;
 public partial class FlyoutContentPage : ContentPage
 {
 
-    public string Title { get; set; }
+    //public string Title { get; set; }
 
     public DateTime lastUpdate = DateTime.MinValue;
 

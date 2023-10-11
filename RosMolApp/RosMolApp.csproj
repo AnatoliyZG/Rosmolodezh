@@ -15,7 +15,7 @@
 		<ApplicationTitle>RosMolApp</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.rosmolapp</ApplicationId>
+		<ApplicationId>com.zoryagroup.rosmolapp</ApplicationId>
 		<ApplicationIdGuid>601b9deb-b92b-42a6-9eed-7d1c4d240061</ApplicationIdGuid>
 
 		<!-- Versions -->

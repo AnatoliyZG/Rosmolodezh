@@ -114,20 +114,20 @@ public class MediumCard : ContentView
                     }
                 },
             },
+            Padding=20,
         };
 
         grid.Add(Ico, 1, 0);
 
-        Border border = new Border()
+        Frame border = new Frame()
         {
-            StrokeShape = new RoundRectangle { CornerRadius = 25 },
-
+           CornerRadius = 25 ,
+           BackgroundColor=Colors.Transparent,
             Background = new LinearGradientBrush(new GradientStopCollection() {
                 Gradient1,
                 Gradient2,
                 }, new Point(0, 1), new Point(1, 0)),
 
-            Stroke = null,
             Shadow = new Shadow
             {
                 Brush = new SolidColorBrush(Colors.Black),
@@ -135,8 +135,8 @@ public class MediumCard : ContentView
                 Offset = new Point(4, 6),
                 Radius = 4,
             },
-            Padding = 20,
             Margin=new Thickness(0,3),
+            Padding=0,
             Content = grid,
         };
 

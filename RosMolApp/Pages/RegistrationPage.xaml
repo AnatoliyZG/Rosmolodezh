@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RosMolApp.Pages.RegistrationPage"
              xmlns:local="clr-namespace:RosMolApp"
-             Title="RegistrationPage">
+             x:DataType="local:LoadingScreen"
+             Shell.NavBarIsVisible="False">
 
     <local:LoadingScreen x:Name="LoadingOverlay">
         <ScrollView>

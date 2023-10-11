@@ -1,15 +1,9 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RosMolApp.Pages.ChatPage">
-    <Shell.TitleView>
-        <Label 
-        Text="Чат"
-        HorizontalOptions="Start"
-        VerticalOptions="Center"
-        TextColor="White"
-        FontSize="Title" />
-    </Shell.TitleView>
+             x:Class="RosMolApp.Pages.ChatPage"
+             Title="Чат"
+             Shell.NavBarIsVisible="True">
 
     <VerticalStackLayout>
         <Label 
