@@ -49,8 +49,6 @@ public partial class RegistrationPage : ContentPage
 
             if (await General.Register(request))
             {
-                await Navigation.PopModalAsync(true);
-
                 App.Current.MainPage = new NavigationPage();
 
                 if (profilePhoto != null)

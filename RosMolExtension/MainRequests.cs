@@ -83,6 +83,8 @@ namespace RosMolExtension
             Error = 1,
             AlreadyUpdated = 2,
             NoneAuthorize = 3,
+            LoginFailed = 4,
+            UserExists = 5,
         }
 
         public abstract override string ToString();
@@ -135,9 +137,15 @@ namespace RosMolExtension
     {
         public string userId;
 
+        [JsonConstructor]
         public LoginResponse(string userId) : base(0)
         {
             this.userId = userId;
+        }
+
+        public LoginResponse(int? errorCode) : base(errorCode)
+        {
+
         }
 
         public override string ToString()

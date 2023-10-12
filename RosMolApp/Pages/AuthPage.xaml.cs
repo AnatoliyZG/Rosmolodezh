@@ -21,25 +21,26 @@ public partial class AuthPage : ContentPage
 
     private async void Login_Clicked(object sender, EventArgs e)
     {
-#if DEBUG
-        App.Current.MainPage = new NavigationPage();
-        return;
-#endif
-
-        if (await General.LoginAccount(new LoginRequest(login.Text, password.Text)))
+        try
         {
-           // await Navigation.PopModalAsync(true);
-
-            App.Current.MainPage = new NavigationPage();
-
-            /*
-            if (profilePhoto != null)
+            if (await General.LoginAccount(new LoginRequest(login.Text, password.Text)))
             {
-                string format = profilePhoto.Split('.')[^1];
+                // await Navigation.PopModalAsync(true);
 
-                File.Copy(profilePhoto, $"{FileSystem.Current.AppDataDirectory}/ico.{format}", true);
+                App.Current.MainPage = new NavigationPage();
+
+                /*
+                if (profilePhoto != null)
+                {
+                    string format = profilePhoto.Split('.')[^1];
+
+                    File.Copy(profilePhoto, $"{FileSystem.Current.AppDataDirectory}/ico.{format}", true);
+                }
+                */
             }
-            */
+        }catch(ResponseExeption ex)
+        {
+            await Shell.Current.DisplayAlert("Ошибка авторизации", ex.Message, "OK");
         }
     }
 }

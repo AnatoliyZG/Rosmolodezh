@@ -16,7 +16,7 @@ namespace RosMolAdminPanel
 {
     internal static class General
     {
-        private const string ServerUrl = "http://10.0.0.25:4447/connection/";
+        private const string ServerUrl = "http://188.225.34.103:4447/connection/";
 
         private const string SecretKey = "v0cu6u2L_h";
 

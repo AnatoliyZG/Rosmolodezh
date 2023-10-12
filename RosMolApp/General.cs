@@ -13,7 +13,7 @@ namespace RosMolApp
 {
     public static class General
     {
-        private const string ServerUrl = "http://10.0.0.25:4447/connection/";
+        private const string ServerUrl = "http://188.225.34.103:4447/connection/";
 
         public static string UserId { get; set; }
 
@@ -45,12 +45,21 @@ namespace RosMolApp
         {
             LoginResponse response = await GetResponse<LoginResponse, LoginRequest>("log", loginRequest);
 
-            UserId = response.userId;
-
             if (response.ErrorCode != 0)
             {
+                if(response.ResponseStatus == Response.Status.LoginFailed)
+                {
+                    throw new ResponseExeption("Проверьте правильность логина и пароля");
+                }
+                else
+                {
+                    throw new ResponseExeption("Техническая ошибка, проверьте качество интернет соединения или потворите попытку позже.");
+                }
+
                 return false;
             }
+
+            UserId = response.userId;
 
             return true;
         }

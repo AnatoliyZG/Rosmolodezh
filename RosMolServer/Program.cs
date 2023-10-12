@@ -16,11 +16,12 @@ Listener.StartRecivingThreard(defaultPrefix, tokenSource.Token);
 
 DataBase dataBase = await DataBase.CreateAsync(server, port, database, user, password);
 
-dataBase.GetCachedContent<AnnounceData>("Announces");
-dataBase.GetCachedContent<AnnounceData>("Options");
-dataBase.GetCachedContent<AnnounceData>("Wishes");
-dataBase.GetCachedContent<NewsData>("News");
-dataBase.GetCachedContent<EventData>("Events");
+
+dataBase.CacheValue<AnnounceData>("Announces")
+        .CacheValue<AnnounceData>("Options")
+        .CacheValue<AnnounceData>("Wishes")
+        .CacheValue<AnnounceData>("News")
+        .CacheValue<AnnounceData>("Events");
 
 InputRequests inputRequests = new(dataBase);
 
@@ -43,6 +44,9 @@ while (true)
                 {
                     await Listener.GetResponse("http://localhost:4447/connection/", "TEST-REQUEST", ("key", "value"));
                 }
+                break;
+            case "debug":
+                Console.WriteLine("Debug: " + (Listener.AllowDebug = !Listener.AllowDebug));
                 break;
             case "end":
                 dataBase.Dispose();

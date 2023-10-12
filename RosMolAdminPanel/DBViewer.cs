@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -9,6 +11,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using MySql.Data.MySqlClient;
+
 using static RosMolAdminPanel.General;
 
 using Rectangle = System.Drawing.Rectangle;
@@ -17,6 +22,8 @@ namespace RosMolAdminPanel
 {
     public partial class DBViewer : Form
     {
+        private const string connectionString = "server=5.42.220.135;port=3306;user=gen_user;database=default_db;password=Mt>!C7w$]@N,Y~";
+
         private string[] pages =
         {
             "Announces",
@@ -28,18 +35,19 @@ namespace RosMolAdminPanel
 
         private string key;
 
-        private BindingSource _bindingSource;
-        private dynamic _tableAdapter;
-        private dynamic _tableData;
-
         private TextEditor textEditor;
 
         private Dictionary<string, Image> images = new Dictionary<string, Image>();
 
+        private MySqlConnection connection;
+
+        private MySqlDataAdapter dataAdapter;
+
+        private DataTable dataTable;
+
         public DBViewer()
         {
             InitializeComponent();
-
             LoadDB("Announces");
 
         }
@@ -56,21 +64,8 @@ namespace RosMolAdminPanel
         {
             this.Validate();
 
-            BindingNavigator.BindingSource.EndEdit();
+            DataGridView.EndEdit();
 
-            int max = 0;
-            for (int i = 0; i < DataGridView.RowCount; i++)
-            {
-                max = Math.Max(max, (int)(DataGridView[0, i].Value ?? -1));
-            }
-
-            for (int i = 0; i < DataGridView.RowCount; i++)
-            {
-                if ((int)(DataGridView[0, i].Value ?? -1) == -1)
-                {
-                    DataGridView[0, i].Value = ++max;
-                }
-            }
             for (int i = 1; i < 4; i++)
             {
                 for (int j = 0; j < DataGridView.RowCount; j++)
@@ -81,7 +76,10 @@ namespace RosMolAdminPanel
                     }
                 }
             }
-            _tableAdapter.Update(_tableData);
+
+            new MySqlCommandBuilder(dataAdapter);
+
+            dataAdapter.Update(dataTable);
 
             UploadDB(key);
         }
@@ -90,61 +88,41 @@ namespace RosMolAdminPanel
         {
             this.key = key;
 
+            if(connection != null)
+            {
+                connection.Close();
+                dataAdapter.Dispose();
+                dataTable.Dispose();
+            }
+            
+            connection = new MySqlConnection(connectionString);
+
+            connection.Open();
+
+            dataAdapter = new MySqlDataAdapter($"SELECT * FROM {key}", connection);
+
+            DataSet ds = new DataSet();
+
+            dataAdapter.Fill(ds);
+
+            dataTable = ds.Tables[0];
+
+            bindingSource.DataSource = dataTable;
+
+            DataGridView.DataSource = dataTable;
+
+            DataGridView.Columns["PhotoColumn"].DisplayIndex = DataGridView.ColumnCount - 1;
+            DataGridView.Columns["Id"].Visible = false;
+            DataGridView.Columns["name"].ReadOnly = true;
+            DataGridView.Columns["summary"].ReadOnly = true;
+            DataGridView.Columns["description"].ReadOnly = true;
+            DataGridView.Columns["description"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
             foreach (var img in images.Values)
             {
                 img.Dispose();
             }
             images.Clear();
-            if (key == pages[4])
-            {
-                DataGridView.Columns[4].Visible = true;
-                DataGridView.Columns[5].Visible = true;
-                DataGridView.Columns[6].Visible = true;
-
-                _bindingSource = eventsBindingSource;
-                _tableAdapter = eventsTableAdapter;
-                _tableData = rosDBDataSet.Events;
-            }
-            else if (key == pages[3])
-            {
-                DataGridView.Columns[4].Visible = false;
-                DataGridView.Columns[5].Visible = true;
-                DataGridView.Columns[6].Visible = true;
-
-                _bindingSource = newsBindingSource;
-                _tableAdapter = newsTableAdapter;
-                _tableData = rosDBDataSet.News;
-            }
-            else
-            {
-                DataGridView.Columns[4].Visible = false;
-                DataGridView.Columns[5].Visible = false;
-                DataGridView.Columns[6].Visible = false;
-
-                if (key == pages[0])
-                {
-                    _bindingSource = announcesBindingSource;
-                    _tableAdapter = announcesTableAdapter;
-                    _tableData = rosDBDataSet.Announces;
-
-                }
-                else if (key == pages[1])
-                {
-                    _bindingSource = wishesBindingSource;
-                    _tableAdapter = wishesTableAdapter;
-                    _tableData = rosDBDataSet.Wishes;
-
-                }
-                else if (key == pages[2])
-                {
-                    _bindingSource = optionsBindingSource;
-                    _tableAdapter = optionsTableAdapter;
-                    _tableData = rosDBDataSet.Options;
-                }
-            }
-            DataGridView.DataSource = _bindingSource;
-            BindingNavigator.BindingSource = _bindingSource;
-            _tableAdapter.Fill(_tableData);
 
             string[] photos = await GetServerPhotos(key);
 
@@ -164,7 +142,6 @@ namespace RosMolAdminPanel
                     images.Add(val, bmp);
                 }
             }
-
             LoadImages();
         }
 
@@ -174,16 +151,22 @@ namespace RosMolAdminPanel
 
             for (int i = 0; i < DataGridView.RowCount; i++)
             {
-                string value = $"{DataGridView[0, i].Value}.jpg";
+                string value = $"{DataGridView[1, i].Value}.jpg";
                 if (images.ContainsKey(value))
                 {
-                    DataGridView[7, i].Value = images[value];
+                    DataGridView[0, i].Value = images[value];
                 }
             }
         }
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
+            int id = GetMax();
+
+            DataRow row = dataTable.NewRow();
+
+            row["id"] = id;
+            dataTable.Rows.Add(row);
             changed = true;
         }
 
@@ -324,7 +307,7 @@ namespace RosMolAdminPanel
         {
             if (e.RowIndex == -1) return;
 
-            if (e.ColumnIndex == 7 && ServerConnected)
+            if (e.ColumnIndex == 0 && ServerConnected)
             {
                 using (var dialog = new OpenFileDialog())
                 {
@@ -341,7 +324,7 @@ namespace RosMolAdminPanel
                             bmp = new Bitmap(ms);
                         }
 
-                        string val = $"{DataGridView[0, e.RowIndex].Value}.jpg";
+                        string val = $"{DataGridView[1, e.RowIndex].Value}.jpg";
 
                         if (images.ContainsKey(val))
                         {
@@ -380,7 +363,7 @@ namespace RosMolAdminPanel
                 int selected = e.ColumnIndex;
                 int row = e.RowIndex;
 
-                if (selected == 1 || selected == 2 || selected == 3)
+                if (selected == 2 || selected == 3 || selected == 4)
                 {
 
 
@@ -398,6 +381,28 @@ namespace RosMolAdminPanel
                     object obj = cell.Value;
                     textEditor = new TextEditor(webBrowser1, obj is DBNull ? "" : (string)obj, cell);
                 }
+            }
+        }
+
+        public int GetMax()
+        {
+            int id = 0;
+
+            for(int i = 0; i < DataGridView.Rows.Count; i++)
+            {
+                object vl = DataGridView[1, i].Value;
+                if (vl != null) {
+                    id = Math.Max(id, (int)vl);
+                }
+            }
+
+            return id + 1;
+        }
+
+        private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in DataGridView.SelectedRows) {
+                dataTable.Rows.RemoveAt(row.Index);
             }
         }
     }

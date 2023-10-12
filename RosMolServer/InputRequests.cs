@@ -40,15 +40,29 @@ namespace RosMolServer
             _ => (a, b) => 1,
         };
 
-        public static LoginResponse LoginData(LoginRequest loginRequest)
+        public Response LoginData(LoginRequest loginRequest)
         {
             string userId = HashManager.GenerateMD5Hash(loginRequest.login);
 
             if (loginRequest is RegisterRequest registerRequest)
             {
+                if (dataBase.HasUser(userId))
+                {
+                    return 5;
+                }
+
+                dataBase.AddUser(userId);
+
                 if (registerRequest.photo != null)
                 {
                     Tools.SaveSquarePhoto(userId, registerRequest.photo, "Users", 256);
+                }
+            }
+            else
+            {
+                if (!dataBase.HasUser(userId))
+                {
+                    return 4;
                 }
             }
 

@@ -70,11 +70,12 @@ public class TextField : ContentView, IDataField
                 entry.Text = "+7";
                 entry.Completed += (a, b) => entryRefresh();
                 entry.Unfocused += (a, b) => entryRefresh();
+                entry.MaxLength = 18;
 
                 void entryRefresh()
                 {
                     int nums = 0;
-                    long phone = long.Parse(entry.Text.Where(x => char.IsDigit(x)).Skip(1).TakeWhile(a => nums++ < 10).ToArray());
+                    ulong phone = ulong.Parse(entry.Text.Where(x => char.IsDigit(x)).Skip(1).TakeWhile(a => nums++ < 10).ToArray());
 
                     string endf = "(###) ###-##-##";
                     int letters = Math.Min(15, nums + (nums > 8 ? 5 : nums > 6 ? 4 : nums > 3 ? 3 : 1));

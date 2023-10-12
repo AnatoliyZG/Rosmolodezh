@@ -46,6 +46,19 @@ namespace RosMolServer
         }
 
 
+        public DataBase CacheValue<Data>(string key) where Data : ReadableData, new()
+        {
+            GetCachedContent<Data>(key);
+
+            if (!Directory.Exists(key))
+            {
+                Directory.CreateDirectory(key);
+            }
+
+            return this;
+        }
+
+
         public void ReloadDB<Data>(string key) where Data : ReadableData, new()
         {
             var data = SelectDBData<Data>(key);
@@ -74,6 +87,35 @@ namespace RosMolServer
             return results.ToArray();
         }
 
+
+        public void AddUser(string id)
+        {
+            try
+            {
+                string queryString = $"INSERT INTO Users(id) Values id='{id}';";
+
+                MySqlCommand command = new MySqlCommand(queryString, sqlConnection);
+
+                command.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        public bool HasUser(string id)
+        {
+            string queryString = $"SELECT COUNT(1) FROM Users WHERE id='{id}';";
+
+            MySqlCommand command = new MySqlCommand(queryString , sqlConnection);
+
+            using MySqlDataReader reader = command.ExecuteReader();
+
+            if (reader.Read()) return true;
+
+            return false;
+        }
 
         public static async Task<DataBase> CreateAsync(string server, string port, string database, string? userId , string? password)
         {
