@@ -55,8 +55,6 @@ namespace RosMolApp
                 {
                     throw new ResponseExeption("Техническая ошибка, проверьте качество интернет соединения или потворите попытку позже.");
                 }
-
-                return false;
             }
 
             UserId = response.userId;
@@ -163,7 +161,7 @@ namespace RosMolApp
         {
             try
             {
-                var requestMessage = new HttpRequestMessage(HttpMethod.Get, ServerUrl);
+                var requestMessage = new HttpRequestMessage(HttpMethod.Put, ServerUrl);
                 requestMessage.Headers.Add("code", code);
 
                 if (userId)

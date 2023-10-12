@@ -105,19 +105,29 @@ public partial class RegistrationPage : ContentPage
 
     private async void LoadPhoto_Clicked(object sender, EventArgs e)
     {
-        PermissionStatus status = await Permissions.RequestAsync<Permissions.StorageRead>();
+        PermissionStatus status = await Permissions.CheckStatusAsync<Permissions.StorageRead>();
 
         if (status != PermissionStatus.Granted)
         {
-            return;
-        }
+            status = await Permissions.RequestAsync<Permissions.StorageRead>();
 
-        var picker = await FilePicker.Default.PickAsync(new PickOptions()
+            if (status != PermissionStatus.Granted)
+            {
+#if IOS
+                await Shell.Current.DisplayAlert("Ошибка разрешения", "Для использования данной функции предоставтье приложению доступ к хранилищу устройства в настройках приложений.", "Ok");
+#endif
+                return;
+            }
+        }
+        var picker = await MediaPicker.Default.PickPhotoAsync(new MediaPickerOptions()
         {
-            PickerTitle="Выбор фото профиля",
-            FileTypes = FilePickerFileType.Images
+            Title = "Выбор фото профиля",
         });
-        profilePhoto = picker.FullPath.ToString();
+
+        if (picker == null)
+            return;
+
+        profilePhoto = picker.FullPath;
         ProfileImage.Source = profilePhoto;
         
         ProfileStandart.IsVisible = false;

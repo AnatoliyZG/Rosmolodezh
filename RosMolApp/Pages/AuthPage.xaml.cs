@@ -10,8 +10,27 @@ public partial class AuthPage : ContentPage
 	{
 		InitializeComponent();
 
+        CheckPermissions();
+
         registrationPage = new RegistrationPage();
 
+    }
+
+    private async void CheckPermissions()
+    {
+        PermissionStatus status = await Permissions.CheckStatusAsync<Permissions.NetworkState>();
+
+        if(status != PermissionStatus.Granted)
+        {
+            status = await Permissions.RequestAsync<Permissions.NetworkState>();
+
+            if (status != PermissionStatus.Granted)
+            {
+#if IOS
+                await Shell.Current.DisplayAlert("Ошибка разрешения", "Для использования приложения необходимо предоставить доступ к интернет соединению в настройках приложений.", "Ok");
+#endif
+            }
+        }
     }
 
     private async void Register_Clicked(object sender, EventArgs e)

@@ -95,12 +95,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Reference Include="RosMolExtension">
-	    <HintPath>..\RosMolExtension\bin\Debug\net7.0\RosMolExtension.dll</HintPath>
-	  </Reference>
-	</ItemGroup>
-
-	<ItemGroup>
 	  <MauiXaml Update="Pages\AuthPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -155,5 +149,10 @@
 	  <EmbeddedResource Include="Resources\Images\rocket_ico.svg" />
 	  <EmbeddedResource Include="Resources\Images\news_ico.svg" />
 	  <EmbeddedResource Include="Resources\Images\test_b.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Reference Include="RosMolExtension">
+	    <HintPath>..\RosMolExtension\bin\Release\net7.0\RosMolExtension.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 </Project>

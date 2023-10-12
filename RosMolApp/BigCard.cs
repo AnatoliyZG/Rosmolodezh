@@ -55,8 +55,8 @@ namespace RosMolApp
 
             var image = new Image()
             {
-                HorizontalOptions = LayoutOptions.Fill,
-                Aspect = Aspect.Center,
+                HorizontalOptions=LayoutOptions.Fill,
+                Aspect = Aspect.Fill,
                 Background = new LinearGradientBrush(new GradientStopCollection()
                 {
                     new GradientStop(new Color(244, 113, 255),0),
@@ -191,6 +191,7 @@ namespace RosMolApp
 
             var MainContent = new Frame()
             {
+                IsClippedToBounds=true,
                 CornerRadius = 25,
                 Padding = 0,
                 Margin = 5,
