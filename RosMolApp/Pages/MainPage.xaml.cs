@@ -13,18 +13,18 @@ public partial class MainPage : ContentPage
     public MainPage()
     {
         InitializeComponent();
-       // Application.Current.Dispatcher.di
+        // Application.Current.Dispatcher.di
     }
 
-    public async void LoadAnnonces(string title, string key)
+    public async Task LoadAnnonces(string title, string key)
     {
         try
         {
             FlyoutContentPage announcePage;
 
-            if(!pages.TryGetValue(key, out announcePage))
+            if (!pages.TryGetValue(key, out announcePage))
             {
-                announcePage = new FlyoutContentPage(title);
+                announcePage = new FlyoutContentPage(title, "Главная");
                 pages.Add(key, announcePage);
             }
 
@@ -34,7 +34,7 @@ public partial class MainPage : ContentPage
             {
                 expand = async (a) =>
                 {
-                    if(a == null)
+                    if (a == null)
                     {
                         await Navigation.PopAsync(true);
                     }
@@ -55,17 +55,17 @@ public partial class MainPage : ContentPage
 
     private async void Goskommol_Clicked(object sender, EventArgs e)
     {
-        LoadAnnonces("Госкоммол", "Announces");
+        await LoadAnnonces("Госкоммол", "Announces");
     }
 
     private async void Wishes_Clicked(object sender, EventArgs e)
     {
-        LoadAnnonces("Куда я хочу?", "Wishes");
+        await LoadAnnonces("Куда я хочу?", "Wishes");
     }
 
     private async void Options_Clicked(object sender, EventArgs e)
     {
-        LoadAnnonces("Возможности", "Options");
+        await LoadAnnonces("Возможности", "Options");
     }
 
     public async void OpenVk(object sender, EventArgs e)

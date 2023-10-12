@@ -46,6 +46,7 @@ public class TextField : ContentView, IDataField
             Padding = new Thickness(15, 1),
             Margin = new Thickness(0, 5),
             StrokeShape = new RoundRectangle { CornerRadius = 12 },
+            BackgroundColor = Colors.White,
             Stroke = new SolidColorBrush(Colors.White),
             Shadow = new Shadow
             {
@@ -102,7 +103,11 @@ public class DateField : ContentView, IDataField
 
     public DateField()
     {
-        picker = new DatePicker();
+        picker = new DatePicker()
+        {
+            VerticalOptions= LayoutOptions.Center,
+            TextColor=Colors.Gray,
+        };
 
         picker.DateSelected += (o, e) =>
         {
@@ -114,6 +119,7 @@ public class DateField : ContentView, IDataField
             Padding = new Thickness(15, 1),
             Margin = new Thickness(0, 5),
             StrokeShape = new RoundRectangle { CornerRadius = 12 },
+            BackgroundColor = Colors.White,
             Stroke = StrokeColor,
             Shadow = new Shadow
             {

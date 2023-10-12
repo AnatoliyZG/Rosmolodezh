@@ -1,34 +1,39 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RosMolApp.Pages.NavigationPage"
              xmlns:views="clr-namespace:RosMolApp.Pages"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="True">
     <TabBar>
         <Tab Title="Главная" 
              Icon="main_ico">
             <ShellContent x:Name="mainPage"
-                ContentTemplate="{DataTemplate views:MainPage}" />
+                          Title="Главная"
+                ContentTemplate="{DataTemplate views:MainPage}" Route="MainPage"/>
         </Tab>
         <Tab Title="Новости"
              Icon="news_ico">
             <ShellContent x:Name="newsPage"
+                          Title="Новости"
                 ContentTemplate="{DataTemplate views:NewsPage}" />
         </Tab>
         <Tab Title="События"
              Icon="events_ico">
             <ShellContent x:Name="eventsPage"
-                ContentTemplate="{DataTemplate views:EventsPage}" />
+                          Title="События"
+                          ContentTemplate="{DataTemplate views:EventsPage}" />
         </Tab>
         <Tab Title="Профиль"
              Icon="profile_ico">
             <ShellContent x:Name="profilePage"
+                          Title="Профиль"
                 ContentTemplate="{DataTemplate views:ProfilePage}" />
         </Tab>
         <Tab Title="Чат"
              Icon="chat_ico">
             <ShellContent x:Name="chatPage"
-                ContentTemplate="{DataTemplate views:AuthPage}" />
+                          Title="Чат"
+                ContentTemplate="{DataTemplate views:ChatPage}" />
         </Tab>
     </TabBar>
 </Shell>

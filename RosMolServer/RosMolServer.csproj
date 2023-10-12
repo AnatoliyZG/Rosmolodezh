@@ -19,5 +19,8 @@
     <Reference Include="RosMolExtension">
       <HintPath>C:\Users\zrega\Documents\GitHub\Rosmolodezh\RosMolExtension\bin\Debug\net7.0\RosMolExtension.dll</HintPath>
     </Reference>
+    <Reference Include="RosMolExtension">
+      <HintPath>..\RosMolExtension\bin\Debug\net7.0\RosMolExtension.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
