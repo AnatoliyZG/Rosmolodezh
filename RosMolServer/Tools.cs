@@ -47,4 +47,9 @@ namespace RosMolServer
             return new SimpleResponse<string[]>(new DirectoryInfo(key).GetFiles().Select((a)=>a.Name).ToArray());
         }
     }
+
+    public class User
+    {
+        public string Password { get; set; }
+    }
 }

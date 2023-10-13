@@ -42,31 +42,41 @@ namespace RosMolServer
 
         public Response LoginData(LoginRequest loginRequest)
         {
-            string userId = HashManager.GenerateMD5Hash(loginRequest.login);
-
-            if (loginRequest is RegisterRequest registerRequest)
+            try
             {
-                if (dataBase.HasUser(userId))
+                string userId = HashManager.GenerateMD5Hash(loginRequest.login);
+
+                if (loginRequest is RegisterRequest registerRequest)
                 {
-                    return 5;
+                    if (dataBase.GetUser(loginRequest.login) != null)
+                    {
+                        return 5;
+                    }
+
+                    dataBase.AddUser(loginRequest);
+
+                    if (registerRequest.photo != null)
+                    {
+                        Tools.SaveSquarePhoto(userId, registerRequest.photo, "Users", 256);
+                    }
+                }
+                else
+                {
+                    var user = dataBase.GetUser(loginRequest.login);
+
+                    if(user == null || user.Password != loginRequest.password)
+                    {
+                        return 4;
+                    }
                 }
 
-                dataBase.AddUser(userId);
-
-                if (registerRequest.photo != null)
-                {
-                    Tools.SaveSquarePhoto(userId, registerRequest.photo, "Users", 256);
-                }
+                return new LoginResponse(userId);
             }
-            else
+            catch(Exception ex)
             {
-                if (!dataBase.HasUser(userId))
-                {
-                    return 4;
-                }
+                Console.WriteLine(ex);
+                return new ErrorResponse(Response.Status.Error);
             }
-
-            return new LoginResponse(userId);
         }
 
 

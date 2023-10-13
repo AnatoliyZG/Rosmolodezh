@@ -13,7 +13,6 @@ public partial class MainPage : ContentPage
     public MainPage()
     {
         InitializeComponent();
-        // Application.Current.Dispatcher.di
     }
 
     public async Task LoadAnnonces(string title, string key)
@@ -84,5 +83,11 @@ public partial class MainPage : ContentPage
     private void Chat_Clicked(object sender, EventArgs e)
     {
 
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+       // Shell.SetTitleColor(this, Colors.Black);
     }
 }

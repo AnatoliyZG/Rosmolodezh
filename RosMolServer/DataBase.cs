@@ -11,6 +11,7 @@ using RosMolExtension;
 using System.Reflection.PortableExecutable;
 using MySql.Data.MySqlClient;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using MySqlX.XDevAPI.Relational;
 
 namespace RosMolServer
 {
@@ -21,6 +22,8 @@ namespace RosMolServer
         public required MySqlConnection sqlConnection;
 
         public string secretKey = "v0cu6u2L_h";
+
+        public Dictionary<string, User> Users = new Dictionary<string, User>();
 
         public Data[]? GetCachedContent<Data>(string? key, ulong? version = null) where Data : ReadableData, new()
         {
@@ -69,7 +72,10 @@ namespace RosMolServer
 
         public Data[] SelectDBData<Data>(string table) where Data : ReadableData, new()
         {
+            sqlConnection.Open();
+
             var command = new MySqlCommand($"SELECT * FROM {table}", sqlConnection);
+
             using MySqlDataReader reader = command.ExecuteReader();
 
             List<Data> results = new();
@@ -84,37 +90,66 @@ namespace RosMolServer
 
             reader.Close();
 
+            sqlConnection.Close();
+
             return results.ToArray();
         }
 
-
-        public void AddUser(string id)
+        public void LoadUsers()
         {
+            sqlConnection.Open();
+
+            var command = new MySqlCommand($"SELECT * FROM Users", sqlConnection);
+
+            using MySqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Users.Add(reader.GetString(0), new User()
+                {
+                    Password = reader.GetString(1),
+                });
+            }
+
+            sqlConnection.Close();
+
+            Console.WriteLine($"Loaded {Users.Count} users");
+        }
+
+        public void AddUser(LoginRequest request)
+        {
+            sqlConnection.Open();
+
             try
             {
-                string queryString = $"INSERT INTO Users(id) Values id='{id}';";
+                string queryString = $"INSERT INTO Users(id, pass) Values('{request.login}','{request.password}');";
 
                 MySqlCommand command = new MySqlCommand(queryString, sqlConnection);
 
                 command.ExecuteNonQuery();
+
+                Users.Add(request.login, new User()
+                {
+                    Password = request.password,
+                });
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex);
             }
+            finally
+            {
+                sqlConnection.Close();
+            }
         }
 
-        public bool HasUser(string id)
+        public User? GetUser(string login)
         {
-            string queryString = $"SELECT COUNT(1) FROM Users WHERE id='{id}';";
-
-            MySqlCommand command = new MySqlCommand(queryString , sqlConnection);
-
-            using MySqlDataReader reader = command.ExecuteReader();
-
-            if (reader.Read()) return true;
-
-            return false;
+            if(Users.TryGetValue(login, out var user))
+            {
+                return user;
+            }
+            return null;
         }
 
         public static async Task<DataBase> CreateAsync(string server, string port, string database, string? userId , string? password)
@@ -138,6 +173,8 @@ namespace RosMolServer
             Console.WriteLine($"\tСервер: {connection.DataSource}");
             Console.WriteLine($"\tВерсия сервера: {connection.ServerVersion}");
             Console.WriteLine($"\tСостояние: {connection.State}");
+
+            connection.Close();
 
             return connection;
         }

@@ -6,4 +6,11 @@ public partial class ProfilePage : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    private void Exit_Clicked(object sender, EventArgs e)
+    {
+        General.DeleteAccounteCache();
+
+        Application.Current.MainPage = new AppShell();
+    }
 }

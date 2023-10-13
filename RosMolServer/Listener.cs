@@ -101,7 +101,15 @@ namespace RosMolServer
                 request.InputStream.Close();
                 reader.Close();
 
-                string? responseString = OnListened?.Invoke(request.Headers, requestBody)?.ToString();
+                string? responseString;
+
+                try
+                {
+                    responseString = OnListened?.Invoke(request.Headers, requestBody)?.ToString();
+                }catch(Exception e)
+                {
+                    responseString = new ErrorResponse(Response.Status.Error).ToString();
+                }
 
                 if (responseString != null)
                 {

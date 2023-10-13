@@ -1,34 +1,38 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RosMolApp.Pages.AuthPage"
              xmlns:local="clr-namespace:RosMolApp"
              Shell.NavBarIsVisible="False">
 
-    <VerticalStackLayout VerticalOptions="FillAndExpand">
-        <Image HorizontalOptions="FillAndExpand"
+    <local:LoadingScreen x:Name="loadingScreen">
+        <VerticalStackLayout VerticalOptions="FillAndExpand">
+            <Image HorizontalOptions="FillAndExpand"
                HeightRequest="221" BackgroundColor="Aqua"/>
-        <VerticalStackLayout HorizontalOptions="FillAndExpand"
+            <VerticalStackLayout HorizontalOptions="FillAndExpand"
                              Margin="20">
-            <Label Text="Логин"
+                <Label Text="Логин"
                    FontSize="14"
                    HorizontalTextAlignment="Center"/>
-            <local:TextField x:Name="login"/>
-            
-            <Label Text="Пароль"
+                <local:TextField x:Name="login"/>
+
+                <Label Text="Пароль"
                    Margin="0,5,0,0"
                    HorizontalTextAlignment="Center"/>
-            <local:TextField x:Name="password"/>
+                <local:TextField x:Name="password"/>
 
-            <Button Text="Войти"
+                <Button Text="Войти"
                     Margin="0, 20, 0, 5"
                     Clicked="Login_Clicked"
+                    IsEnabled="{Binding IsAvail}"
                     BorderColor="{StaticResource Green1}"/>
-            <Button Text="Пройти регистрацию"
+                <Button Text="Пройти регистрацию"
                     Clicked="Register_Clicked"
                     Margin="0, 5, 0, 0"
+                    IsEnabled="{Binding IsAvail}"
                     BorderColor="{StaticResource Blue1}"/>
-            
+
+            </VerticalStackLayout>
         </VerticalStackLayout>
-    </VerticalStackLayout>
+    </local:LoadingScreen>
 </ContentPage>

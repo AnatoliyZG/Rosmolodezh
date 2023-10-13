@@ -36,7 +36,10 @@ public partial class RegistrationPage : ContentPage
 
         try
         {
-            RegisterRequest request = new RegisterRequest(LoginField.Text, PassField.Text)
+            string _login = LoginField.Text;
+            string _pass = PassField.Text;
+
+            RegisterRequest request = new RegisterRequest(_login, _pass)
             {
                 city = CityField.Text,
                 bornDate = BornField.Date,
@@ -57,11 +60,13 @@ public partial class RegistrationPage : ContentPage
 
                     File.Copy(profilePhoto, $"{FileSystem.Current.AppDataDirectory}/ico.{format}", true);
                 }
+
+                General.SaveAccountCache(_login, _pass);
             }
         }
         catch (ResponseExeption ex)
         {
-            DisplayError(ex.Message);
+            DisplayError(ex.DisplayMessage);
         }
 
         LoadingOverlay.ActiveLoading(false);

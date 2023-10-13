@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
@@ -38,30 +38,6 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
-	<ItemGroup>
-	  <MauiImage Remove="Resources\Images\like_ico.svg" />
-	  <MauiImage Remove="Resources\Images\test_big.svg" />
-	  <MauiImage Remove="Resources\Images\vk.svg" />
-	  <MauiImage Remove="Resources\Images\back_btn.svg" />
-	  <MauiImage Remove="Resources\Images\profile_ico.svg" />
-	  <MauiImage Remove="Resources\Images\dotnet_bot.svg" />
-	  <MauiImage Remove="Resources\Images\ellipse.svg" />
-	  <MauiImage Remove="Resources\Images\time.svg" />
-	  <MauiImage Remove="Resources\Images\event.svg" />
-	  <MauiImage Remove="Resources\Images\events_ico.svg" />
-	  <MauiImage Remove="Resources\Images\tg.svg" />
-	  <MauiImage Remove="Resources\Images\vector1.svg" />
-	  <MauiImage Remove="Resources\Images\goskommol_ico.svg" />
-	  <MauiImage Remove="Resources\Images\yandex.svg" />
-	  <MauiImage Remove="Resources\Images\star.svg" />
-	  <MauiImage Remove="Resources\Images\lamp_ico.svg" />
-	  <MauiImage Remove="Resources\Images\main_ico.svg" />
-	  <MauiImage Remove="Resources\Images\human.svg" />
-	  <MauiImage Remove="Resources\Images\chat_ico.svg" />
-	  <MauiImage Remove="Resources\Images\rocket_ico.svg" />
-	  <MauiImage Remove="Resources\Images\news_ico.svg" />
-	  <MauiImage Remove="Resources\Images\test_b.png" />
-	</ItemGroup>
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -125,30 +101,30 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Resources\Images\like_ico.svg" />
-	  <EmbeddedResource Include="Resources\Images\test_big.svg" />
-	  <EmbeddedResource Include="Resources\Images\vk.svg" />
-	  <EmbeddedResource Include="Resources\Images\back_btn.svg" />
-	  <EmbeddedResource Include="Resources\Images\profile_ico.svg" />
-	  <EmbeddedResource Include="Resources\Images\dotnet_bot.svg">
+	  <MauiImage Include="Resources\Images\like_ico.svg" />
+	  <MauiImage Include="Resources\Images\test_big.svg" />
+	  <MauiImage Include="Resources\Images\vk.svg" />
+	  <MauiImage Include="Resources\Images\back_btn.svg" />
+	  <MauiImage Include="Resources\Images\profile_ico.svg" />
+	  <MauiImage Include="Resources\Images\dotnet_bot.svg">
 	    <BaseSize>168,208</BaseSize>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="Resources\Images\ellipse.svg" />
-	  <EmbeddedResource Include="Resources\Images\time.svg" />
-	  <EmbeddedResource Include="Resources\Images\event.svg" />
-	  <EmbeddedResource Include="Resources\Images\events_ico.svg" />
-	  <EmbeddedResource Include="Resources\Images\tg.svg" />
-	  <EmbeddedResource Include="Resources\Images\vector1.svg" />
-	  <EmbeddedResource Include="Resources\Images\goskommol_ico.svg" />
-	  <EmbeddedResource Include="Resources\Images\yandex.svg" />
-	  <EmbeddedResource Include="Resources\Images\star.svg" />
-	  <EmbeddedResource Include="Resources\Images\lamp_ico.svg" />
-	  <EmbeddedResource Include="Resources\Images\main_ico.svg" />
-	  <EmbeddedResource Include="Resources\Images\human.svg" />
-	  <EmbeddedResource Include="Resources\Images\chat_ico.svg" />
-	  <EmbeddedResource Include="Resources\Images\rocket_ico.svg" />
-	  <EmbeddedResource Include="Resources\Images\news_ico.svg" />
-	  <EmbeddedResource Include="Resources\Images\test_b.png" />
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\ellipse.svg" />
+	  <MauiImage Include="Resources\Images\time.svg" />
+	  <MauiImage Include="Resources\Images\event.svg" />
+	  <MauiImage Include="Resources\Images\events_ico.svg" />
+	  <MauiImage Include="Resources\Images\tg.svg" />
+	  <MauiImage Include="Resources\Images\vector1.svg" />
+	  <MauiImage Include="Resources\Images\goskommol_ico.svg" />
+	  <MauiImage Include="Resources\Images\yandex.svg" />
+	  <MauiImage Include="Resources\Images\star.svg" />
+	  <MauiImage Include="Resources\Images\lamp_ico.svg" />
+	  <MauiImage Include="Resources\Images\main_ico.svg" />
+	  <MauiImage Include="Resources\Images\human.svg" />
+	  <MauiImage Include="Resources\Images\chat_ico.svg" />
+	  <MauiImage Include="Resources\Images\rocket_ico.svg" />
+	  <MauiImage Include="Resources\Images\news_ico.svg" />
+	  <MauiImage Include="Resources\Images\test_b.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Reference Include="RosMolExtension">

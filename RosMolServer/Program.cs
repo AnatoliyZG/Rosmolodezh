@@ -16,6 +16,7 @@ Listener.StartRecivingThreard(defaultPrefix, tokenSource.Token);
 
 DataBase dataBase = await DataBase.CreateAsync(server, port, database, user, password);
 
+dataBase.LoadUsers();
 
 dataBase.CacheValue<AnnounceData>("Announces")
         .CacheValue<AnnounceData>("Options")

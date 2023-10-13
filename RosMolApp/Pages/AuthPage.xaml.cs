@@ -12,6 +12,31 @@ public partial class AuthPage : ContentPage
 
         CheckPermissions();
 
+        (string, string)? accInfo = General.LoadAccountCache();
+
+        if (accInfo != null)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    if (await General.LoginAccount(new LoginRequest(accInfo.Value.Item1, accInfo.Value.Item2)))
+                    {
+                        App.Current.MainPage = new NavigationPage();
+                        return;
+                    }
+                }catch(ResponseExeption ex)
+                {
+                    if(ex.status == Response.Status.LoginFailed)
+                        General.DeleteAccounteCache();
+                }
+                catch
+                {
+                    General.DeleteAccounteCache();
+                }
+            }).Wait();
+        }
+
         registrationPage = new RegistrationPage();
 
     }
@@ -40,26 +65,39 @@ public partial class AuthPage : ContentPage
 
     private async void Login_Clicked(object sender, EventArgs e)
     {
+        string _login = login.Text;
+        string _pass = password.Text;
+
+        if(await LoginAccount(_login, _pass))
+        {
+            General.SaveAccountCache(_login, _pass);
+        }
+    }
+
+    public async Task<bool> LoginAccount(string login, string password)
+    {
+        loadingScreen.ActiveLoading(true);
+
         try
         {
-            if (await General.LoginAccount(new LoginRequest(login.Text, password.Text)))
+            if (await General.LoginAccount(new LoginRequest(login, password)))
             {
-                // await Navigation.PopModalAsync(true);
-
                 App.Current.MainPage = new NavigationPage();
-
-                /*
-                if (profilePhoto != null)
-                {
-                    string format = profilePhoto.Split('.')[^1];
-
-                    File.Copy(profilePhoto, $"{FileSystem.Current.AppDataDirectory}/ico.{format}", true);
-                }
-                */
+                return true;
             }
-        }catch(ResponseExeption ex)
+            else
+            {
+                return false;
+            }
+        }
+        catch (ResponseExeption ex)
         {
-            await Shell.Current.DisplayAlert("Ошибка авторизации", ex.Message, "OK");
+            await Shell.Current.DisplayAlert("Ошибка авторизации", ex.DisplayMessage, "OK");
+            return false;
+        }
+        finally
+        {
+            loadingScreen.ActiveLoading(false);
         }
     }
 }

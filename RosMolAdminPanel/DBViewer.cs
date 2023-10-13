@@ -77,9 +77,13 @@ namespace RosMolAdminPanel
                 }
             }
 
+           // connection.Open();
+
             new MySqlCommandBuilder(dataAdapter);
 
             dataAdapter.Update(dataTable);
+
+            //connection.Close();
 
             UploadDB(key);
         }
@@ -110,6 +114,8 @@ namespace RosMolAdminPanel
             bindingSource.DataSource = dataTable;
 
             DataGridView.DataSource = dataTable;
+
+            connection.Close();
 
             DataGridView.Columns["PhotoColumn"].DisplayIndex = DataGridView.ColumnCount - 1;
             DataGridView.Columns["Id"].Visible = false;

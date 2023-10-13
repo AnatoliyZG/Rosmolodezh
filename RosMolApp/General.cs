@@ -23,6 +23,8 @@ namespace RosMolApp
             IncludeFields = true,
         };
 
+        private const ushort secretKey = 0x1288;
+
 
         public static async Task<bool> Register(RegisterRequest registerRequest)
         {
@@ -32,7 +34,7 @@ namespace RosMolApp
 
             if (response.ResponseStatus != Response.Status.OK)
             {
-                throw new ResponseExeption(response.ResponseStatus.ToString());
+                throw new ResponseExeption(response.ResponseStatus);
             }
 
             UserId = response.userId;
@@ -47,19 +49,60 @@ namespace RosMolApp
 
             if (response.ErrorCode != 0)
             {
-                if(response.ResponseStatus == Response.Status.LoginFailed)
-                {
-                    throw new ResponseExeption("Проверьте правильность логина и пароля");
-                }
-                else
-                {
-                    throw new ResponseExeption("Техническая ошибка, проверьте качество интернет соединения или потворите попытку позже.");
-                }
+                throw new ResponseExeption(response.ResponseStatus);
             }
 
             UserId = response.userId;
 
             return true;
+        }
+
+        internal static void SaveAccountCache(string login, string password)
+        {
+            File.WriteAllLines(CachePath("acc"), new string[2]{
+                EncodeDecrypt(login, secretKey),
+                EncodeDecrypt(password, secretKey) });
+        }
+
+        internal static (string login, string password)? LoadAccountCache()
+        {
+            if (!File.Exists(CachePath("acc")))
+                return null;
+
+            try
+            {
+                string[] strs = File.ReadAllLines(CachePath("acc"));
+
+                return (EncodeDecrypt(strs[0], secretKey), EncodeDecrypt(strs[1], secretKey));
+            }
+            catch
+            {
+                DeleteAccounteCache();
+                return null;
+            }
+        }
+
+        internal static void DeleteAccounteCache()
+        {
+            File.Delete(CachePath("acc"));
+        }
+
+        private static string EncodeDecrypt(string str, ushort secretKey)
+        {
+            if (str == null)
+                return string.Empty;
+
+            var ch = str.ToArray();
+            string newStr = "";
+            foreach (var c in ch)
+                newStr += TopSecret(c, secretKey);
+            return newStr;
+        }
+
+        private static char TopSecret(char character, ushort secretKey)
+        {
+            character = (char)(character ^ secretKey);
+            return character;
         }
 
         public static async Task<ImageSource> RequestImage(PhotoRequest request)
@@ -90,7 +133,7 @@ namespace RosMolApp
             }
             File.WriteAllBytes(path, response.content);
 
-            return ImageSource.FromStream(()=>new MemoryStream(response.content));
+            return ImageSource.FromStream(() => new MemoryStream(response.content));
         }
 
         public static async Task<Data[]> RequestData<Data>(DataRequest dataRequest, bool cache = true) where Data : ReadableData
@@ -113,7 +156,7 @@ namespace RosMolApp
                     return await RequestData<Data>(dataRequest, cache);
                 }
 
-                throw new ResponseExeption(response.ResponseStatus.ToString());
+                throw new ResponseExeption(response.ResponseStatus);
             }
 
             if (cache)
@@ -155,7 +198,7 @@ namespace RosMolApp
             return false;
         }
 
-        private static string CachePath(string key) => $"{FileSystem.Current.AppDataDirectory}/{key}";
+        private static string CachePath(string key) => $"{FileSystem.Current.CacheDirectory}/{key}";
 
         private static async Task<TResponse> GetResponse<TResponse, TRequest>(string code, TRequest request, bool userId = false, string version = null) where TResponse : Response where TRequest : Request
         {
@@ -187,7 +230,7 @@ namespace RosMolApp
             }
             catch (TaskCanceledException)
             {
-                throw new ResponseExeption("Техническая ошибка, проверьте качество интернет соединения или потворите попытку позже.");
+                throw new ResponseExeption(Response.Status.Error);
             }
             catch (Exception ex)
             {
