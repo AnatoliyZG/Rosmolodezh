@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:RosMolApp"
     xmlns:pages="clr-namespace:RosMolApp.Pages"
-    Shell.FlyoutBehavior="Disabled">
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarHasShadow="True">
 
     <ShellContent ContentTemplate="{DataTemplate pages:AuthPage}" Route="AuthPage" />
 </Shell>

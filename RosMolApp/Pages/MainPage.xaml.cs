@@ -13,6 +13,7 @@ public partial class MainPage : ContentPage
     public MainPage()
     {
         InitializeComponent();
+        this.Title = "Главная";
     }
 
     public async Task LoadAnnonces(string title, string key)
@@ -23,7 +24,7 @@ public partial class MainPage : ContentPage
 
             if (!pages.TryGetValue(key, out announcePage))
             {
-                announcePage = new FlyoutContentPage(title, "Главная");
+                announcePage = new FlyoutContentPage(title);
                 pages.Add(key, announcePage);
             }
 

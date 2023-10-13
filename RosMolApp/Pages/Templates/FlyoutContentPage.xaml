@@ -4,14 +4,9 @@
              x:Class="RosMolApp.Pages.Templates.FlyoutContentPage"
              xmlns:pages="clr-namespace:RosMolApp.Pages.Templates"
              xmlns:local="clr-namespace:RosMolApp"
-             x:DataType="pages:FlyoutContentPage"
              Shell.NavBarIsVisible="True"
              Shell.ForegroundColor="Black"
              Shell.TitleColor="{OnPlatform Black, iOS=Transparent}">
-
-    <Shell.BackButtonBehavior>
-        <BackButtonBehavior Command="{Binding back}"/>
-    </Shell.BackButtonBehavior>
     
     <local:LoadingScreen x:Name="LoadingOverlay">
         <ScrollView>

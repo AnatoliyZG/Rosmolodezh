@@ -64,26 +64,25 @@ namespace RosMolAdminPanel
         {
             this.Validate();
 
-            DataGridView.EndEdit();
 
-            for (int i = 1; i < 4; i++)
+            for (int i = 2; i < 5; i++)
             {
                 for (int j = 0; j < DataGridView.RowCount; j++)
                 {
-                    if (DataGridView[i, j].Value is DBNull)
+                    if (DataGridView[i, j].Value == null)
                     {
                         DataGridView[i, j].Value = string.Empty;
                     }
                 }
             }
 
-           // connection.Open();
+            DataGridView.EndEdit();
 
             new MySqlCommandBuilder(dataAdapter);
 
             dataAdapter.Update(dataTable);
 
-            //connection.Close();
+            dataTable.AcceptChanges();
 
             UploadDB(key);
         }
@@ -111,18 +110,37 @@ namespace RosMolAdminPanel
 
             dataTable = ds.Tables[0];
 
+
             bindingSource.DataSource = dataTable;
 
-            DataGridView.DataSource = dataTable;
+            DataGridView.DataSource = bindingSource;
 
             connection.Close();
 
             DataGridView.Columns["PhotoColumn"].DisplayIndex = DataGridView.ColumnCount - 1;
-            DataGridView.Columns["Id"].Visible = false;
+          //  DataGridView.Columns["Id"].Visible = false;
             DataGridView.Columns["name"].ReadOnly = true;
             DataGridView.Columns["summary"].ReadOnly = true;
             DataGridView.Columns["description"].ReadOnly = true;
             DataGridView.Columns["description"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            for(int i = 1; i < dataTable.Columns.Count; i++) 
+            {
+                dataTable.Columns[i].AllowDBNull = false;
+                Type cellType = dataTable.Columns[i].DataType;
+
+                if (cellType == typeof(string))
+                {
+                    dataTable.Columns[i].DefaultValue = string.Empty;
+                }else if(cellType == typeof(DateTime))
+                {
+                    dataTable.Columns[i].DefaultValue = DateTime.Now.Date;
+                }
+            }
+
+            dataTable.Columns[0].Unique = true;
+            dataTable.Columns[0].AutoIncrement = true;
+            dataTable.Columns[0].AutoIncrementSeed = GetMax();
 
             foreach (var img in images.Values)
             {
@@ -167,6 +185,7 @@ namespace RosMolAdminPanel
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
+            /*
             int id = GetMax();
 
             DataRow row = dataTable.NewRow();
@@ -174,6 +193,7 @@ namespace RosMolAdminPanel
             row["id"] = id;
             dataTable.Rows.Add(row);
             changed = true;
+            */
         }
 
         private bool changed = false;
@@ -407,9 +427,11 @@ namespace RosMolAdminPanel
 
         private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
         {
+            /*
             foreach (DataGridViewRow row in DataGridView.SelectedRows) {
                 dataTable.Rows.RemoveAt(row.Index);
             }
+            */
         }
     }
 }

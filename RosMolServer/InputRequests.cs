@@ -44,6 +44,9 @@ namespace RosMolServer
         {
             try
             {
+                if (loginRequest.login == null)
+                    return 4;
+
                 string userId = HashManager.GenerateMD5Hash(loginRequest.login);
 
                 if (loginRequest is RegisterRequest registerRequest)
@@ -57,7 +60,7 @@ namespace RosMolServer
 
                     if (registerRequest.photo != null)
                     {
-                        Tools.SaveSquarePhoto(userId, registerRequest.photo, "Users", 256);
+                        Tools.SaveSquarePhoto(loginRequest.login, registerRequest.photo, "Users", 256);
                     }
                 }
                 else

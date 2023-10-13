@@ -8,8 +8,6 @@ namespace RosMolApp.Pages.Templates;
 
 public partial class FlyoutContentPage : ContentPage
 {
-    private string previousTitle;
-    private string title;
 
     public DateTime lastUpdate = DateTime.MinValue;
 
@@ -20,12 +18,11 @@ public partial class FlyoutContentPage : ContentPage
         120;
 #endif
 
-    public FlyoutContentPage(string title, string previousTitle = null)
+    public FlyoutContentPage(string title)
     {
         BindingContext = this;
         InitializeComponent();
-        this.title = title;
-        this.previousTitle = previousTitle;
+        Title = title;
     }
 
     public void AddView(View content)
@@ -62,24 +59,5 @@ public partial class FlyoutContentPage : ContentPage
         {
             LoadingOverlay.ActiveLoading(false);
         }
-
-    }
-
-    public ICommand back
-    {
-        get => new Command(()=>Back_Clicked());
-    }
-
-    private async void Back_Clicked()
-    {
-        if (previousTitle != null) Title = previousTitle;
-
-        await Navigation.PopAsync(true);
-    }
-
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        Title = title;
     }
 }
