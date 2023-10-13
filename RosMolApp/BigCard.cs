@@ -170,8 +170,8 @@ namespace RosMolApp
                 view.Add(line);
             }
 
-            string smr = expanded ? announce.description.Replace("</P>", "</P><BR>").Replace("<LI>", "<LI>\t")
-                                : announce.summary.Replace("</P>", "</P><BR>").Replace("<LI>", "<LI>\t");
+            string smr = expanded ? announce.description : announce.summary;
+               // expanded ? announce.description.Replace("</P>", "</P><BR>").Replace("<LI>", "<LI>\t") : announce.summary.Replace("</P>", "</P><BR>").Replace("<LI>", "<LI>\t");
 
             if (smr.EndsWith("<BR>"))
             {
