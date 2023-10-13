@@ -4,8 +4,6 @@
              x:Class="RosMolApp.Pages.Templates.FlyoutContentPage"
              xmlns:pages="clr-namespace:RosMolApp.Pages.Templates"
              xmlns:local="clr-namespace:RosMolApp"
-             Shell.NavBarIsVisible="True"
-             Shell.ForegroundColor="Black"
              Shell.TitleColor="{OnPlatform Black, iOS=Transparent}">
     
     <local:LoadingScreen x:Name="LoadingOverlay">
