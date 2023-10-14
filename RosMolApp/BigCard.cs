@@ -120,8 +120,8 @@ namespace RosMolApp
                                 },
                                 new Label()
                                 {
-                                    
-                                    Text = $"{news.startDate?.ToString("d.MM.yyyy")} - {news.endDate?.ToString("dd.MM.yyyy")}",
+                                    Text = news is EventData ? $"{news.startDate?.ToString("d.MM.yyyy")} - {news.endDate?.ToString("dd.MM.yyyy")}"
+                                    : $"{news.startDate?.ToString("d.MM.yyyy")}",
                                     FontSize = 12,
                                     TextColor = new Color(122, 122, 122),
                                     Margin = textMargin,

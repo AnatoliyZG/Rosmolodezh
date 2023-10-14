@@ -85,6 +85,8 @@ namespace RosMolAdminPanel
             dataTable.AcceptChanges();
 
             UploadDB(key);
+
+            LoadImages();
         }
 
         public async void LoadDB(string key)
@@ -118,7 +120,7 @@ namespace RosMolAdminPanel
             connection.Close();
 
             DataGridView.Columns["PhotoColumn"].DisplayIndex = DataGridView.ColumnCount - 1;
-          //  DataGridView.Columns["Id"].Visible = false;
+            DataGridView.Columns["Id"].Visible = false;
             DataGridView.Columns["name"].ReadOnly = true;
             DataGridView.Columns["summary"].ReadOnly = true;
             DataGridView.Columns["description"].ReadOnly = true;
@@ -135,6 +137,8 @@ namespace RosMolAdminPanel
                 }else if(cellType == typeof(DateTime))
                 {
                     dataTable.Columns[i].DefaultValue = DateTime.Now.Date;
+                }else if(cellType == typeof(int)) {
+                    dataTable.Columns[i].DefaultValue = 0;
                 }
             }
 
@@ -185,6 +189,7 @@ namespace RosMolAdminPanel
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
+            changed = true;
             /*
             int id = GetMax();
 
@@ -306,6 +311,8 @@ namespace RosMolAdminPanel
 
         private void DataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            changed = true;
+
             int column = e.ColumnIndex;
 
             if (column != 1 && column != 2 && column != 3)
@@ -362,11 +369,11 @@ namespace RosMolAdminPanel
                             images.Add(val, bmp);
                         }
 
-                        if (bmp.Width > 380 || bmp.Height > 170)
+                        if (bmp.Width > 570 || bmp.Height > 255)
                         {
                             try
                             {
-                                bmp = resizeImage(bmp, new Size(380, 170));
+                                bmp = resizeImage(bmp, new Size(570, 255));
                                 UploadPhoto($"{key}/{val}", ImageToByte(bmp));
 
                             }
@@ -427,11 +434,29 @@ namespace RosMolAdminPanel
 
         private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
         {
+            changed = true;
             /*
             foreach (DataGridViewRow row in DataGridView.SelectedRows) {
                 dataTable.Rows.RemoveAt(row.Index);
             }
             */
+        }
+
+        private void DBViewer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (changed)
+            {
+                var result = MessageBox.Show("Сохранить изменения?", "Внимание", MessageBoxButtons.YesNoCancel);
+
+                if (result == DialogResult.Yes)
+                {
+                    SaveDB();
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }

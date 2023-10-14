@@ -134,7 +134,5 @@ public partial class RegistrationPage : ContentPage
 
         profilePhoto = picker.FullPath;
         ProfileImage.Source = profilePhoto;
-        
-        ProfileStandart.IsVisible = false;
-    }
+        }
 }

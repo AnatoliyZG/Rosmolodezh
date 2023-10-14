@@ -7,8 +7,21 @@
 
     <local:LoadingScreen x:Name="loadingScreen">
         <VerticalStackLayout VerticalOptions="FillAndExpand">
-            <Image HorizontalOptions="FillAndExpand"
-               HeightRequest="221" BackgroundColor="Aqua"/>
+            <Grid HeightRequest="221" HorizontalOptions="Fill">
+                <Image HorizontalOptions="FillAndExpand"
+                       Source="subtract_big"
+                       Aspect="AspectFill"
+                       HeightRequest="221"/>
+                <Label Text="Привет! Это новое молодежное приложение “Молодежка 82”."
+                       FontSize="24"
+                       HorizontalOptions="Center"
+                       TextColor="White"
+                       Margin="20,50"
+                       FontAttributes="Bold"
+                       CharacterSpacing="1"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Start"/>
+            </Grid>
             <VerticalStackLayout HorizontalOptions="FillAndExpand"
                              Margin="20">
                 <Label Text="Логин"

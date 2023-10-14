@@ -74,7 +74,7 @@
             this.webBrowser1.Location = new System.Drawing.Point(0, 24);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(262, 560);
+            this.webBrowser1.Size = new System.Drawing.Size(262, 513);
             this.webBrowser1.TabIndex = 7;
             // 
             // splitContainer1
@@ -342,6 +342,7 @@
             this.MinimumSize = new System.Drawing.Size(1024, 576);
             this.Name = "DBViewer";
             this.Text = "DBViewer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DBViewer_FormClosing);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
