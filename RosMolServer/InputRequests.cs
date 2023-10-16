@@ -16,6 +16,8 @@ namespace RosMolServer
     {
         private readonly DataBase dataBase;
 
+        private const int PrimalAI = 1000;
+
         public InputRequests(DataBase dataBase)
         {
             this.dataBase = dataBase;
@@ -47,7 +49,7 @@ namespace RosMolServer
                 if (loginRequest.login == null)
                     return 4;
 
-                string userId = HashManager.GenerateMD5Hash(loginRequest.login);
+                int userId = dataBase.Users.Count + PrimalAI;
 
                 if (loginRequest is RegisterRequest registerRequest)
                 {
@@ -56,11 +58,11 @@ namespace RosMolServer
                         return 5;
                     }
 
-                    dataBase.AddUser(loginRequest);
+                    dataBase.AddUser(userId, loginRequest);
 
                     if (registerRequest.photo != null)
                     {
-                        Tools.SaveSquarePhoto(loginRequest.login, registerRequest.photo, "Users", 256);
+                        Tools.SaveSquarePhoto(userId.ToString(), registerRequest.photo, "Users", 256);
                     }
                 }
                 else
@@ -71,9 +73,11 @@ namespace RosMolServer
                     {
                         return 4;
                     }
+
+                    userId = user.UserId;
                 }
 
-                return new LoginResponse(userId);
+                return new LoginResponse(userId.ToString());
             }
             catch(Exception ex)
             {
@@ -151,7 +155,7 @@ namespace RosMolServer
             var photo = ParseRequest<byte[]>(content);
 
             File.WriteAllBytes(args["key"]!, photo!);
-            //File.SetLastWriteTimeUtc(args["key"]!, DateTime.UtcNow);
+
             return 0;
         }
 
@@ -160,6 +164,7 @@ namespace RosMolServer
             DataRequest? request = ParseRequest<DataRequest>(content);
 
             string? key = request?.key;
+
             switch (key)
             {
                 case "Events":
@@ -184,7 +189,6 @@ namespace RosMolServer
             }
             catch (ContentException ex)
             {
-
                 return new DataResponse<T>(ex.status);
             }
             catch (Exception ex)

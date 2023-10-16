@@ -2,8 +2,10 @@ namespace RosMolApp.Pages;
 
 public partial class ProfilePage : ContentPage
 {
+    public string UserId => $"ID: {General.UserId}";
 	public ProfilePage()
 	{
+        BindingContext = this;
 		InitializeComponent();
 	}
 

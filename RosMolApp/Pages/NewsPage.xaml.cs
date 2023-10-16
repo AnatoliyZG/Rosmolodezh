@@ -15,7 +15,6 @@ public partial class NewsPage : ContentPage
     {
         LoadingOverlay.ActiveLoading(true);
 
-
         try
         {
             var news = await General.RequestData<NewsData>(new DataRequest("News"), true);
@@ -40,7 +39,7 @@ public partial class NewsPage : ContentPage
 
         }catch (Exception ex)
         {
-
+            await Shell.Current.DisplayAlert("Error", ex.Message, "Ok");
         }
         finally
         {

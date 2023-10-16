@@ -9,7 +9,7 @@ namespace RosMolApp.Pages;
 public partial class RegistrationPage : ContentPage
 {
     private string errorText = null;
-    private string profilePhoto = null;
+    private string profilePhoto { get => General.Photo; set => General.Photo = value; } 
 
     public RegistrationPage()
     {

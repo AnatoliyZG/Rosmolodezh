@@ -114,7 +114,7 @@ namespace RosMolApp
                             Children = {
                                 new Image()
                                 {
-                                    Source = "event.svg",
+                                    Source = "event",
                                     HeightRequest=13,
                                     WidthRequest=13,
                                 },
@@ -128,7 +128,7 @@ namespace RosMolApp
                                 },
                                 new Image()
                                 {
-                                    Source = "time.svg",
+                                    Source = "time",
                                     HeightRequest=13,
                                     WidthRequest=13,
                                 },
@@ -153,7 +153,7 @@ namespace RosMolApp
                         {
                             new Image()
                             {
-                                Source = "star.svg",
+                                Source = "star",
                                 HeightRequest = 13,
                                 WidthRequest = 13,
                             },

@@ -105,9 +105,10 @@ namespace RosMolServer
 
             while (reader.Read())
             {
-                Users.Add(reader.GetString(0), new User()
+                Users.Add(reader.GetString(1), new User()
                 {
-                    Password = reader.GetString(1),
+                    UserId = reader.GetInt32(0),
+                    Password = reader.GetString(2),
                 });
             }
 
@@ -116,13 +117,13 @@ namespace RosMolServer
             Console.WriteLine($"Loaded {Users.Count} users");
         }
 
-        public void AddUser(LoginRequest request)
+        public void AddUser(int userId, LoginRequest request)
         {
             sqlConnection.Open();
 
             try
             {
-                string queryString = $"INSERT INTO Users(id, pass) Values('{request.login}','{request.password}');";
+                string queryString = $"INSERT INTO Users(id, login, pass) Values({userId},'{request.login}','{request.password}');";
 
                 MySqlCommand command = new MySqlCommand(queryString, sqlConnection);
 
@@ -130,6 +131,7 @@ namespace RosMolServer
 
                 Users.Add(request.login, new User()
                 {
+                    UserId = userId,
                     Password = request.password,
                 });
             }

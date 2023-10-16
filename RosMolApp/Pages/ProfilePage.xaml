@@ -7,6 +7,8 @@
             Text="В разработке!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Label Text="{Binding UserId}"
+               Margin="20,0"/>
         <Button Text="Выйти из аккаунта"
                 Clicked="Exit_Clicked"
                 Margin="20"/>

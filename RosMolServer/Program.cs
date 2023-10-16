@@ -21,8 +21,8 @@ dataBase.LoadUsers();
 dataBase.CacheValue<AnnounceData>("Announces")
         .CacheValue<AnnounceData>("Options")
         .CacheValue<AnnounceData>("Wishes")
-        .CacheValue<AnnounceData>("News")
-        .CacheValue<AnnounceData>("Events");
+        .CacheValue<NewsData>("News")
+        .CacheValue<EventData>("Events");
 
 InputRequests inputRequests = new(dataBase);
 

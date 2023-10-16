@@ -15,6 +15,8 @@ namespace RosMolApp
     {
         private const string ServerUrl = "http://188.225.34.103:4447/connection/";
 
+        public static string Photo { get; set; }
+
         public static string UserId { get; set; }
 
         private static JsonSerializerOptions defaultOptions = new JsonSerializerOptions()
@@ -204,7 +206,7 @@ namespace RosMolApp
         {
             try
             {
-                var requestMessage = new HttpRequestMessage(HttpMethod.Put, ServerUrl);
+                var requestMessage = new HttpRequestMessage(HttpMethod.Post, ServerUrl);
                 requestMessage.Headers.Add("code", code);
 
                 if (userId)
