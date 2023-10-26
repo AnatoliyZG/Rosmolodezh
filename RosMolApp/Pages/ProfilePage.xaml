@@ -1,16 +1,42 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RosMolApp.Pages.ProfilePage">
-    <VerticalStackLayout>
-        <Label 
+    <ScrollView>
+        <VerticalStackLayout>
+            <Frame>
+                <Grid Margin="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <ImageButton Grid.Column="0"
+                                 x:Name="ProfileImage"
+                                 Source="ellipse"
+                                 HeightRequest="124"
+                                 WidthRequest="124"
+                                 Aspect="AspectFill">
+                        <ImageButton.Clip>
+                            <EllipseGeometry RadiusX="62"
+                                                RadiusY="62"
+                                                Center="62,62"/>
+                        </ImageButton.Clip>
+                    </ImageButton>
+                    <VerticalStackLayout Grid.Column="1">
+
+
+                    </VerticalStackLayout>
+                </Grid>
+            </Frame>
+            <Label 
             Text="В разработке!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Label Text="{Binding UserId}"
+            <Label Text="{Binding UserId}"
                Margin="20,0"/>
-        <Button Text="Выйти из аккаунта"
+            <Button Text="Выйти из аккаунта"
                 Clicked="Exit_Clicked"
                 Margin="20"/>
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

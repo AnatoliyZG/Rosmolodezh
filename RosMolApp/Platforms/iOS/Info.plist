@@ -30,5 +30,7 @@
 	<string>Assets.xcassets/appicon.appiconset</string>
 	<key>UIRequiresPersistentWiFi</key>
 	<true/>
+	<key>CFBundleIdentifier</key>
+	<string>zoryagr.rosmolapp</string>
 </dict>
 </plist>

@@ -80,7 +80,7 @@ namespace RosMolApp
                 Children = {
                     new Frame()
                     {
-                        HeightRequest = 170,
+                        HorizontalOptions= LayoutOptions.Fill,
                         Padding = 0,
                         BorderColor = Colors.Transparent,
                         CornerRadius = 0,

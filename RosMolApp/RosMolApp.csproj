@@ -15,7 +15,7 @@
 		<ApplicationTitle>RosMolApp</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.zoryagroup.rosmolapp</ApplicationId>
+		<ApplicationId>com.zoryagr.rosmolapp</ApplicationId>
 		<ApplicationIdGuid>601b9deb-b92b-42a6-9eed-7d1c4d240061</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -37,6 +37,8 @@
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>
+	  <CodesignProvision>iOS Team Provisioning Profile: zoryagr.rosmolapp</CodesignProvision>
+	  <CodesignKey>Apple Development: globalak-47@mail.ru (SLU7U9LYAV)</CodesignKey>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
