@@ -9,7 +9,7 @@ namespace RosMolApp.Pages;
 public partial class RegistrationPage : ContentPage
 {
     private string errorText = null;
-    private string profilePhoto { get => General.Photo; set => General.Photo = value; } 
+    private string profilePhoto { get => General.Photo; set => General.Photo = value; }
 
     public RegistrationPage()
     {
@@ -43,7 +43,7 @@ public partial class RegistrationPage : ContentPage
             {
                 city = CityField.Text,
                 bornDate = BornField.Date,
-                direction = DirectionField.Text,
+                direction = DirectionPicker.SelectedItem?.ToString(),
                 name = NameField.Text,
                 vkLink = VkField.Text,
                 phone = PhoneField.Text,
@@ -56,9 +56,7 @@ public partial class RegistrationPage : ContentPage
 
                 if (profilePhoto != null)
                 {
-                    string format = profilePhoto.Split('.')[^1];
-
-                    File.Copy(profilePhoto, $"{FileSystem.Current.AppDataDirectory}/ico.{format}", true);
+                    File.Copy(profilePhoto, $"{FileSystem.Current.AppDataDirectory}/ico", true);
                 }
 
                 General.SaveAccountCache(_login, _pass);
@@ -115,7 +113,7 @@ public partial class RegistrationPage : ContentPage
         if (status != PermissionStatus.Granted)
         {
             status = await Permissions.RequestAsync<Permissions.StorageRead>();
-
+            
             if (status != PermissionStatus.Granted)
             {
 #if IOS
@@ -133,6 +131,7 @@ public partial class RegistrationPage : ContentPage
             return;
 
         profilePhoto = picker.FullPath;
+
         ProfileImage.Source = profilePhoto;
-        }
+    }
 }

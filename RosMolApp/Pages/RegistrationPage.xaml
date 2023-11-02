@@ -15,23 +15,19 @@
                 <StackLayout Margin="20,25">
                     <Label Text="Фото профиля"
                        HorizontalTextAlignment="Center"/>
-                    <Grid Margin="0,10,0,30">
-                        <Image 
-                            HeightRequest="130"
-                            WidthRequest="130"
-                            Source="ellipse"/>
-                        <ImageButton x:Name="ProfileImage"
-                                     HeightRequest="124"
-                                     WidthRequest="124"
-                                     Clicked="LoadPhoto_Clicked"
-                                     Aspect="AspectFill">
-                            <ImageButton.Clip>
-                                <EllipseGeometry RadiusX="62"
+                    <ImageButton x:Name="ProfileImage"
+                                Margin="0,10,0,30"
+                                HeightRequest="124"
+                                WidthRequest="124"
+                                Source="ellipse"
+                                Clicked="LoadPhoto_Clicked"
+                                Aspect="AspectFill">
+                        <ImageButton.Clip>
+                            <EllipseGeometry RadiusX="62"
                                                 RadiusY="62"
                                                 Center="62,62"/>
-                            </ImageButton.Clip>
-                        </ImageButton>
-                    </Grid>
+                        </ImageButton.Clip>
+                    </ImageButton>
 
                     <Label Text="Логин*:"
                        Margin="0,5,0,0"
@@ -71,7 +67,15 @@
                     <Label Text="Направление:"
                        Margin="0,5,0,0"
                        HorizontalTextAlignment="Center"/>
-                    <local:TextField x:Name="DirectionField"/>
+                    <Picker x:Name="DirectionPicker"
+                            Title="Направление"
+                            SelectedIndex="0"
+                            Margin="0,5">
+                        <Picker.Items>
+                            <x:String>Студенческие отряды</x:String>
+                            <x:String>Студенческие отряды</x:String>
+                        </Picker.Items>
+                    </Picker>
 
                     <HorizontalStackLayout HorizontalOptions="Center">
                         <CheckBox Color="{StaticResource Blue1}" x:Name="AcceptTerms"/>

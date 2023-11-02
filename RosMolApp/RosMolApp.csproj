@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
@@ -15,7 +15,7 @@
 		<ApplicationTitle>RosMolApp</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.zoryagr.rosmolapp</ApplicationId>
+		<ApplicationId>com.zoryagroup.rosmolapp</ApplicationId>
 		<ApplicationIdGuid>601b9deb-b92b-42a6-9eed-7d1c4d240061</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -37,8 +37,6 @@
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>
-	  <CodesignProvision>iOS Team Provisioning Profile: zoryagr.rosmolapp</CodesignProvision>
-	  <CodesignKey>Apple Development: globalak-47@mail.ru (SLU7U9LYAV)</CodesignKey>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
@@ -69,12 +67,16 @@
 
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\calendar_ico.svg" />
+	  <None Remove="Resources\Images\call_ico.svg" />
 	  <None Remove="Resources\Images\chat_ico.svg" />
 	  <None Remove="Resources\Images\events_ico.svg" />
+	  <None Remove="Resources\Images\location_ico.svg" />
 	  <None Remove="Resources\Images\main_ico.svg" />
 	  <None Remove="Resources\Images\news_ico.svg" />
 	  <None Remove="Resources\Images\profile_ico.svg" />
 	  <None Remove="Resources\Images\subtract_big.svg" />
+	  <None Remove="Resources\Images\vk_ico.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -112,9 +114,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiImage Include="Resources\Images\calendar_ico.svg" />
+	  <MauiImage Include="Resources\Images\call_ico.svg" />
 	  <MauiImage Include="Resources\Images\like_ico.svg" />
+	  <MauiImage Include="Resources\Images\location_ico.svg" />
 	  <MauiImage Include="Resources\Images\subtract_big.svg" />
-	  <MauiImage Include="Resources\Images\test_big.svg" />
 	  <MauiImage Include="Resources\Images\vk.svg" />
 	  <MauiImage Include="Resources\Images\back_btn.svg" />
 	  <MauiImage Include="Resources\Images\profile_ico.svg" />
@@ -128,6 +132,7 @@
 	  <MauiImage Include="Resources\Images\tg.svg" />
 	  <MauiImage Include="Resources\Images\vector1.svg" />
 	  <MauiImage Include="Resources\Images\goskommol_ico.svg" />
+	  <MauiImage Include="Resources\Images\vk_ico.svg" />
 	  <MauiImage Include="Resources\Images\yandex.svg" />
 	  <MauiImage Include="Resources\Images\star.svg" />
 	  <MauiImage Include="Resources\Images\lamp_ico.svg" />
@@ -136,7 +141,6 @@
 	  <MauiImage Include="Resources\Images\chat_ico.svg" />
 	  <MauiImage Include="Resources\Images\rocket_ico.svg" />
 	  <MauiImage Include="Resources\Images\news_ico.svg" />
-	  <MauiImage Include="Resources\Images\test_b.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Reference Include="RosMolExtension">

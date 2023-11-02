@@ -137,6 +137,18 @@ namespace RosMolExtension
     {
         public string userId;
 
+        public string? phone;
+
+        public string? name;
+
+        public string? city;
+
+        public string? vkLink;
+
+        public string? direction;
+
+        public DateTime? bornDate;
+
         [JsonConstructor]
         public LoginResponse(string userId) : base(0)
         {

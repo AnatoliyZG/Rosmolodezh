@@ -10,8 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using RosMolExtension;
 using System.Reflection.PortableExecutable;
 using MySql.Data.MySqlClient;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using MySqlX.XDevAPI.Relational;
 
 namespace RosMolServer
 {
@@ -109,7 +107,25 @@ namespace RosMolServer
                 {
                     UserId = reader.GetInt32(0),
                     Password = reader.GetString(2),
+                    Name = reader.GetString(3),
+                    Phone = reader.GetString(4),
+                    City = reader.GetString(5),
+                    VkLink = reader.GetString(6),
+                    Direction = reader.GetString(7),
+                    BornDate = ParseDate(),
                 });
+
+                DateTime ParseDate()
+                {
+                    try
+                    {
+                        return reader.GetDateTime(8);
+                    }
+                    catch
+                    {
+                        return DateTime.MinValue;
+                    }
+                }
             }
 
             sqlConnection.Close();
@@ -117,13 +133,13 @@ namespace RosMolServer
             Console.WriteLine($"Loaded {Users.Count} users");
         }
 
-        public void AddUser(int userId, LoginRequest request)
+        public void AddUser(int userId, RegisterRequest request)
         {
             sqlConnection.Open();
 
             try
             {
-                string queryString = $"INSERT INTO Users(id, login, pass) Values({userId},'{request.login}','{request.password}');";
+                string queryString = $"INSERT INTO Users(id, login, pass, name, phone, city, vkLink, direction, bornDate) Values({userId},'{request.login}','{request.password}', '{request.name}', '{request.phone}', '{request.city}', '{request.vkLink}', '{request.direction}', '{request.bornDate.ToString("yyyy.MM.dd")}');";
 
                 MySqlCommand command = new MySqlCommand(queryString, sqlConnection);
 
@@ -133,6 +149,12 @@ namespace RosMolServer
                 {
                     UserId = userId,
                     Password = request.password,
+                    City = request.city,
+                    BornDate = request.bornDate,
+                    Direction = request.direction,
+                    VkLink = request.vkLink,
+                    Name = request.name,
+                    Phone = request.phone,
                 });
             }
             catch(Exception ex)

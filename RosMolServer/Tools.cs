@@ -50,7 +50,13 @@ namespace RosMolServer
 
     public class User
     {
-        public int UserId { get; set; }
-        public string Password { get; set; }
+        public required int UserId { get; set; }
+        public required string Password { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public string City { get; set; }
+        public string Direction { get; set; }
+        public string VkLink { get; set; }
+        public DateTime BornDate { get; set; }
     }
 }

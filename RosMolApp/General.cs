@@ -19,6 +19,18 @@ namespace RosMolApp
 
         public static string UserId { get; set; }
 
+        public static string Name { get; private set; }
+
+        public static string Direction { get; private set; }
+
+        public static string PhoneNumber { get; private set; }
+
+        public static DateTime BornDate { get; private set; }
+
+        public static string City { get; private set; }
+
+        public static string VkLink { get; private set; }
+
         private static JsonSerializerOptions defaultOptions = new JsonSerializerOptions()
         {
             MaxDepth = 5,
@@ -40,7 +52,13 @@ namespace RosMolApp
             }
 
             UserId = response.userId;
-            //TODO:
+
+            BornDate = registerRequest.bornDate;
+            PhoneNumber = registerRequest.phone;
+            City = registerRequest.city;
+            VkLink = registerRequest.vkLink;
+            Name =registerRequest.name;
+            Direction = registerRequest.direction;
 
             return true;
         }
@@ -56,6 +74,14 @@ namespace RosMolApp
 
             UserId = response.userId;
 
+            PhoneNumber = response.phone;
+            City = response.city;
+            VkLink = response.vkLink;
+            Name = response.name;
+            Direction = response.direction;
+
+            if (response.bornDate != null)
+                BornDate = response.bornDate.Value;
             return true;
         }
 
@@ -200,7 +226,7 @@ namespace RosMolApp
             return false;
         }
 
-        private static string CachePath(string key) => $"{FileSystem.Current.CacheDirectory}/{key}";
+        internal static string CachePath(string key) => $"{FileSystem.Current.CacheDirectory}/{key}";
 
         private static async Task<TResponse> GetResponse<TResponse, TRequest>(string code, TRequest request, bool userId = false, string version = null) where TResponse : Response where TRequest : Request
         {

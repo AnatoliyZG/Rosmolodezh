@@ -4,6 +4,7 @@
              x:Class="RosMolApp.Pages.NavigationPage"
              xmlns:views="clr-namespace:RosMolApp.Pages"
              Shell.NavBarIsVisible="True"
+             Shell.NavBarHasShadow="True"
              Shell.ForegroundColor="Black">
     <TabBar>
         <Tab Title="Главная" 

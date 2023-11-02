@@ -57,6 +57,7 @@ namespace RosMolApp
             {
                 HorizontalOptions=LayoutOptions.Fill,
                 Aspect = Aspect.Fill,
+                MinimumHeightRequest=100,
                 Background = new LinearGradientBrush(new GradientStopCollection()
                 {
                     new GradientStop(new Color(244, 113, 255),0),

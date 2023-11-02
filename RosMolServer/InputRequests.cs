@@ -58,7 +58,7 @@ namespace RosMolServer
                         return 5;
                     }
 
-                    dataBase.AddUser(userId, loginRequest);
+                    dataBase.AddUser(userId, registerRequest);
 
                     if (registerRequest.photo != null)
                     {
@@ -74,7 +74,16 @@ namespace RosMolServer
                         return 4;
                     }
 
-                    userId = user.UserId;
+
+                    return new LoginResponse(userId.ToString())
+                    {
+                        bornDate = user.BornDate,
+                        phone = user.Phone,
+                        city = user.City,
+                        vkLink = user.VkLink,
+                        direction = user.Direction,
+                        name = user.Name,
+                    };
                 }
 
                 return new LoginResponse(userId.ToString());
