@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:RosMolApp"
              x:Class="RosMolApp.Pages.ProfilePage">
     <ScrollView>
         <VerticalStackLayout>
@@ -60,7 +61,7 @@
                     </VerticalStackLayout>
                 </Grid>
             </Frame>
-            <Border HorizontalOptions="Fill" VerticalOptions="Fill" Margin="0,20" Stroke="Transparent">
+            <Border HorizontalOptions="Fill" VerticalOptions="Fill" Margin="5,10" Stroke="Transparent">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="25"/>
                 </Border.StrokeShape>
@@ -69,7 +70,16 @@
                         <RowDefinition Height="25"/>
                         <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
-                    <Label Text="Мой рейтинг: 99 999 б" Grid.Row="0"/>
+
+                    <Label Grid.Row="0">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Мой рейтинг: "/>
+                                <Span Text="{Binding Raiting}" TextColor="LimeGreen"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                                        
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -80,15 +90,66 @@
                             <RowDefinition Height="20"/>
                             <RowDefinition Height="20"/>
                         </Grid.RowDefinitions>
-                        <Label FontSize="12" Text="Я патриот: 9999 б" Grid.Column="0" Grid.Row="0"/>
-                        <Label FontSize="12" Text="Я доброволец: 9999 б" Grid.Column="0" Grid.Row="1"/>
-                        <Label FontSize="12" Text="Я медтйщик: 9999 б" Grid.Column="0"  Grid.Row="2"/>
-                        <Label FontSize="12" Text="Я предприниматель: 9999 б" Grid.Column="1" Grid.Row="0"/>
-                        <Label FontSize="12" Text="Я творец: 9999 б" Grid.Column="1" Grid.Row="1"/>
-                        <Label FontSize="12" Text="Я молодежь: 9999 б" Grid.Column="1"  Grid.Row="2"/>
+
+                        <Label Grid.Column="0" Grid.Row="0">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Я патриот: " FontSize="12"/>
+                                    <Span Text="{Binding Patriot}" TextColor="PaleVioletRed" FontSize="12"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label Grid.Column="0" Grid.Row="1">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Я доброволец: " FontSize="12"/>
+                                    <Span Text="{Binding Dobrovol}" TextColor="HotPink" FontSize="12"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label Grid.Column="0" Grid.Row="2">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Я медийщик: " FontSize="12"/>
+                                    <Span Text="{Binding Media}" TextColor="Violet" FontSize="12"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label Grid.Column="1" Grid.Row="0">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Я предприниматель: " FontSize="12"/>
+                                    <Span Text="{Binding Predprinimatel}" TextColor="BlueViolet" FontSize="12"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label Grid.Column="1" Grid.Row="1">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Я творец: " FontSize="12"/>
+                                    <Span Text="{Binding Creator}" TextColor="DodgerBlue" FontSize="12"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label Grid.Column="1" Grid.Row="2">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Я молодежь: " FontSize="12"/>
+                                    <Span Text="{Binding Molodesh}" TextColor="DeepSkyBlue" FontSize="12"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
                     </Grid>
                 </Grid>
             </Border>
+            <Label Text="Мои мероприятия:" Margin="25,0"/>
+            <VerticalStackLayout x:Name="EventList" Margin="5,10" Spacing="10">
+            </VerticalStackLayout>
             <Button Text="Выйти из аккаунта"
                 Clicked="Exit_Clicked"
                 Margin="20"/>

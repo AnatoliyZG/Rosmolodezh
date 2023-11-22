@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
@@ -45,6 +45,7 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
 	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
 	</PropertyGroup>
+    
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -67,15 +68,27 @@
 
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\arrow.svg" />
+	  <None Remove="Resources\Images\big_circle.svg" />
 	  <None Remove="Resources\Images\calendar_ico.svg" />
 	  <None Remove="Resources\Images\call_ico.svg" />
 	  <None Remove="Resources\Images\chat_ico.svg" />
+	  <None Remove="Resources\Images\dobrovol_ico.svg" />
 	  <None Remove="Resources\Images\events_ico.svg" />
+	  <None Remove="Resources\Images\filtr.svg" />
+	  <None Remove="Resources\Images\filtr_compass.svg" />
+	  <None Remove="Resources\Images\filtr_gorod.svg" />
 	  <None Remove="Resources\Images\location_ico.svg" />
 	  <None Remove="Resources\Images\main_ico.svg" />
+	  <None Remove="Resources\Images\mediyshik_ico.svg" />
+	  <None Remove="Resources\Images\molodesh_ico.svg" />
 	  <None Remove="Resources\Images\news_ico.svg" />
+	  <None Remove="Resources\Images\patriot_ico.svg" />
+	  <None Remove="Resources\Images\predprinimatel_ico.svg" />
 	  <None Remove="Resources\Images\profile_ico.svg" />
+	  <None Remove="Resources\Images\search.svg" />
 	  <None Remove="Resources\Images\subtract_big.svg" />
+	  <None Remove="Resources\Images\trorchestvo_ico.svg" />
 	  <None Remove="Resources\Images\vk_ico.svg" />
 	</ItemGroup>
 
@@ -114,11 +127,23 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiImage Include="Resources\Images\arrow.svg" />
+	  <MauiImage Include="Resources\Images\big_circle.svg" />
 	  <MauiImage Include="Resources\Images\calendar_ico.svg" />
 	  <MauiImage Include="Resources\Images\call_ico.svg" />
+	  <MauiImage Include="Resources\Images\dobrovol_ico.svg" />
+	  <MauiImage Include="Resources\Images\filtr.svg" />
+	  <MauiImage Include="Resources\Images\filtr_compass.svg" />
+	  <MauiImage Include="Resources\Images\filtr_gorod.svg" />
 	  <MauiImage Include="Resources\Images\like_ico.svg" />
 	  <MauiImage Include="Resources\Images\location_ico.svg" />
+	  <MauiImage Include="Resources\Images\mediyshik_ico.svg" />
+	  <MauiImage Include="Resources\Images\molodesh_ico.svg" />
+	  <MauiImage Include="Resources\Images\patriot_ico.svg" />
+	  <MauiImage Include="Resources\Images\predprinimatel_ico.svg" />
+	  <MauiImage Include="Resources\Images\search.svg" />
 	  <MauiImage Include="Resources\Images\subtract_big.svg" />
+	  <MauiImage Include="Resources\Images\trorchestvo_ico.svg" />
 	  <MauiImage Include="Resources\Images\vk.svg" />
 	  <MauiImage Include="Resources\Images\back_btn.svg" />
 	  <MauiImage Include="Resources\Images\profile_ico.svg" />

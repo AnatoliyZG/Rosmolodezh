@@ -1,13 +1,160 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RosMolApp.Pages.EventsPage"
-             xmlns:local="clr-namespace:RosMolApp">
+             xmlns:local="clr-namespace:RosMolApp"
+             Shell.NavBarHasShadow="False">
     <local:LoadingScreen x:Name="LoadingOverlay">
-        <ScrollView>
-            <VerticalStackLayout x:Name="ContentView">
+        <AbsoluteLayout>
+            <ScrollView
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="SizeProportional">
+                <VerticalStackLayout x:Name="ContentView">
+                    <Frame HeightRequest="100"
+                           BorderColor="Transparent"
+                           CornerRadius="0"
+                           TranslationY="-1"
+                           Padding="10,5,10,0">
+                        <Grid RowSpacing="15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="36"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <Frame BackgroundColor="#F0F0F0"
+                                   CornerRadius="12"
+                                   Grid.Row="0"
+                                   BorderColor="Transparent"
+                                   Padding="0">
 
-            </VerticalStackLayout>
-        </ScrollView>
+                                <HorizontalStackLayout Padding="15,0" Spacing="10">
+                                    <Image Source="search"/>
+                                    <Entry Placeholder="Поиск..." TranslationY="1" MaxLength="32"/>
+                                </HorizontalStackLayout>
+                            </Frame>
+                            <Grid ColumnSpacing="10" RowSpacing="8" Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="26"/>
+                                </Grid.RowDefinitions>
+                                <Button BackgroundColor="#38AAFF"
+                                        Grid.Column="0"
+                                        BorderColor="Transparent"
+                                        CornerRadius="8"
+                                        Clicked="Direct_open"/>
+                                <Label Text="     Направление" Grid.Column="0" VerticalTextAlignment="Center"
+                                       FontSize="12" TranslationX="10"/>
+                                <Image Source="filtr_compass" Grid.Column="0"  WidthRequest="16" HorizontalOptions="Start" TranslationX="5"/>
+
+                                <Button BackgroundColor="#F0F0F0"
+                                        Grid.Column="1"
+                                        BorderColor="Transparent"
+                                        CornerRadius="8"/>
+                                <Label Text="     Фильтр" Grid.Column="1"  VerticalTextAlignment="Center"
+                                       FontSize="12" TranslationX="10"/>
+                                <Image Source="arrow" Grid.Column="1"  WidthRequest="16" HorizontalOptions="End" TranslationX="-10"/>
+                                <Image Source="filtr" Grid.Column="1"  WidthRequest="16" HorizontalOptions="Start" TranslationX="5"/>
+
+                                <Button BackgroundColor="#F0F0F0"
+                                        Grid.Column="2" 
+                                        BorderColor="Transparent"
+                                        CornerRadius="8"/>
+                                <Label Text="     Город" Grid.Column="2" VerticalTextAlignment="Center"
+                                       FontSize="12" TranslationX="10"/>
+                                <Image Source="arrow" Grid.Column="2" WidthRequest="16" HorizontalOptions="End" TranslationX="-10"/>
+                                <Image Source="filtr_gorod" Grid.Column="2"  WidthRequest="16" HorizontalOptions="Start" TranslationX="5"/>
+                            </Grid>
+                        </Grid>
+                    </Frame>
+                </VerticalStackLayout>
+            </ScrollView>
+            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0.5,1,1"
+                            AbsoluteLayout.LayoutFlags="All"
+                            IsVisible="False"
+                            x:Name="Direction">
+                <Button AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         AbsoluteLayout.LayoutFlags="SizeProportional"
+                         BackgroundColor="#80000000"
+                         BorderColor="Transparent"
+                         CornerRadius="0"
+                        Clicked="Direct_close"/>
+                <ImageButton Source="big_circle"
+                             TranslationX="-150"
+                             AbsoluteLayout.LayoutBounds="0,0.5"
+                             AbsoluteLayout.LayoutFlags="PositionProportional">
+                </ImageButton>
+
+                <ImageButton Source="patriot_ico"
+                             AbsoluteLayout.LayoutBounds="0.18,0.18"
+                             AbsoluteLayout.LayoutFlags="PositionProportional"/>
+                <Label Text="Патриот"
+                       TextColor="White"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       AbsoluteLayout.LayoutBounds="0.35,0.19"
+                       AbsoluteLayout.LayoutFlags="PositionProportional"/>
+
+                <ImageButton Source="trorchestvo_ico"
+                             AbsoluteLayout.LayoutBounds="0.42,0.28"
+                             AbsoluteLayout.LayoutFlags="PositionProportional"/>
+                <Label Text="Творчество"
+                       TextColor="White"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       AbsoluteLayout.LayoutBounds="0.65,0.29"
+                       AbsoluteLayout.LayoutFlags="PositionProportional"/>
+
+                <ImageButton Source="molodesh_ico"
+                             AbsoluteLayout.LayoutBounds="0.55,0.42"
+                             AbsoluteLayout.LayoutFlags="PositionProportional"/>
+                <Label Text="Молодёжь"
+                       TextColor="White"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       AbsoluteLayout.LayoutBounds="0.8,0.42"
+                       AbsoluteLayout.LayoutFlags="PositionProportional"/>
+
+                <ImageButton Source="mediyshik_ico"
+                             AbsoluteLayout.LayoutBounds="0.55,0.58"
+                             AbsoluteLayout.LayoutFlags="PositionProportional"/>
+                <Label Text="Медийщик"
+                       TextColor="White"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       AbsoluteLayout.LayoutBounds="0.8,0.58"
+                       AbsoluteLayout.LayoutFlags="PositionProportional"/>
+
+                <ImageButton Source="dobrovol_ico"
+                             AbsoluteLayout.LayoutBounds="0.42,0.72"
+                             AbsoluteLayout.LayoutFlags="PositionProportional"/>
+                <Label Text="Доброволец"
+                       TextColor="White"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       AbsoluteLayout.LayoutBounds="0.68,0.71"
+                       AbsoluteLayout.LayoutFlags="PositionProportional"/>
+
+                <ImageButton Source="predprinimatel_ico"
+                             AbsoluteLayout.LayoutBounds="0.18,0.82"
+                             AbsoluteLayout.LayoutFlags="PositionProportional"/>
+                <Label Text="Предприниматель"
+                       TextColor="White"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       AbsoluteLayout.LayoutBounds="0.48,0.81"
+                       AbsoluteLayout.LayoutFlags="PositionProportional"/>
+
+                <Label Text="Я"
+                       TranslationX="30"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       FontSize="92"
+                       AbsoluteLayout.LayoutBounds="0,0.5"
+                       AbsoluteLayout.LayoutFlags="PositionProportional"/>
+            </AbsoluteLayout>
+        </AbsoluteLayout>
     </local:LoadingScreen>
 </ContentPage>
